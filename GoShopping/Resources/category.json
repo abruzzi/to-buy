@@ -1,0 +1,44 @@
+[
+    {
+        "category": "Food",
+        "items": [
+            {
+                "id": 10001,
+                "name": "Apple",
+                "icon": "multiply.circle.fill",
+                "attrs": {}
+            },
+            {
+                "id": 10002,
+                "name": "Pear",
+                "icon": "multiply.circle.fill",
+                "attrs": {}
+            },
+            {
+                "id": 10003,
+                "name": "Banana",
+                "icon": "multiply.circle.fill",
+                "attrs": {}
+            }
+        ]
+    },
+    {
+        "category": "Essential",
+        "items": [
+            {
+                "id": 20001,
+                "name": "Paper roll",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            },
+            {
+                "id": 20002,
+                "name": "Tooth brush",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            }
+        ]
+    }
+]
