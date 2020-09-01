@@ -74,13 +74,13 @@
 				7A97C0E224FDD042004800E3 /* Models */,
 				7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */,
 				7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */,
-				7A97C0C524FCFFFE004800E3 /* Main.storyboard */,
 				7AE05DA224FE2A3300342844 /* ItemCellView.swift */,
 				7AE05DA324FE2A3300342844 /* ItemCellView.xib */,
 				7A97C0EE24FDF4E6004800E3 /* SectionHeader.swift */,
 				7A97C0DA24FD234A004800E3 /* ShoppingCollectionViewController.swift */,
 				7A97C0CB24FD0002004800E3 /* Assets.xcassets */,
 				7A97C0CD24FD0002004800E3 /* LaunchScreen.storyboard */,
+				7A97C0C524FCFFFE004800E3 /* Main.storyboard */,
 				7A97C0D024FD0002004800E3 /* Info.plist */,
 				7A97C0C824FCFFFE004800E3 /* GoShopping.xcdatamodeld */,
 			);
@@ -329,6 +329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -346,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -13,22 +13,19 @@ private let reuseIdentifier = "ItemCell"
 class ShoppingCollectionViewController: UICollectionViewController {
     private var filteredRecords: [Record]!
     
-    struct Config {
-        static let defaultPadding: CGFloat = 4.0
-        static let numberOfItemsPerRow: CGFloat = 5.0
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Apple..."
+        searchController.searchBar.placeholder = "豆腐..."
         navigationItem.searchController = searchController
         definesPresentationContext = true
-    
+
+        collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.setupGrid()
-        collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
+        
+        collectionView.allowsMultipleSelection = true
         filteredRecords = records
     }
     
@@ -89,13 +86,28 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        true
+    }
 
-//
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = filteredRecords[indexPath.section].items[indexPath.row]
+        print("selected: \(data.name)")
+    }
+
 //    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCell
-//
-//        itemCell?.backgroundColor = .green
+//        let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView
+//        let data = filteredRecords[indexPath.section].items[indexPath.row]
+//        print(data.name)
 //    }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -108,7 +120,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     var estimateWidth = 80.0
-    var cellMargin = 16.0
+    var cellMargin = 8.0
 }
 
 extension ShoppingCollectionViewController: UISearchResultsUpdating {
