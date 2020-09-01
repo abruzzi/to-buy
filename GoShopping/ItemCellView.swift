@@ -1,5 +1,5 @@
 //
-//  MyCollectionViewCell.swift
+//  ItemCellView.swift
 //  GoShopping
 //
 //  Created by Juntao Qiu on 1/9/20.
@@ -8,13 +8,16 @@
 
 import UIKit
 
-class ItemCell: UICollectionViewCell {
+class ItemCellView: UICollectionViewCell {
     
     @IBOutlet weak var itemNameLabel: UILabel!
-    @IBOutlet weak var itemImage: UIImageView!
     
-    func configure(with itemName: String, image: UIImage) {
-        itemNameLabel.text = itemName
-        itemImage.image = image
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
+    
+    func configure(with itemName: String) {
+        itemNameLabel.text = itemName
+    }
+
 }
