@@ -11,37 +11,13 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
-    
-//    let data = ["milk", "break", "tuna", "apple", "pear", "banana", "milk", "break", "tuna", "apple", "pear", "banana", "milk", "break", "tuna", "apple", "pear", "banana","milk", "break", "tuna", "apple", "pear", "banana"]
-    
-//    init() {
-//        super.init(collectionViewLayout: ShoppingCollectionViewController.initLayout())
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//    }
-//
-//    static func initLayout() -> UICollectionViewCompositionalLayout {
-//        return UICollectionViewCompositionalLayout { (number, env) ->
-//            NSCollectionLayoutSection? in
-//
-//            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-//            item.contentInsets.trailing = 1
-//            item.contentInsets.leading = 1
-//            item.contentInsets.bottom = 16
-//
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitems: [item])
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//
-//            section.orthogonalScrollingBehavior = .paging
-//
-//            return section
-//        }
-//    }
-//
     private var filteredRecords: [Record]!
+    
+    struct Config {
+        static let defaultPadding: CGFloat = 2.0
+        static let numberOfItemsPerRow: CGFloat = 3.0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +25,15 @@ class ShoppingCollectionViewController: UICollectionViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Apple..."
         navigationItem.searchController = searchController
+        
         definesPresentationContext = true
+    
+        let viewWidth = collectionView.frame.width
+        print(viewWidth)
+        let itemWidth = (viewWidth - Config.defaultPadding) / Config.numberOfItemsPerRow
+        print(itemWidth)
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         
         filteredRecords = records
     }
@@ -72,26 +56,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
       collectionView.reloadData()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     let searchController = UISearchController(searchResultsController: nil)
-    var layout: UICollectionViewFlowLayout!
-    
-    private func setupView() {
-        if layout == nil {
-            
-        }
-    }
-
-    // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return filteredRecords.count

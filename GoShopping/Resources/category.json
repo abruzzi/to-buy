@@ -74,5 +74,39 @@
                 "attrs": {}
             }
         ]
+    },
+    {
+        "category": "Health care",
+        "categoryIcon": "book.circle.fill",
+        "items": [
+            {
+                "id": 30001,
+                "name": "Paper roll",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            },
+            {
+                "id": 30002,
+                "name": "Tooth brush",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            },
+            {
+                "id": 30003,
+                "name": "Paper roll 2",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            },
+            {
+                "id": 30004,
+                "name": "Tooth brush 2",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            }
+        ]
     }
 ]
