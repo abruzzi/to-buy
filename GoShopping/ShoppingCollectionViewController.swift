@@ -15,28 +15,21 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        filteredRecords = records
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "豆腐..."
         navigationItem.searchController = searchController
+
         definesPresentationContext = true
 
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.setupGrid()
         
         collectionView.allowsMultipleSelection = true
-        filteredRecords = records
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.setupGrid()
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
-    }
+
     func setupGrid() {
         let flow = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
         
@@ -56,7 +49,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 r.items = items
                 return r
             }
-            
+
             filteredRecords = filteredRecords.filter { (record: Record) in
                 record.items.count > 0
             }
@@ -86,29 +79,20 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
         return cell
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        true
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        true
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        true
-    }
 
+    var selected:Dictionary<Int, Item> = [:]
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = filteredRecords[indexPath.section].items[indexPath.row]
         print("selected: \(data.name)")
+        selected[data.id] = data
     }
-
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView
-//        let data = filteredRecords[indexPath.section].items[indexPath.row]
-//        print(data.name)
-//    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let data = filteredRecords[indexPath.section].items[indexPath.row]
+        print("de-selected: \(data.name)")
+        selected.removeValue(forKey: data.id)
+    }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader

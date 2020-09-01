@@ -24,15 +24,15 @@ class ItemCellView: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
     
-//    override var isSelected: Bool {
-//        didSet {
-//            if self.isSelected {
-//                self.contentView.backgroundColor = UIColor.darkGray
-//            } else {
-//                self.contentView.backgroundColor = UIColor.purple
-//            }
-//        }
-//      }
+    override var isSelected: Bool {
+        didSet {
+            if self.isSelected {
+                self.contentView.backgroundColor = UIColor.systemBlue
+            } else {
+                self.contentView.backgroundColor = UIColor.systemTeal
+            }
+        }
+      }
 
     func configure(with itemName: String) {
         itemNameLabel.text = itemName
