@@ -10,10 +10,10 @@ import UIKit
 
 class SectionHeader: UICollectionReusableView {
     @IBOutlet weak var categoryTitleLabel: UILabel!
+    @IBOutlet weak var categoryIconImage: UIImageView!
     
-    var categoryTitle: String! {
-        didSet {
-            categoryTitleLabel.text = categoryTitle
-        }
+    func configure(with categoryTitle: String, categoryIcon: UIImage) {
+        categoryTitleLabel.text = categoryTitle
+        categoryIconImage.image = categoryIcon
     }
 }

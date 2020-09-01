@@ -11,6 +11,7 @@ import UIKit
 
 struct Record: Hashable, Codable {
     var category: String
+    fileprivate var categoryIcon: String
     var items: [Item]
 }
 
@@ -23,5 +24,11 @@ struct Item: Hashable, Codable, Identifiable {
 extension Item {
     var image: UIImage {
         return UIImage(systemName: icon)!
+    }
+}
+
+extension Record {
+    var image: UIImage {
+        return UIImage(systemName: categoryIcon)!
     }
 }

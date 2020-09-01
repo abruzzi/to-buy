@@ -11,6 +11,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
+    
 //    let data = ["milk", "break", "tuna", "apple", "pear", "banana", "milk", "break", "tuna", "apple", "pear", "banana", "milk", "break", "tuna", "apple", "pear", "banana","milk", "break", "tuna", "apple", "pear", "banana"]
     
 //    init() {
@@ -40,18 +41,37 @@ class ShoppingCollectionViewController: UICollectionViewController {
 //        }
 //    }
 //
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Uncomment the following line to preserve selection between presentations
-//        // self.clearsSelectionOnViewWillAppear = false
-//
-//        // Register cell classes
-//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-//
-//        // Do any additional setup after loading the view.
-//    }
+    private var filteredRecords: [Record]!
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Apple..."
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        filteredRecords = records
+    }
+
+    func filterContentForSearchText(_ searchText: String) {
+        if(searchText.isEmpty) {
+            filteredRecords = records
+        } else {
+            filteredRecords = records.map { (record: Record) in
+                var r = record
+                let items = record.items.filter { (record: Item) -> Bool in
+                    return record.name.lowercased().contains(searchText.lowercased())
+                }
+                r.items = items
+                return r
+            }
+                
+                
+        }
+      collectionView.reloadData()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -61,7 +81,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    let searchController = UISearchController(searchResultsController: nil)
     var layout: UICollectionViewFlowLayout!
     
     private func setupView() {
@@ -73,19 +94,19 @@ class ShoppingCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return records.count
+        return filteredRecords.count
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return records[section].items.count
+        return filteredRecords[section].items.count
     }    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCell {
-            let data = records[indexPath.section].items[indexPath.row]
+            let data = filteredRecords[indexPath.section].items[indexPath.row]
             itemCell.configure(with: data.name, image: data.image)
             cell = itemCell
         }
@@ -94,19 +115,26 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected: \(records[indexPath.section].items[indexPath.row].name)")
+        
+        let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCell
+        
+        itemCell?.backgroundColor = .green
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         
-        print(indexPath.section)
-        print(records[indexPath.section])
-        print(records[indexPath.section].category)
-        
-        sectionHeader.categoryTitle = records[indexPath.section].category
+        let obj = filteredRecords[indexPath.section]
+        sectionHeader.configure(with: obj.category, categoryIcon: obj.image) 
         
         return sectionHeader
     }
     
+}
+
+extension ShoppingCollectionViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    let searchBar = searchController.searchBar
+    filterContentForSearchText(searchBar.text!)
+  }
 }

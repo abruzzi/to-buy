@@ -1,6 +1,7 @@
 [
     {
         "category": "Food",
+        "categoryIcon": "pencil.circle.fill",
         "items": [
             {
                 "id": 10001,
@@ -19,11 +20,30 @@
                 "name": "Banana",
                 "icon": "multiply.circle.fill",
                 "attrs": {}
+            },
+            {
+                "id": 10004,
+                "name": "Apple 2",
+                "icon": "multiply.circle.fill",
+                "attrs": {}
+            },
+            {
+                "id": 10005,
+                "name": "Pear 2",
+                "icon": "multiply.circle.fill",
+                "attrs": {}
+            },
+            {
+                "id": 10006,
+                "name": "Banana 2",
+                "icon": "multiply.circle.fill",
+                "attrs": {}
             }
         ]
     },
     {
         "category": "Essential",
+        "categoryIcon": "book.circle.fill",
         "items": [
             {
                 "id": 20001,
@@ -35,6 +55,20 @@
             {
                 "id": 20002,
                 "name": "Tooth brush",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            },
+            {
+                "id": 20003,
+                "name": "Paper roll 2",
+                "icon": "plus.circle.fill",
+                "category": "Essential",
+                "attrs": {}
+            },
+            {
+                "id": 20004,
+                "name": "Tooth brush 2",
                 "icon": "plus.circle.fill",
                 "category": "Essential",
                 "attrs": {}
