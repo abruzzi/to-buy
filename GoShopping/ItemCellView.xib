@@ -24,7 +24,7 @@
                     </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Oww-Fa-2k2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="Bef-nC-Jci"/>
                 <constraint firstItem="Oww-Fa-2k2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="a5B-Ni-cpI"/>

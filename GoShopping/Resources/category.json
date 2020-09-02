@@ -121,49 +121,42 @@
                 "id": 30001,
                 "name": "创可贴",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             },
             {
                 "id": 30002,
                 "name": "拉肚子药",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             },
             {
                 "id": 30003,
                 "name": "绷带",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             },
             {
                 "id": 30004,
                 "name": "酒精",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             },
             {
                 "id": 30005,
                 "name": "碘酒",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             },
             {
                 "id": 30006,
                 "name": "橡胶手套",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             },
             {
                 "id": 30007,
                 "name": "卫生巾",
                 "icon": "plus.circle.fill",
-                "category": "Essential",
                 "attrs": {}
             }
         ]
