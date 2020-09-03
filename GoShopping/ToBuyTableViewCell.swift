@@ -11,6 +11,7 @@ import UIKit
 class ToBuyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var toBuyItemLabel: UILabel!
+    @IBOutlet weak var toBuyItemImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +21,8 @@ class ToBuyTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(with itemName: String) {
+    func configure(with itemName: String, image: String) {
         toBuyItemLabel.text = itemName
+        toBuyItemImage.image = UIImage(named: image)
     }
 }

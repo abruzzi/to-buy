@@ -12,8 +12,8 @@ class SectionHeader: UICollectionReusableView {
     @IBOutlet weak var categoryTitleLabel: UILabel!
     @IBOutlet weak var categoryIconImage: UIImageView!
     
-    func configure(with categoryTitle: String, categoryIcon: UIImage) {
+    func configure(with categoryTitle: String, image: UIImage) {
         categoryTitleLabel.text = categoryTitle
-        categoryIconImage.image = categoryIcon
+        categoryIconImage.image = image
     }
 }

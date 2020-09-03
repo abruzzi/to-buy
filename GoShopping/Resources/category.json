@@ -1,162 +1,53 @@
 [
     {
         "category": "食物/饮料",
-        "categoryIcon": "pencil.circle.fill",
+        "image": "icons8-airplane",
         "items": [
             {
-                "id": 10001,
                 "name": "皇家嘎拉",
-                "icon": "multiply.circle.fill",
+                "image": "icons8-apple",
                 "attrs": {}
             },
             {
-                "id": 10002,
                 "name": "啤梨",
-                "icon": "multiply.circle.fill",
+                "image": "icons8-apple",
                 "attrs": {}
             },
             {
-                "id": 10003,
                 "name": "红嘴香蕉",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10004,
-                "name": "牛奶",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10005,
-                "name": "酸奶",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10006,
-                "name": "养乐多",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10007,
-                "name": "冰淇淋",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10008,
-                "name": "豆腐",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10009,
-                "name": "米粉",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10010,
-                "name": "肠粉",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10011,
-                "name": "胡椒肠",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10012,
-                "name": "豆干",
-                "icon": "multiply.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 10013,
-                "name": "芹菜",
-                "icon": "multiply.circle.fill",
+                "image": "icons8-apple",
                 "attrs": {}
             }
         ]
     },
     {
         "category": "生活必需",
-        "categoryIcon": "book.circle.fill",
+        "image": "icons8-airplane",
         "items": [
             {
-                "id": 20001,
                 "name": "厕纸",
-                "icon": "plus.circle.fill",
+                "image": "icons8-bandage",
                 "attrs": {}
             },
             {
-                "id": 20002,
                 "name": "牙刷",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 20003,
-                "name": "抹布",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 20004,
-                "name": "冰格",
-                "icon": "plus.circle.fill",
+                "image": "icons8-bandage",
                 "attrs": {}
             }
         ]
     },
     {
         "category": "健康护理",
-        "categoryIcon": "book.circle.fill",
+        "image": "icons8-airplane",
         "items": [
             {
-                "id": 30001,
                 "name": "创可贴",
-                "icon": "plus.circle.fill",
+                "image": "icons8-bandage",
                 "attrs": {}
             },
             {
-                "id": 30002,
-                "name": "拉肚子药",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 30003,
-                "name": "绷带",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 30004,
-                "name": "酒精",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 30005,
-                "name": "碘酒",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 30006,
                 "name": "橡胶手套",
-                "icon": "plus.circle.fill",
-                "attrs": {}
-            },
-            {
-                "id": 30007,
-                "name": "卫生巾",
-                "icon": "plus.circle.fill",
+                "image": "icons8-bandage",
                 "attrs": {}
             }
         ]

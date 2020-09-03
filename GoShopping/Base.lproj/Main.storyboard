@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ud5-n9-94q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ud5-n9-94q">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,11 +20,11 @@
                             <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="50" height="60"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
+                            <inset key="sectionInset" minX="8" minY="16" maxX="8" maxY="16"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemCell" id="KT6-vI-eOa" customClass="ItemCellView" customModule="GoShopping" customModuleProvider="target">
-                                <rect key="frame" x="8" y="68" width="100" height="100"/>
+                                <rect key="frame" x="8" y="76" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UKJ-tv-R2x">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -35,31 +36,31 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-c7-ie1">
-                                    <rect key="frame" x="40" y="15" width="118.5" height="30.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y0r-EB-TQU">
-                                    <rect key="frame" x="14" y="14.5" width="24" height="31"/>
-                                    <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y0r-EB-TQU">
+                                    <rect key="frame" x="8" y="26.5" width="20" height="7"/>
+                                    <color key="tintColor" name="BrandColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="P8J-xu-gXh"/>
                                     </constraints>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-c7-ie1">
+                                    <rect key="frame" x="36" y="17" width="100" height="26"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" name="DarkGray"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <color key="backgroundColor" name="BGColor"/>
                             <constraints>
-                                <constraint firstItem="y0r-EB-TQU" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="topMargin" constant="6" id="0rf-k1-q2r"/>
-                                <constraint firstAttribute="bottomMargin" secondItem="QJR-c7-ie1" secondAttribute="bottom" constant="6.5" id="5gm-6o-IdD"/>
-                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leadingMargin" constant="32" id="8CB-yD-hPY"/>
-                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="y0r-EB-TQU" secondAttribute="trailing" constant="2" id="Gmj-W2-SSx"/>
-                                <constraint firstItem="y0r-EB-TQU" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leadingMargin" id="Jr0-km-D1L"/>
-                                <constraint firstAttribute="bottomMargin" secondItem="y0r-EB-TQU" secondAttribute="bottom" constant="6" id="Mji-wo-uFf"/>
-                                <constraint firstItem="QJR-c7-ie1" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="topMargin" constant="7" id="TZg-tt-1Py"/>
-                                <constraint firstItem="y0r-EB-TQU" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="topMargin" constant="6" id="egi-ch-trZ"/>
-                                <constraint firstItem="y0r-EB-TQU" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leadingMargin" constant="6" id="isw-5C-zef"/>
-                                <constraint firstAttribute="bottomMargin" secondItem="y0r-EB-TQU" secondAttribute="bottom" constant="6" id="n4B-Nm-c15"/>
+                                <constraint firstItem="y0r-EB-TQU" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leading" constant="8" id="12o-ez-yqb"/>
+                                <constraint firstItem="y0r-EB-TQU" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="top" constant="26" id="5kf-UA-Vn2"/>
+                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="y0r-EB-TQU" secondAttribute="trailing" constant="8" id="6eM-5s-Lsr"/>
+                                <constraint firstAttribute="bottom" secondItem="y0r-EB-TQU" secondAttribute="bottom" constant="26" id="7Wc-AH-o8p"/>
+                                <constraint firstAttribute="bottom" secondItem="y0r-EB-TQU" secondAttribute="bottom" constant="21" id="8ja-dN-2Hp"/>
+                                <constraint firstItem="y0r-EB-TQU" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="top" constant="26" id="AHv-0h-YeE"/>
+                                <constraint firstItem="QJR-c7-ie1" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="top" constant="17" id="Rn3-MX-1jq"/>
+                                <constraint firstAttribute="bottom" secondItem="QJR-c7-ie1" secondAttribute="bottom" constant="17" id="Uef-eL-BX7"/>
+                                <constraint firstItem="y0r-EB-TQU" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leading" constant="8" id="zHF-Ui-RZc"/>
                             </constraints>
                             <connections>
                                 <outlet property="categoryIconImage" destination="y0r-EB-TQU" id="CdY-Sk-e3I"/>
@@ -85,6 +86,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="BrandColor"/>
+                        <color key="selectedImageTintColor" name="BrandColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="o9u-uS-IvF" kind="relationship" relationship="viewControllers" id="7LU-Tb-eaV"/>
@@ -100,15 +103,17 @@
         <scene sceneID="p7n-zW-G6C">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o9u-uS-IvF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Choose" image="plus" catalog="system" id="MRD-Tn-bPH"/>
+                    <tabBarItem key="tabBarItem" title="Choose" image="plus" catalog="system" id="MRD-Tn-bPH">
+                        <color key="badgeColor" name="ButtonColor"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lfw-fA-JoP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="textColor" name="DarkGray"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -124,15 +129,17 @@
         <scene sceneID="WJt-TE-xcE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="T9Z-vr-nOq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="To Buys" image="list.bullet" catalog="system" id="Ezc-o8-sKh"/>
+                    <tabBarItem key="tabBarItem" title="To Buys" image="list.bullet" catalog="system" id="Ezc-o8-sKh">
+                        <color key="badgeColor" name="ButtonColor"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UKK-08-YFs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="textColor" name="DarkGray"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -148,16 +155,16 @@
         <scene sceneID="z3a-TU-glz">
             <objects>
                 <tableViewController id="x9L-0B-dZZ" customClass="ToBuyTableViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bXh-1a-ANa">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="60" sectionFooterHeight="10" id="bXh-1a-ANa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToBuyTableViewCell" id="g6c-Mu-DXf" customClass="ToBuyTableViewCell" customModule="GoShopping" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g6c-Mu-DXf" id="qF7-z4-fPN">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -177,15 +184,17 @@
         <scene sceneID="zce-bb-lgr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dih-rA-WXV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Delayed" image="alarm" catalog="system" id="FnY-K4-NVt"/>
+                    <tabBarItem key="tabBarItem" title="Delayed" image="alarm" catalog="system" id="FnY-K4-NVt">
+                        <color key="badgeColor" name="ButtonColor"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4hF-G1-gDA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="textColor" name="DarkGray"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -230,8 +239,20 @@
     <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="alarm" catalog="system" width="124" height="128"/>
-        <image name="book.circle.fill" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="BGColor">
+            <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BrandColor">
+            <color red="0.31000000238418579" green="0.68999999761581421" blue="0.62000000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ButtonColor">
+            <color red="0.97299998998641968" green="0.11800000071525574" blue="0.6470000147819519" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DarkGray">
+            <color red="0.22699999809265137" green="0.22699999809265137" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

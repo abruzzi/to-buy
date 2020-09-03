@@ -21,22 +21,6 @@ class ToBuyTableViewController: UITableViewController {
       self.refreshToBuyList()
         self.tableView.reloadData()
     }
-//
-//    func DeleteAllData(){
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let managedContext = appDelegate.persistentContainer.viewContext
-//        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
-//        do {
-//            try managedContext.execute(DelAllReqVar)
-//        }
-//        catch {
-//            print(error)
-//        }
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        DeleteAllData()
-//    }
     
     func refreshToBuyList() {
         var toBuyList: [NSManagedObject] = []
@@ -54,7 +38,10 @@ class ToBuyTableViewController: UITableViewController {
         }
         
         let allItems = toBuyList.map { nsobj in
-            return ToBuyItem(name: nsobj.value(forKey: "name") as! String, isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool), isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
+            return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
+                             image: nsobj.value(forKey: "image") as! String,
+                             isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
+                             isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
         }
         
         toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
@@ -149,8 +136,8 @@ class ToBuyTableViewController: UITableViewController {
             self.tableView.reloadData()
             completion(true)
         }
-        action.image = UIImage(systemName: "alarm")
-        action.backgroundColor = .systemPink
+        action.image = UIImage(systemName: "stopwatch")
+        action.backgroundColor = .systemGreen
         return action
     }
     
@@ -163,7 +150,7 @@ class ToBuyTableViewController: UITableViewController {
             completion(true)
         }
         action.image = UIImage(systemName: "clock")
-        action.backgroundColor = .purple
+        action.backgroundColor = .systemOrange
         return action
     }
     
@@ -175,8 +162,8 @@ class ToBuyTableViewController: UITableViewController {
             self.tableView.reloadData()
             completion(true)
         }
-        action.image = UIImage(systemName: "delete")
-        action.backgroundColor = .red
+        action.image = UIImage(systemName: "delete.right")
+        action.backgroundColor = .systemRed
         return action
     }
  
@@ -214,14 +201,8 @@ class ToBuyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToBuyTableViewCell", for: indexPath) as! ToBuyTableViewCell
         
-        if(indexPath.section == 0) {
-            let item = toBuyItems[indexPath.row]
-            cell.configure(with: item.name)
-        } else {
-            let item = completedItems[indexPath.row]
-            cell.configure(with: item.name)
-            cell.toBuyItemLabel?.textColor = .red
-        }
+        let item = (indexPath.section == 0) ? toBuyItems[indexPath.row] : completedItems[indexPath.row]
+        cell.configure(with: item.name, image: item.image)
         
         return cell
     }
@@ -229,6 +210,7 @@ class ToBuyTableViewController: UITableViewController {
 
 struct ToBuyItem {
     var name: String
+    var image: String
     var isCompleted: Bool
     var isDelayed: Bool
 }

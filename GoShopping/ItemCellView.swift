@@ -18,18 +18,16 @@ class ItemCellView: UICollectionViewCell {
     }
     
     override func layoutSubviews() {
-        self.layer.cornerRadius = 10.0
-        self.layer.borderWidth = 2.0
-        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.cornerRadius = 4.0
         self.layer.masksToBounds = true
     }
     
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
-                self.contentView.backgroundColor = UIColor.systemBlue
+                self.contentView.backgroundColor = UIColor(named: "HighlightColor")
             } else {
-                self.contentView.backgroundColor = UIColor.systemTeal
+                self.contentView.backgroundColor = UIColor(named: "BrandColor")
             }
         }
       }

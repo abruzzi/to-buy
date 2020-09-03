@@ -12,7 +12,7 @@ import CoreData
 private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
-    private var toBuyList: [NSManagedObject] = []
+    private var toBuyItems: [ToBuyItem]!
     private var filteredRecords: [Record]!
     
     override func viewDidLoad() {
@@ -30,24 +30,51 @@ class ShoppingCollectionViewController: UICollectionViewController {
         self.setupGrid()
         
         collectionView.allowsMultipleSelection = true
+        collectionView.keyboardDismissMode = .onDrag
     }
 
+    
+        func deleteAllData(){
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
+            do {
+                try managedContext.execute(DelAllReqVar)
+            }
+            catch {
+                print(error)
+            }
+        }
+    
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
+      self.refreshToBuyList()
+        //        self.deleteAllData()
+    }
+    
+    func refreshToBuyList() {
+        var toBuyList: [NSManagedObject] = []
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
 
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
 
-      let managedContext = appDelegate.persistentContainer.viewContext
-      let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
-
-      do {
-        toBuyList = try managedContext.fetch(fetchRequest)
-        print(toBuyList.count)
-      } catch let error as NSError {
-        print("Could not fetch. \(error), \(error.userInfo)")
-      }
+        do {
+          toBuyList = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        let allItems = toBuyList.map { nsobj in
+            return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
+                             image: nsobj.value(forKey: "image") as! String,
+                             isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
+                             isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
+        }
+        
+        toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
     }
     
     func setupGrid() {
@@ -112,19 +139,21 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         do {
             let result = try managedContext.fetch(fetchRequest)
-            let obj = result[0] as! NSManagedObject
-            managedContext.delete(obj)
-            do {
-                try managedContext.save()
-            } catch {
-                print(error)
+            if(result.count > 0) {
+                let obj = result[0] as! NSManagedObject
+                managedContext.delete(obj)
+                do {
+                    try managedContext.save()
+                } catch {
+                    print(error)
+                }
             }
         }catch let error as NSError {
           print("Could not delete value. \(error), \(error.userInfo)")
         }
     }
 
-    func save(name: String) {
+    func save(name: String, image: String) {
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
       }
@@ -134,13 +163,13 @@ class ShoppingCollectionViewController: UICollectionViewController {
       let item = NSManagedObject(entity: entity, insertInto: managedContext)
         
         item.setValue(name, forKeyPath: "name")
+        item.setValue(image, forKey: "image")
         item.setValue(Date(), forKeyPath: "createdAt")
         item.setValue(false, forKey: "isCompleted")
         item.setValue(false, forKey: "isDelayed")
 
       do {
         try managedContext.save()
-        toBuyList.append(item)
       } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
       }
@@ -148,7 +177,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = filteredRecords[indexPath.section].items[indexPath.row]
-        self.save(name: data.name)
+        self.save(name: data.name, image: data.image)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -160,7 +189,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         
         let obj = filteredRecords[indexPath.section]
-        sectionHeader.configure(with: obj.category, categoryIcon: obj.image) 
+        sectionHeader.configure(with: obj.category, image: UIImage(named: obj.image)!)
         
         return sectionHeader
     }

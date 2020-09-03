@@ -36,7 +36,11 @@ class DelayedTableViewController: UITableViewController {
         }
         
         let allItems = toBuyList.map { nsobj in
-            return ToBuyItem(name: nsobj.value(forKey: "name") as! String, isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool), isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
+            return ToBuyItem(
+                name: nsobj.value(forKey: "name") as! String,
+                image: nsobj.value(forKey: "image") as! String,
+                isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
+                isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
         }
         
         delayedItems = allItems.filter { $0.isDelayed }
@@ -92,8 +96,8 @@ class DelayedTableViewController: UITableViewController {
             self.tableView.reloadData()
             completion(true)
         }
-        action.image = UIImage(systemName: "alarm")
-        action.backgroundColor = .systemPink
+        action.image = UIImage(systemName: "stopwatch")
+        action.backgroundColor = .systemGreen
         return action
     }
     
@@ -117,7 +121,7 @@ class DelayedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToBuyTableViewCell", for: indexPath) as! ToBuyTableViewCell
         let item = delayedItems[indexPath.row]
 
-        cell.configure(with: item.name)
+        cell.configure(with: item.name, image: item.image)
 
         return cell
     }
