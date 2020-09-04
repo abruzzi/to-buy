@@ -21,13 +21,15 @@
                 "name": "牛油果",
                 "image": "icons8-avocado",
                 "attrs": {
-                    "supermarket": "Woolworths"
+                    "supermarket": "LaManna"
                 }
             },
             {
                 "name": "香蕉",
                 "image": "icons8-banana",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "LaManna"
+                }
             },
             {
                 "name": "花椰菜",
@@ -58,7 +60,9 @@
             {
                 "name": "黄瓜",
                 "image": "icons8-cucumber",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Woolworths"
+                }
             },
             
             {
@@ -67,19 +71,33 @@
                 "attrs": {}
             },
             {
+                "name": "虾",
+                "image": "icons8-prawn",
+                "attrs": {
+                    "supermarket": "Woolworths"
+                }
+            },
+            
+            {
                 "name": "蒜",
                 "image": "icons8-garlic",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Foodworks"
+                }
             },
             {
                 "name": "猕猴桃",
                 "image": "icons8-kiwi",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Costco"
+                }
             },
             {
                 "name": "蜜瓜",
                 "image": "icons8-melon",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Costco"
+                }
             },
             
             {
@@ -106,7 +124,6 @@
                 "attrs": {}
             },
             
-            
             {
                 "name": "青椒",
                 "image": "icons8-paprika",
@@ -115,19 +132,17 @@
             {
                 "name": "梨",
                 "image": "icons8-pear",
-                "attrs": {}
-            },
-            {
-                "name": "披萨",
-                "image": "icons8-pizza",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Costco"
+                }
             },
             {
                 "name": "土豆",
                 "image": "icons8-potato",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Costco"
+                }
             },
-     
                    
            {
                "name": "南瓜",
@@ -150,12 +165,6 @@
                "attrs": {}
            },
     
-                  
-          {
-              "name": "食盐",
-              "image": "icons8-salt",
-              "attrs": {}
-          },
           {
               "name": "豆角",
               "image": "icons8-soy",
@@ -164,7 +173,18 @@
           {
               "name": "面条",
               "image": "icons8-spaghetti",
-              "attrs": {}
+              "attrs": {
+                  "supermarket": "亚洲超市",
+                  "brand": "长青"
+              }
+          },
+          {
+              "name": "豆腐",
+              "image": "icons8-spaghetti",
+              "attrs": {
+                  "supermarket": "亚洲超市",
+                  "brand": "svn"
+              }
           },
           {
               "name": "牛排",
@@ -175,12 +195,16 @@
            {
                "name": "西红柿",
                "image": "icons8-tomato",
-               "attrs": {}
+               "attrs": {
+                   "supermarket": "Costco"
+               }
            },
            {
                "name": "西瓜",
                "image": "icons8-watermelon",
-               "attrs": {}
+               "attrs": {
+                   "supermarket": "LaManna"
+               }
            },
            {
                "name": "西葫芦",
@@ -190,7 +214,9 @@
            {
                "name": "五花肉",
                "image": "icons8-steak",
-               "attrs": {}
+               "attrs": {
+                   "supermarket": "Woolworths",
+               }
            },
            {
                "name": "面包",
@@ -202,6 +228,11 @@
                "image": "icons8-carrot",
                "attrs": {}
            },
+           {
+               "name": "蓝莓",
+               "image": "icons8-barcode",
+               "attrs": {}
+           }
         ]
     },
     {
@@ -211,28 +242,66 @@
             {
                 "name": "厕纸",
                 "image": "icons8-toilet_paper",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Woolworths",
+                }
             },
             {
-                "name": "牙膏",
-                "image": "icons8-toothbrush",
-                "attrs": {}
-            },
-            {
-                "name": "牙刷",
-                "image": "icons8-electric_toothbrush",
-                "attrs": {}
+                "name": "抽纸",
+                "image": "icons8-toilet_paper",
+                "attrs": {
+                    "supermarket": "Woolworths",
+                }
             },
             {
                 "name": "灯泡",
                 "image": "icons8-light_on",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Costco"
+                }
             },
             {
                 "name": "笔记本",
                 "image": "icons8-read",
                 "attrs": {}
             },
+            {
+                "name": "食盐",
+                "image": "icons8-salt",
+                "attrs": {}
+            },
+            {
+                "name": "油",
+                "image": "icons8-olive_oil",
+                "attrs": {
+                    "supermarket": "亚洲超市"
+                }
+            },
+            {
+                "name": "酵母",
+                "image": "icons8-powder",
+                "attrs": {}
+            },
+            {
+                "name": "酱油",
+                "image": "icons8-soy_sauce",
+                "attrs": {
+                    "supermarket": "亚洲超市"
+                }
+            },
+            {
+                "name": "醋",
+                "image": "icons8-worcestershire_sauce",
+                "attrs": {
+                    "supermarket": "亚洲超市"
+                }
+            },
+        ]
+    },
+    {
+        "category": "健康护理",
+        "image": "icons8-pill",
+        "items": [
             {
                 "name": "洗手液",
                 "image": "icons8-soap_dispenser",
@@ -252,24 +321,24 @@
                 "name": "胶带",
                 "image": "icons8-tape",
                 "attrs": {}
-            }
-        ]
-    },
-    {
-        "category": "健康护理",
-        "image": "icons8-pill",
-        "items": [
+            },
+            {
+                "name": "牙膏",
+                "image": "icons8-toothbrush",
+                "attrs": {}
+            },
+            {
+                "name": "牙刷",
+                "image": "icons8-electric_toothbrush",
+                "attrs": {}
+            },
+
             {
                 "name": "创可贴",
                 "image": "icons8-bandage",
                 "attrs": {
                     "supermarket": "Chemist Warehouse",
                 }
-            },
-            {
-                "name": "橡胶手套",
-                "image": "icons8-bandage",
-                "attrs": {}
             },
             {
                 "name": "卫生巾",
@@ -280,7 +349,15 @@
                 "name": "橡胶手套",
                 "image": "icons8-rubber_gloves",
                 "attrs": {}
-            }
+            },
+            {
+                "name": "维C",
+                "image": "icons8-pills",
+                "attrs": {
+                    "supermarket": "Chemist Warehouse",
+                }
+            },
+            
         ]
     }
 ]
