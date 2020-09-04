@@ -9,8 +9,7 @@
 import UIKit
 
 class BaseTabBarController: UITabBarController {
-    var selected:Dictionary<Int, Item> = [:]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }

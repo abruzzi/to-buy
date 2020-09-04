@@ -114,7 +114,7 @@ class DelayedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
                                 section: Int) -> String? {
-        return "Delayed items"
+        return "暂时没找到的"
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -34,17 +34,17 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
 
     
-        func deleteAllData(){
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
-            do {
-                try managedContext.execute(DelAllReqVar)
-            }
-            catch {
-                print(error)
-            }
+    func deleteAllData(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
+        do {
+            try managedContext.execute(DelAllReqVar)
         }
+        catch {
+            print(error)
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
@@ -120,7 +120,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView {
             let data = filteredRecords[indexPath.section].items[indexPath.row]
-            itemCell.configure(with: data.name)
+            itemCell.configure(with: data.name, image: data.image)
             cell = itemCell
         }
     

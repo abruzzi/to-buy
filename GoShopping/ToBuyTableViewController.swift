@@ -190,9 +190,9 @@ class ToBuyTableViewController: UITableViewController {
                                 section: Int) -> String? {
         switch section {
         case 0:
-            return "To buy items"
+            return "要买的"
         case 1:
-            return "Completed items"
+            return "买到的"
         default:
             return "-"
         }
