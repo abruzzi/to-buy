@@ -6,17 +6,23 @@
             {
                 "name": "苹果",
                 "image": "icons8-apple",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Woolworths"
+                }
             },
             {
                 "name": "芦笋",
                 "image": "icons8-asparagus",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "LaManna"
+                }
             },
             {
                 "name": "牛油果",
                 "image": "icons8-avocado",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Woolworths"
+                }
             },
             {
                 "name": "香蕉",
@@ -31,17 +37,23 @@
             {
                 "name": "樱桃",
                 "image": "icons8-cherry",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "LaManna"
+                }
             },
             {
                 "name": "玉米",
                 "image": "icons8-corn",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "LaManna"
+                }
             },
             {
                 "name": "海鲜",
                 "image": "icons8-crab",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Geelong pier"
+                }
             },
             {
                 "name": "黄瓜",
@@ -73,7 +85,10 @@
             {
                 "name": "牛奶",
                 "image": "icons8-milk_bottle",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Coles",
+                    "brand": "A2"
+                }
             },
             {
                 "name": "青菜",
@@ -247,7 +262,9 @@
             {
                 "name": "创可贴",
                 "image": "icons8-bandage",
-                "attrs": {}
+                "attrs": {
+                    "supermarket": "Chemist Warehouse",
+                }
             },
             {
                 "name": "橡胶手套",

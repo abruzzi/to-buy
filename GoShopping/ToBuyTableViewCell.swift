@@ -12,6 +12,8 @@ class ToBuyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var toBuyItemLabel: UILabel!
     @IBOutlet weak var toBuyItemImage: UIImageView!
+    @IBOutlet weak var toBuyItemCategory: UILabel!
+    @IBOutlet weak var supermarket: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,8 +23,12 @@ class ToBuyTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(with itemName: String, image: String) {
-        toBuyItemLabel.text = itemName
-        toBuyItemImage.image = UIImage(named: image)
+    func configure(with toBuyItem: ToBuyItem) {
+        toBuyItemLabel.text = toBuyItem.name
+        toBuyItemCategory.text = toBuyItem.category
+        toBuyItemImage.image = UIImage(named: toBuyItem.image!)
+        
+        let attrs: [String: String] = toBuyItem.attrs!
+        supermarket.text = attrs["supermarket"] != nil ? attrs["supermarket"] : ""
     }
 }

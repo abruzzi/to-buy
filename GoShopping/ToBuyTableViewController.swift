@@ -37,11 +37,18 @@ class ToBuyTableViewController: UITableViewController {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
         
-        let allItems = toBuyList.map { nsobj in
-            return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
-                             image: nsobj.value(forKey: "image") as! String,
+        let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
+            var item:ToBuyItem = ToBuyItem(name: nsobj.value(forKey: "name") as! String,
+                             category: nsobj.value(forKey: "category") as! String,
                              isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                              isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
+            
+            let record = records.first { $0.category == item.category }
+            let result = record!.items.first { $0.name == item.name }
+            item.image = result?.image
+            item.attrs = result?.attrs
+            
+            return item
         }
         
         toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
@@ -202,7 +209,7 @@ class ToBuyTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToBuyTableViewCell", for: indexPath) as! ToBuyTableViewCell
         
         let item = (indexPath.section == 0) ? toBuyItems[indexPath.row] : completedItems[indexPath.row]
-        cell.configure(with: item.name, image: item.image)
+        cell.configure(with: item)
         
         return cell
     }
@@ -210,7 +217,9 @@ class ToBuyTableViewController: UITableViewController {
 
 struct ToBuyItem {
     var name: String
-    var image: String
+    var category: String
+    var image: String?
+    var attrs: [String: String]?
     var isCompleted: Bool
     var isDelayed: Bool
 }

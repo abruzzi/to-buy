@@ -19,4 +19,5 @@ struct Item: Hashable, Codable, Identifiable {
     let id = UUID()
     var name: String
     var image: String
+    var attrs: [String: String]
 }

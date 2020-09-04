@@ -49,7 +49,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       self.refreshToBuyList()
-        //        self.deleteAllData()
+//        self.deleteAllData()
     }
     
     func refreshToBuyList() {
@@ -67,13 +67,19 @@ class ShoppingCollectionViewController: UICollectionViewController {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
         
-        let allItems = toBuyList.map { nsobj in
-            return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
-                             image: nsobj.value(forKey: "image") as! String,
+        let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
+            var item:ToBuyItem = ToBuyItem(name: nsobj.value(forKey: "name") as! String,
+                             category: nsobj.value(forKey: "category") as! String,
                              isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                              isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
+            
+            let record = records.first { $0.category == item.category }
+            let result = record!.items.first { $0.name == item.name }
+            item.image = result?.image
+            item.attrs = result?.attrs
+            
+            return item
         }
-        
         toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
     }
     
@@ -153,7 +159,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         }
     }
 
-    func save(name: String, image: String) {
+    func save(name: String, category: String) {
       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
       }
@@ -163,7 +169,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
       let item = NSManagedObject(entity: entity, insertInto: managedContext)
         
         item.setValue(name, forKeyPath: "name")
-        item.setValue(image, forKey: "image")
+        item.setValue(category, forKey: "category")
         item.setValue(Date(), forKeyPath: "createdAt")
         item.setValue(false, forKey: "isCompleted")
         item.setValue(false, forKey: "isDelayed")
@@ -177,7 +183,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = filteredRecords[indexPath.section].items[indexPath.row]
-        self.save(name: data.name, image: data.image)
+        let category = filteredRecords[indexPath.section].category
+        self.save(name: data.name, category: category)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

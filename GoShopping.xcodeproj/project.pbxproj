@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A4E61F425023F0700C7945B /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E61F325023F0700C7945B /* FloatingButton.swift */; };
 		7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */; };
 		7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */; };
 		7A97C0C724FCFFFE004800E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A97C0C524FCFFFE004800E3 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A4E61F325023F0700C7945B /* FloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		7A97C0BC24FCFFFE004800E3 /* GoShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				7A97C0E224FDD042004800E3 /* Models */,
 				7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */,
 				7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */,
+				7A4E61F325023F0700C7945B /* FloatingButton.swift */,
 				7AE05DA224FE2A3300342844 /* ItemCellView.swift */,
 				7AE05DA324FE2A3300342844 /* ItemCellView.xib */,
 				7A97C0EE24FDF4E6004800E3 /* SectionHeader.swift */,
@@ -196,6 +199,7 @@
 				7A97C0DC24FD234A004800E3 /* ShoppingCollectionViewController.swift in Sources */,
 				7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */,
 				7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */,
+				7A4E61F425023F0700C7945B /* FloatingButton.swift in Sources */,
 				7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */,
 				7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */,
 				7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */,
