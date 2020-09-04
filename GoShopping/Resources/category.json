@@ -215,7 +215,7 @@
                "name": "五花肉",
                "image": "icons8-steak",
                "attrs": {
-                   "supermarket": "Woolworths",
+                   "supermarket": "Woolworths"
                }
            },
            {
@@ -243,14 +243,14 @@
                 "name": "厕纸",
                 "image": "icons8-toilet_paper",
                 "attrs": {
-                    "supermarket": "Woolworths",
+                    "supermarket": "Woolworths"
                 }
             },
             {
                 "name": "抽纸",
                 "image": "icons8-toilet_paper",
                 "attrs": {
-                    "supermarket": "Woolworths",
+                    "supermarket": "Woolworths"
                 }
             },
             {
@@ -295,7 +295,7 @@
                 "attrs": {
                     "supermarket": "亚洲超市"
                 }
-            },
+            }
         ]
     },
     {
@@ -337,7 +337,7 @@
                 "name": "创可贴",
                 "image": "icons8-bandage",
                 "attrs": {
-                    "supermarket": "Chemist Warehouse",
+                    "supermarket": "Chemist Warehouse"
                 }
             },
             {
@@ -354,10 +354,10 @@
                 "name": "维C",
                 "image": "icons8-pills",
                 "attrs": {
-                    "supermarket": "Chemist Warehouse",
+                    "supermarket": "Chemist Warehouse"
                 }
-            },
-            
+            }
         ]
     }
 ]
+

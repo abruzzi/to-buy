@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Pick up-->
+        <!--计划-->
         <scene sceneID="hzM-Jf-Kyy">
             <objects>
                 <collectionViewController id="Ypl-f9-r4H" customClass="ShoppingCollectionViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -72,7 +72,7 @@
                             <outlet property="delegate" destination="Ypl-f9-r4H" id="gIU-Km-E3f"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Pick up" id="haM-3a-TLZ"/>
+                    <navigationItem key="navigationItem" title="计划" id="haM-3a-TLZ"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muP-wz-991" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -151,7 +151,7 @@
             </objects>
             <point key="canvasLocation" x="438" y="481"/>
         </scene>
-        <!--To Buy List-->
+        <!--购物清单-->
         <scene sceneID="z3a-TU-glz">
             <objects>
                 <tableViewController id="x9L-0B-dZZ" customClass="ToBuyTableViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -174,7 +174,7 @@
                             <outlet property="delegate" destination="x9L-0B-dZZ" id="tlR-8U-xeX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="To Buy List" id="rgd-B5-3sv"/>
+                    <navigationItem key="navigationItem" title="购物清单" id="rgd-B5-3sv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -206,7 +206,7 @@
             </objects>
             <point key="canvasLocation" x="1018" y="-300"/>
         </scene>
-        <!--Delayed List-->
+        <!--临时清单-->
         <scene sceneID="yLi-dq-dLw">
             <objects>
                 <tableViewController id="XSB-nc-aXv" customClass="DelayedTableViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -229,7 +229,7 @@
                             <outlet property="delegate" destination="XSB-nc-aXv" id="jQe-yc-ytK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Delayed List" id="hdY-1C-ygw"/>
+                    <navigationItem key="navigationItem" title="临时清单" id="hdY-1C-ygw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgf-Pn-lsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
