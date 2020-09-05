@@ -18,7 +18,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        filteredRecords = tabBarController. .records
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        filteredRecords = appDelegate.records
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -74,10 +75,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
                              isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                              isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
             
-            let record = fetcher.records.first { $0.category == item.category }
-            let result = record!.items.first { $0.name == item.name }
-            item.image = result?.image
-            item.attrs = result?.attrs
+            let record = appDelegate.records.first { $0.category == item.category }
+            
+            if let result = record?.items.first(where: { $0.name == item.name }) {
+                item.image = result.image
+                item.attrs = result.attrs
+            }
             
             return item
         }
@@ -92,10 +95,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
 
     func filterContentForSearchText(_ searchText: String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
         if(searchText.isEmpty) {
-            filteredRecords = fetcher.records
+            filteredRecords = appDelegate.records
         } else {
-            filteredRecords = fetcher.records.map { (record: Record) in
+            filteredRecords = appDelegate.records.map { (record: Record) in
                 var r = record
                 let items = record.items.filter { (record: Item) -> Bool in
                     return record.name.lowercased().contains(searchText.lowercased())

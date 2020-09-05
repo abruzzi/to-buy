@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import CoreData
 
 private let reuseIdentifier = "ToBuyTableViewCell"
@@ -42,10 +43,13 @@ class ToBuyTableViewController: UITableViewController {
                              isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                              isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
             
-            let record = records.first { $0.category == item.category }
-            let result = record!.items.first { $0.name == item.name }
-            item.image = result?.image
-            item.attrs = result?.attrs
+            
+            let record = appDelegate.records.first { $0.category == item.category }
+            
+            if let result = record?.items.first(where: { $0.name == item.name }) {
+                item.image = result.image
+                item.attrs = result.attrs
+            }
             
             return item
         }
