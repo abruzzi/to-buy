@@ -11,7 +11,6 @@ import CoreData
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
-
 class ToBuyTableViewController: UITableViewController {
     private var toBuyItems: [ToBuyItem]!
     private var completedItems: [ToBuyItem]!
@@ -19,7 +18,7 @@ class ToBuyTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       self.refreshToBuyList()
-        self.tableView.reloadData()
+      self.tableView.reloadData()
     }
     
     func refreshToBuyList() {

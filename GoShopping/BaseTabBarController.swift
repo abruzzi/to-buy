@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import SwiftUI
 
 class BaseTabBarController: UITabBarController {
-
+    var records:[Record] = []
+    
+    @ObservedObject var fetcher = CategoryFetcher()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        records = fetcher.records
     }
 }
 

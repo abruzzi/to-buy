@@ -41,7 +41,7 @@ class DelayedTableViewController: UITableViewController {
                              isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                              isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
             
-            let record = records.first { $0.category == item.category }
+            let record = fetcher.records.first { $0.category == item.category }
             let result = record!.items.first { $0.name == item.name }
             item.image = result?.image
             item.attrs = result?.attrs

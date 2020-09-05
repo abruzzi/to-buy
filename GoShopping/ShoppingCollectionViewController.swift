@@ -16,11 +16,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
     private var toBuyItems: [ToBuyItem]!
     private var filteredRecords: [Record]!
     
-    @ObservedObject var fetcher = CategoryFetcher()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        filteredRecords = fetcher.records
+        filteredRecords = tabBarController. .records
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -34,8 +32,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         collectionView.allowsMultipleSelection = true
         collectionView.keyboardDismissMode = .onDrag
-        
-        downloadRemoteConfig()
     }
 
     
@@ -78,7 +74,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                              isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                              isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
             
-            let record = records.first { $0.category == item.category }
+            let record = fetcher.records.first { $0.category == item.category }
             let result = record!.items.first { $0.name == item.name }
             item.image = result?.image
             item.attrs = result?.attrs
@@ -97,9 +93,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
 
     func filterContentForSearchText(_ searchText: String) {
         if(searchText.isEmpty) {
-            filteredRecords = records
+            filteredRecords = fetcher.records
         } else {
-            filteredRecords = records.map { (record: Record) in
+            filteredRecords = fetcher.records.map { (record: Record) in
                 var r = record
                 let items = record.items.filter { (record: Item) -> Bool in
                     return record.name.lowercased().contains(searchText.lowercased())
