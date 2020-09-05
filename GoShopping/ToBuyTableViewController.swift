@@ -23,37 +23,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     func refreshToBuyList() {
-        var toBuyList: [NSManagedObject] = []
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
-
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
-
-        do {
-          toBuyList = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
-            var item:ToBuyItem = ToBuyItem(name: nsobj.value(forKey: "name") as! String,
-                             category: nsobj.value(forKey: "category") as! String,
-                             isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
-                             isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
-            
-            
-            let record = appDelegate.records.first { $0.category == item.category }
-            
-            if let result = record?.items.first(where: { $0.name == item.name }) {
-                item.image = result.image
-                item.attrs = result.attrs
-            }
-            
-            return item
-        }
-        
+        let allItems = fetchAllToBuyList()
         toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
         completedItems = allItems.filter { $0.isCompleted }
     }
@@ -89,55 +59,7 @@ class ToBuyTableViewController: UITableViewController {
     func markAsDelayed(name: String) {
         updateRecordFor(name: name, key: "isDelayed", value: true)
     }
-    
-    func updateRecordFor(name: String, key: String, value: Any) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
 
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
-        fetchRequest.predicate = NSPredicate(format: "name = %@", name)
-        
-        do {
-            let result = try managedContext.fetch(fetchRequest)
-            let obj = result[0] as! NSManagedObject
-            obj.setValue(value, forKey: key)
-            do {
-                try managedContext.save()
-            } catch {
-                print(error)
-            }
-        }catch let error as NSError {
-          print("Could not update value. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func delete(name: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
-
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
-        fetchRequest.predicate = NSPredicate(format: "name = %@", name)
-        
-        do {
-            let result = try managedContext.fetch(fetchRequest)
-            let obj = result[0] as! NSManagedObject
-            managedContext.delete(obj)
-            do {
-                try managedContext.save()
-            } catch {
-                print(error)
-            }
-        }catch let error as NSError {
-          print("Could not delete value. \(error), \(error.userInfo)")
-        }
-    }
-    
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Complete") { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
@@ -155,6 +77,7 @@ class ToBuyTableViewController: UITableViewController {
         let action = UIContextualAction(style: .normal, title: "Later") { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
             self.markAsDelayed(name: item.name)
+            self.updateBadge()
             self.refreshToBuyList()
             self.tableView.reloadData()
             completion(true)
@@ -167,7 +90,8 @@ class ToBuyTableViewController: UITableViewController {
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Delete") { (_, view, completion) in
             let item = self.completedItems[indexPath.row]
-            self.delete(name: item.name)
+            deleteItemByName(name: item.name)
+            self.updateBadge()
             self.refreshToBuyList()
             self.tableView.reloadData()
             completion(true)
@@ -218,11 +142,17 @@ class ToBuyTableViewController: UITableViewController {
     }
 }
 
-struct ToBuyItem {
-    var name: String
-    var category: String
-    var image: String?
-    var attrs: [String: String]?
-    var isCompleted: Bool
-    var isDelayed: Bool
+extension ToBuyTableViewController {
+    func updateBadge() {
+        let allItems = fetchAllToBuyList()
+        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
+        let delayedItems = allItems.filter { $0.isDelayed }
+        
+        if let items = self.tabBarController?.tabBar.items as NSArray? {
+            let toBuyTab = items.object(at: 1) as! UITabBarItem
+            let delayedTab = items.object(at: 2) as! UITabBarItem
+            toBuyTab.badgeValue = String(toBuyItems.count)
+            delayedTab.badgeValue = String(delayedItems.count)
+        }
+    }
 }

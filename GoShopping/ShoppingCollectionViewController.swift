@@ -23,7 +23,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "豆腐..."
+        searchController.searchBar.placeholder = "冰淇淋🍦..."
         navigationItem.searchController = searchController
 
         definesPresentationContext = true
@@ -51,39 +51,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       self.refreshToBuyList()
+        self.updateBadge()
 //        self.deleteAllData()
     }
     
     func refreshToBuyList() {
-        var toBuyList: [NSManagedObject] = []
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
-
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
-
-        do {
-          toBuyList = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
-            var item:ToBuyItem = ToBuyItem(name: nsobj.value(forKey: "name") as! String,
-                             category: nsobj.value(forKey: "category") as! String,
-                             isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
-                             isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
-            
-            let record = appDelegate.records.first { $0.category == item.category }
-            
-            if let result = record?.items.first(where: { $0.name == item.name }) {
-                item.image = result.image
-                item.attrs = result.attrs
-            }
-            
-            return item
-        }
+        let allItems = fetchAllToBuyList()
         toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
     }
     
@@ -138,64 +111,22 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
         return cell
     }
-    
-    func delete(name: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
 
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
-        fetchRequest.predicate = NSPredicate(format: "name = %@", name)
-        
-        do {
-            let result = try managedContext.fetch(fetchRequest)
-            if(result.count > 0) {
-                let obj = result[0] as! NSManagedObject
-                managedContext.delete(obj)
-                do {
-                    try managedContext.save()
-                } catch {
-                    print(error)
-                }
-            }
-        }catch let error as NSError {
-          print("Could not delete value. \(error), \(error.userInfo)")
-        }
-    }
-
-    func save(name: String, category: String) {
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
-
-      let managedContext = appDelegate.persistentContainer.viewContext
-      let entity = NSEntityDescription.entity(forEntityName: "ToBuys", in: managedContext)!
-      let item = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        item.setValue(name, forKeyPath: "name")
-        item.setValue(category, forKey: "category")
-        item.setValue(Date(), forKeyPath: "createdAt")
-        item.setValue(false, forKey: "isCompleted")
-        item.setValue(false, forKey: "isDelayed")
-
-      do {
-        try managedContext.save()
-      } catch let error as NSError {
-        print("Could not save. \(error), \(error.userInfo)")
-      }
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = filteredRecords[indexPath.section].items[indexPath.row]
         let category = filteredRecords[indexPath.section].category
-        self.save(name: data.name, category: category)
+        if(!isAlreadyExist(name: data.name)) {
+            save(name: data.name, category: category)
+        }
+        updateBadge()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let data = filteredRecords[indexPath.section].items[indexPath.row]
-        self.delete(name: data.name)
+        if(isAlreadyExist(name: data.name)) {
+            deleteItemByName(name: data.name)
+        }
+        updateBadge()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -232,5 +163,20 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
         let width = (self.view.frame.width - CGFloat(cellMargin) * (cellCount - 1) - margin) / cellCount
         
         return width
+    }
+}
+
+extension ShoppingCollectionViewController {
+    func updateBadge() {
+        let allItems = fetchAllToBuyList()
+        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
+        let delayedItems = allItems.filter { $0.isDelayed }
+        
+        if let items = self.tabBarController?.tabBar.items as NSArray? {
+            let toBuyTab = items.object(at: 1) as! UITabBarItem
+            let delayedTab = items.object(at: 2) as! UITabBarItem
+            toBuyTab.badgeValue = String(toBuyItems.count)
+            delayedTab.badgeValue = String(delayedItems.count)
+        }
     }
 }
