@@ -19,7 +19,7 @@ class ItemCellView: UICollectionViewCell {
     
     override func layoutSubviews() {
         self.layer.cornerRadius = 4.0
-//        self.layer.masksToBounds = true
+        self.layer.masksToBounds = true
     }
     
     override var isSelected: Bool {

@@ -151,8 +151,8 @@ extension ToBuyTableViewController {
         if let items = self.tabBarController?.tabBar.items as NSArray? {
             let toBuyTab = items.object(at: 1) as! UITabBarItem
             let delayedTab = items.object(at: 2) as! UITabBarItem
-            toBuyTab.badgeValue = String(toBuyItems.count)
-            delayedTab.badgeValue = String(delayedItems.count)
+            toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
+            delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
         }
     }
 }
