@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import CoreData
 
 private let reuseIdentifier = "ItemCell"
@@ -15,9 +16,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
     private var toBuyItems: [ToBuyItem]!
     private var filteredRecords: [Record]!
     
+    @ObservedObject var fetcher = CategoryFetcher()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        filteredRecords = records
+        filteredRecords = fetcher.records
 
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -31,6 +34,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         collectionView.allowsMultipleSelection = true
         collectionView.keyboardDismissMode = .onDrag
+        
+        downloadRemoteConfig()
     }
 
     
