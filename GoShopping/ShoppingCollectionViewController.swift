@@ -33,6 +33,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         collectionView.allowsMultipleSelection = true
         collectionView.keyboardDismissMode = .onDrag
+        
+        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
+        longPressGR.minimumPressDuration = 0.5
+        longPressGR.delaysTouchesBegan = true
+        self.collectionView.addGestureRecognizer(longPressGR)
     }
 
     
@@ -137,6 +142,43 @@ class ShoppingCollectionViewController: UICollectionViewController {
         sectionHeader.configure(with: obj.category, image: UIImage(named: obj.image)!)
         
         return sectionHeader
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let category = filteredRecords[indexPath.section].category
+        let data = filteredRecords[indexPath.section].items[indexPath.row]
+        return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
+            let shareAction = UIAction(
+              title: "Add to list",
+              image: UIImage(systemName: "plus")) { _ in
+                save(name: data.name, category: category)
+            }
+            
+            let copyAction = UIAction(
+              title: "Edit",
+              image: UIImage(systemName: "doc.on.doc")) { _ in
+                // copy the task content
+            }
+            
+            return UIMenu(title: "", children: [shareAction, copyAction])
+        }
+    }
+    
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+        if gesture.state != .ended {
+            return
+        }
+
+        let p = gesture.location(in: self.collectionView)
+
+        if let indexPath = self.collectionView.indexPathForItem(at: p) {
+            // get the cell at indexPath (the one you long pressed)
+            let cell = self.collectionView.cellForItem(at: indexPath)
+            print(cell?.isSelected)
+            // do stuff with the cell
+        } else {
+            print("couldn't find index path")
+        }
     }
     
     var estimateWidth = 80.0
