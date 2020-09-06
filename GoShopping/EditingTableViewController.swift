@@ -19,6 +19,11 @@ class EditingTableViewController: UITableViewController {
         "其他"
     ]
     
+    @IBAction func saveButtonClickHandler(_ sender: UIButton) {
+        print(itemNameTextField.text)
+        print(supermarketTextField.text)
+    }
+    
     @IBOutlet weak var itemCategoryPicker: UIPickerView!
     @IBOutlet weak var itemNameTextField: UITextField!
     @IBOutlet weak var supermarketTextField: UITextField!

@@ -207,6 +207,9 @@
                                                     <state key="normal" title="Button">
                                                         <color key="titleColor" name="CardColor"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="saveButtonClickHandler:" destination="WI0-Md-U6r" eventType="touchUpInside" id="78j-ei-jRc"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" name="BGColor"/>
