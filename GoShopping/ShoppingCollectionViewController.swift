@@ -14,10 +14,14 @@ private let reuseIdentifier = "ItemCell"
 class ShoppingCollectionViewController: UICollectionViewController {
     private var toBuyItems: [ToBuyItem]!
     private var canBuyItems: [[CanBuyItem]]!
+    var filteredRecords:[Record]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         canBuyItems = allCanBuyList()
+        
+        test()
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "冰淇淋🍦..."
@@ -32,21 +36,25 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.keyboardDismissMode = .onDrag
     }
     
+    func test() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        filteredRecords = appDelegate?.records
+        var canBuyItems: [CanBuyItem] = []
+        filteredRecords.forEach {record in
+            record.items.forEach { item in
+                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
+            }
+        }
+        print(canBuyItems)
+        deleteAllCanBuys()
+        saveAllCanBuyItem(canBuyItems: canBuyItems)
+        let x = allCanBuyList()
+        print(x)
+    }
+    
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
         return Array(Dictionary(grouping: canBuyList) { $0.category }.values)
-    }
-    
-    func deleteAllData(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
-        do {
-            try managedContext.execute(DelAllReqVar)
-        }
-        catch {
-            print(error)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

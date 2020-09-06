@@ -81,7 +81,7 @@ func isAlreadyExist(name: String) -> Bool{
         let result = try managedContext.fetch(fetchRequest)
         return result.count != 0
      }catch let error as NSError {
-       print("Could not delete value. \(error), \(error.userInfo)")
+       print("Could not fetch value. \(error), \(error.userInfo)")
      }
     
     return false
@@ -173,6 +173,18 @@ func updateRecordFor(name: String, key: String, value: Any) {
     }
 }
 
+func deleteAllToBuys(){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
+    do {
+        try managedContext.execute(DelAllReqVar)
+    }
+    catch {
+        print(error)
+    }
+}
+
 // can buy items
 
 struct CanBuyItem {
@@ -182,29 +194,38 @@ struct CanBuyItem {
     var supermarket: String
 }
 
-//func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
-//    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-//      return
-//    }
-//
-//    let managedContext = appDelegate.persistentContainer.viewContext
-//    let entity = NSEntityDescription.entity(forEntityName: "CanBuys", in: managedContext)!
-//    canBuyItems.forEach { canBuyItem in
-//        let item = NSManagedObject(entity: entity, insertInto: managedContext)
-//
-//        item.setValue(canBuyItem.name, forKeyPath: "name")
-//        item.setValue(canBuyItem.category, forKey: "category")
-//        item.setValue(canBuyItem.image, forKeyPath: "image")
-//        item.setValue(Date(), forKeyPath: "createdAt")
-//        item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
-//    }
-//    
-//    do {
-//      try managedContext.save()
-//    } catch let error as NSError {
-//      print("Could not save. \(error), \(error.userInfo)")
-//    }
-//}
+func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "CanBuys", in: managedContext)!
+    canBuyItems.forEach { canBuyItem in
+        let item = NSManagedObject(entity: entity, insertInto: managedContext)
+
+        item.setValue(canBuyItem.name, forKeyPath: "name")
+        item.setValue(canBuyItem.category, forKey: "category")
+        item.setValue(canBuyItem.image, forKeyPath: "image")
+        item.setValue(Date(), forKeyPath: "createdAt")
+        item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
+    }
+    
+    do {
+      try managedContext.save()
+    } catch let error as NSError {
+      print("Could not save. \(error), \(error.userInfo)")
+    }
+}
+
+//        var canBuyItems: [CanBuyItem] = []
+//        filteredRecords.forEach {record in
+//            record.items.forEach { item in
+//                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
+//            }
+//        }
+//        print(canBuyItems)
+//        saveAllCanBuyItem(canBuyItems: canBuyItems)
 
 func saveCanBuyItem(canBuyItem: CanBuyItem) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -274,9 +295,21 @@ func fetchAllCanBuyList() -> [CanBuyItem] {
     let allItems: [CanBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
         return CanBuyItem(name: nsobj.value(forKey: "name") as! String,
                          category: nsobj.value(forKey: "category") as! String,
-                         image: nsobj.value(forKey: "category") as! String,
-                         supermarket: nsobj.value(forKey: "category") as! String)
+                         image: nsobj.value(forKey: "image") as! String,
+                         supermarket: nsobj.value(forKey: "supermarket") as! String)
     }
     
     return allItems
+}
+
+func deleteAllCanBuys(){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "CanBuys"))
+    do {
+        try managedContext.execute(DelAllReqVar)
+    }
+    catch {
+        print(error)
+    }
 }
