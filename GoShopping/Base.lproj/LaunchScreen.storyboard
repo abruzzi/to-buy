@@ -16,19 +16,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go shopping" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdX-sA-YIT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdX-sA-YIT">
                                 <rect key="frame" x="98" y="424" width="218.5" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Go shopping">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <font key="NSFont" metaFont="system" size="40"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-airplane" translatesAutoresizingMaskIntoConstraints="NO" id="9S2-vE-6XY">
-                                <rect key="frame" x="87" y="229" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icons8-add_shopping_cart" translatesAutoresizingMaskIntoConstraints="NO" id="9S2-vE-6XY">
+                                <rect key="frame" x="157" y="278" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Qzj-de-LAl"/>
+                                    <constraint firstAttribute="width" constant="100" id="fl1-dX-FZC"/>
+                                </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="HeroScreenColor"/>
+                        <color key="backgroundColor" name="BrandColor"/>
                         <constraints>
+                            <constraint firstItem="WdX-sA-YIT" firstAttribute="top" secondItem="9S2-vE-6XY" secondAttribute="bottom" constant="46" id="J6R-fL-U93"/>
                             <constraint firstItem="WdX-sA-YIT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="KlD-hj-tVR"/>
                             <constraint firstItem="WdX-sA-YIT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="QIs-NH-yOY"/>
                         </constraints>
@@ -41,9 +52,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-airplane" width="96" height="96"/>
-        <namedColor name="HeroScreenColor">
-            <color red="1" green="0.054999999701976776" blue="0.35699999332427979" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="icons8-add_shopping_cart" width="100" height="100"/>
+        <namedColor name="BrandColor">
+            <color red="0.24300000071525574" green="0.83899998664855957" blue="0.65100002288818359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
