@@ -45,7 +45,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-c7-ie1">
-                                    <rect key="frame" x="64" y="17" width="112.5" height="26"/>
+                                    <rect key="frame" x="64" y="17" width="303" height="26"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" name="FontColor"/>
                                     <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                                 <constraint firstItem="y0r-EB-TQU" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="top" constant="12" id="kxv-gq-KOE"/>
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="y0r-EB-TQU" secondAttribute="trailing" constant="8" id="nIc-Ks-Wp4"/>
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="centerY" secondItem="RRx-94-lAT" secondAttribute="centerY" id="sK4-h7-e2l"/>
-                                <constraint firstAttribute="trailing" secondItem="QJR-c7-ie1" secondAttribute="trailing" constant="198.5" id="wwq-H1-9Cq"/>
+                                <constraint firstAttribute="trailing" secondItem="QJR-c7-ie1" secondAttribute="trailing" constant="8" id="wwq-H1-9Cq"/>
                             </constraints>
                             <connections>
                                 <outlet property="categoryIconImage" destination="y0r-EB-TQU" id="CdY-Sk-e3I"/>

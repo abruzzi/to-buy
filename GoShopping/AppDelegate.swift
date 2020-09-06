@@ -23,49 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window?.makeKeyAndVisible()
         
-        if defaults.bool(forKey: "inited") == true {
-            loadLocalFile()
-        } else {
-            loadRemoteFile()
+        if defaults.bool(forKey: "inited") != true {
+            cleanupAllDBItems()
             defaults.set(true, forKey: "inited")
         }
-        return true
-    }
-    
-    func loadRemoteFile() {
-        let filemgr = FileManager.default
-        let urls = filemgr.urls(for: .documentDirectory, in: .userDomainMask)
-        if let url = URL(string: remoteCategoryUrl) {
-           URLSession.shared.dataTask(with: url) { data, response, error in
-              if let data = data {
-                  do {
-                    let decodedLists = try JSONDecoder().decode([Record].self, from: data)
-
-                    if let url = urls.first {
-                        var fileURL = url.appendingPathComponent("category")
-                        fileURL = fileURL.appendingPathExtension("json")
-                        try data.write(to: fileURL, options: [.atomicWrite])
-                    }
-                    self.records = decodedLists
-
-                  } catch let error {
-                     print(error)
-                  }
-               }
-           }.resume()
-        }
-    }
-    
-    func loadLocalFile() {
-        let filemgr = FileManager.default
-        let urls = filemgr.urls(for: .documentDirectory, in: .userDomainMask)
         
-        if let url = urls.first {
-            var fileURL = url.appendingPathComponent("category")
-            fileURL = fileURL.appendingPathExtension("json")
-            let decodedLists: [Record] = loadFromURL(fileURL)
-            self.records = decodedLists
-        }
+        return true
     }
 
     // MARK: UISceneSession Lifecycle

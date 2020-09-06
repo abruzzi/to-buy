@@ -13,12 +13,9 @@ private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
     private var canBuyItems: [[CanBuyItem]]!
-    var filteredRecords: [Record]!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-//        test()
-//        deleteAllToBuys()
         canBuyItems = allCanBuyList()
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -34,22 +31,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.keyboardDismissMode = .onDrag
     }
     
-//    func test() {
-//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//        filteredRecords = appDelegate?.records
-//        var canBuyItems: [CanBuyItem] = []
-//        filteredRecords.forEach {record in
-//            record.items.forEach { item in
-//                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
-//            }
-//        }
-//        print(canBuyItems)
-//        deleteAllCanBuys()
-//        saveAllCanBuyItem(canBuyItems: canBuyItems)
-//        let x = allCanBuyList()
-//        print(x)
-//    }
-//
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
         return [
@@ -58,12 +39,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
             canBuyList.filter {$0.category == "健康护理"},
             canBuyList.filter {$0.category == "其他"},
         ]
-//        return Array(Dictionary(grouping: canBuyList) { $0.category }.values)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("nav back")
         canBuyItems = allCanBuyList()
         self.updateBadge()
     }
@@ -88,6 +67,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
             
             canBuyItems = canBuyItems.filter { (array: [CanBuyItem]) in
                 array.count > 0
+            }
+            
+            if(canBuyItems.count == 0) {
+                canBuyItems = [[
+                    CanBuyItem(name: searchText, category: "没找到 - 添加条目？", image: "icons8-barcode", supermarket: "")
+                ]]
             }
         }
         collectionView.reloadData()
@@ -119,9 +104,18 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = canBuyItems[indexPath.section][indexPath.row]
-        if(!isAlreadyExist(name: data.name)) {
-            saveToBuyItem(name: data.name, category: data.category, supermarket: data.supermarket)
+        
+        if(isNewItemInApp(name: data.name)) {
+            let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+                as? EditingTableViewController
+            viewController!.item = data
+            self.navigationController?.pushViewController(viewController!, animated: true)
+        } else {
+            if(!isAlreadyExist(name: data.name)) {
+                saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
+            }
         }
+        
         updateBadge()
     }
     
@@ -154,7 +148,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             let addAction = UIAction(
                 title: "Add to list",
                 image: UIImage(systemName: "plus")) { _ in
-                    saveToBuyItem(name: data.name, category: data.category, supermarket: data.supermarket)
+                    saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
                     self.updateBadge()
             }
             

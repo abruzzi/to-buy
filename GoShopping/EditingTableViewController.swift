@@ -20,7 +20,13 @@ class EditingTableViewController: UITableViewController {
     ]
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
-        updateCanBuyItem(name: item.name, dict: ["name": itemNameTextField.text ?? "", "supermarket": supermarketTextField.text ?? ""])
+        if(isNewItemInApp(name: item.name)) {
+            let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: "其他", image: "icons8-barcode", supermarket: supermarketTextField.text ?? "")
+            saveCanBuyItem(canBuyItem: newItem)
+        } else {
+            updateCanBuyItem(name: item.name, dict: ["name": itemNameTextField.text ?? "", "supermarket": supermarketTextField.text ?? ""])
+        }
+        
         self.navigationController?.popViewController(animated: true)
     }
     

@@ -24,9 +24,10 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuyItem: ToBuyItem) {
+        print(toBuyItem)
         toBuyItemLabel.text = toBuyItem.name
         toBuyItemCategory.text = toBuyItem.category
-        toBuyItemImage.image = UIImage(named: toBuyItem.image!)
+        toBuyItemImage.image = UIImage(named: toBuyItem.image)
         supermarket.text = toBuyItem.supermarket
     }
 }
