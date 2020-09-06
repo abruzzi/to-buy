@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7A0536982502F37800A1C8EB /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0536972502F37700A1C8EB /* SpinnerViewController.swift */; };
 		7A05369A2503581C00A1C8EB /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0536992503581C00A1C8EB /* DataUtils.swift */; };
+		7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */; };
+		7A0536A42504A91800A1C8EB /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0536A32504A91800A1C8EB /* EditingViewController.swift */; };
 		7A4E61F425023F0700C7945B /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E61F325023F0700C7945B /* FloatingButton.swift */; };
 		7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */; };
 		7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		7A0536972502F37700A1C8EB /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		7A0536992503581C00A1C8EB /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
+		7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewController.swift; sourceTree = "<group>"; };
+		7A0536A32504A91800A1C8EB /* EditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingViewController.swift; sourceTree = "<group>"; };
 		7A4E61F325023F0700C7945B /* FloatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 		7A97C0BC24FCFFFE004800E3 /* GoShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				7A97C0CB24FD0002004800E3 /* Assets.xcassets */,
 				7A97C0CD24FD0002004800E3 /* LaunchScreen.storyboard */,
 				7A97C0C524FCFFFE004800E3 /* Main.storyboard */,
+				7A0536A32504A91800A1C8EB /* EditingViewController.swift */,
+				7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */,
 				7AE05DAE24FFAF9300342844 /* DelayedTableViewController.swift */,
 				7AE05DA824FE61BE00342844 /* ToBuyTableViewController.swift */,
 				7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */,
@@ -214,8 +220,10 @@
 				7A97C0E624FDD38D004800E3 /* Item.swift in Sources */,
 				7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */,
 				7A97C0E824FDDDBA004800E3 /* Data.swift in Sources */,
+				7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */,
 				7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */,
 				7A0536982502F37800A1C8EB /* SpinnerViewController.swift in Sources */,
+				7A0536A42504A91800A1C8EB /* EditingViewController.swift in Sources */,
 				7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

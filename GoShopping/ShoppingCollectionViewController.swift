@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftUI
 import CoreData
 
 private let reuseIdentifier = "ItemCell"
@@ -20,26 +19,21 @@ class ShoppingCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         filteredRecords = appDelegate.records
-
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "冰淇淋🍦..."
         navigationItem.searchController = searchController
-
+        
         definesPresentationContext = true
-
+        
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.setupGrid()
         
         collectionView.allowsMultipleSelection = true
         collectionView.keyboardDismissMode = .onDrag
-        
-        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
-        longPressGR.minimumPressDuration = 0.5
-        longPressGR.delaysTouchesBegan = true
-        self.collectionView.addGestureRecognizer(longPressGR)
     }
-
+    
     
     func deleteAllData(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -54,10 +48,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      self.refreshToBuyList()
-      self.updateBadge()
-//        self.deleteAllData()
+        super.viewWillAppear(animated)
+        self.refreshToBuyList()
+        self.updateBadge()
+        //        self.deleteAllData()
     }
     
     func refreshToBuyList() {
@@ -71,10 +65,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
         flow.minimumInteritemSpacing = CGFloat(cellMargin)
         flow.minimumLineSpacing = CGFloat(cellMargin)
     }
-
+    
     func filterContentForSearchText(_ searchText: String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+        
         if(searchText.isEmpty) {
             filteredRecords = appDelegate.records
         } else {
@@ -86,21 +80,21 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 r.items = items
                 return r
             }
-
+            
             filteredRecords = filteredRecords.filter { (record: Record) in
                 record.items.count > 0
             }
         }
-      collectionView.reloadData()
+        collectionView.reloadData()
     }
     
     let searchController = UISearchController(searchResultsController: nil)
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return filteredRecords.count
     }
-
-
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredRecords[section].items.count
     }    
@@ -113,11 +107,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
             itemCell.configure(with: data.name, image: data.image)
             cell = itemCell
         }
-
-//        cell.isSelected = isAlreadyExist(name: data.name)
+        
+        //        cell.isSelected = isAlreadyExist(name: data.name)
         return cell
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = filteredRecords[indexPath.section].items[indexPath.row]
         let category = filteredRecords[indexPath.section].category
@@ -148,36 +142,31 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let category = filteredRecords[indexPath.section].category
         let data = filteredRecords[indexPath.section].items[indexPath.row]
         return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
-            let shareAction = UIAction(
-              title: "Add to list",
-              image: UIImage(systemName: "plus")) { _ in
-                save(name: data.name, category: category)
+            let addAction = UIAction(
+                title: "Add to list",
+                image: UIImage(systemName: "plus")) { _ in
+                    save(name: data.name, category: category)
             }
             
-            let copyAction = UIAction(
-              title: "Edit",
-              image: UIImage(systemName: "doc.on.doc")) { _ in
-                // copy the task content
+            let editAction = UIAction(
+                title: "Edit",
+                image: UIImage(systemName: "pencil")) { _ in
+                    let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+                        as? EditingTableViewController
+                    viewController!.item = data
+                    viewController!.category = category
+                    self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
-            return UIMenu(title: "", children: [shareAction, copyAction])
-        }
-    }
-    
-    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
-        if gesture.state != .ended {
-            return
-        }
-
-        let p = gesture.location(in: self.collectionView)
-
-        if let indexPath = self.collectionView.indexPathForItem(at: p) {
-            // get the cell at indexPath (the one you long pressed)
-            let cell = self.collectionView.cellForItem(at: indexPath)
-            print(cell?.isSelected)
-            // do stuff with the cell
-        } else {
-            print("couldn't find index path")
+            let deleteAction = UIAction(
+                title: "Delete",
+                image: UIImage(systemName: "trash"),
+                attributes: .destructive) { _ in
+                    deleteItemByName(name: data.name)
+            }
+            
+            
+            return UIMenu(title: "", children: [addAction, editAction, deleteAction])
         }
     }
     
@@ -186,10 +175,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
 }
 
 extension ShoppingCollectionViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-    let searchBar = searchController.searchBar
-    filterContentForSearchText(searchBar.text!)
-  }
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
 }
 
 extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
