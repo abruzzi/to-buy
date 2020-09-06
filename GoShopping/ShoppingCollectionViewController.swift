@@ -13,13 +13,20 @@ private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
     private var toBuyItems: [ToBuyItem]!
-    private var filteredRecords: [Record]!
+    private var canBuyItems: [Record]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        filteredRecords = appDelegate.records
-        
+        canBuyItems = appDelegate.records
+//        var canBuyItems: [CanBuyItem] = []
+//        filteredRecords.forEach {record in
+//            record.items.forEach { item in
+//                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
+//            }
+//        }
+//        print(canBuyItems)
+//        saveAllCanBuyItem(canBuyItems: canBuyItems)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "冰淇淋🍦..."
@@ -70,9 +77,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
         if(searchText.isEmpty) {
-            filteredRecords = appDelegate.records
+            canBuyItems = appDelegate.records
         } else {
-            filteredRecords = appDelegate.records.map { (record: Record) in
+            canBuyItems = appDelegate.records.map { (record: Record) in
                 var r = record
                 let items = record.items.filter { (record: Item) -> Bool in
                     return record.name.lowercased().contains(searchText.lowercased())
@@ -81,7 +88,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 return r
             }
             
-            filteredRecords = filteredRecords.filter { (record: Record) in
+            canBuyItems = canBuyItems.filter { (record: Record) in
                 record.items.count > 0
             }
         }
@@ -91,17 +98,17 @@ class ShoppingCollectionViewController: UICollectionViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return filteredRecords.count
+        return canBuyItems.count
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredRecords[section].items.count
+        return canBuyItems[section].items.count
     }    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        let data = filteredRecords[indexPath.section].items[indexPath.row]
+        let data = canBuyItems[indexPath.section].items[indexPath.row]
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView {
             itemCell.configure(with: data.name, image: data.image)
@@ -113,8 +120,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let data = filteredRecords[indexPath.section].items[indexPath.row]
-        let category = filteredRecords[indexPath.section].category
+        let data = canBuyItems[indexPath.section].items[indexPath.row]
+        let category = canBuyItems[indexPath.section].category
         if(!isAlreadyExist(name: data.name)) {
             save(name: data.name, category: category)
         }
@@ -122,7 +129,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let data = filteredRecords[indexPath.section].items[indexPath.row]
+        let data = canBuyItems[indexPath.section].items[indexPath.row]
         if(isAlreadyExist(name: data.name)) {
             deleteItemByName(name: data.name)
         }
@@ -132,20 +139,22 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         
-        let obj = filteredRecords[indexPath.section]
+        let obj = canBuyItems[indexPath.section]
         sectionHeader.configure(with: obj.category, image: UIImage(named: obj.image)!)
         
         return sectionHeader
     }
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let category = filteredRecords[indexPath.section].category
-        let data = filteredRecords[indexPath.section].items[indexPath.row]
+        let category = canBuyItems[indexPath.section].category
+        let data = canBuyItems[indexPath.section].items[indexPath.row]
         return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
+            
             let addAction = UIAction(
                 title: "Add to list",
                 image: UIImage(systemName: "plus")) { _ in
                     save(name: data.name, category: category)
+                    self.updateBadge()
             }
             
             let editAction = UIAction(
@@ -163,7 +172,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
                     deleteItemByName(name: data.name)
+                    self.updateBadge()
             }
+            
             
             
             return UIMenu(title: "", children: [addAction, editAction, deleteAction])

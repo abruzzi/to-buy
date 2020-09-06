@@ -87,7 +87,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="EditingTableViewController" id="WI0-Md-U6r" customClass="EditingTableViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="GwE-Ol-kOr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BGColor"/>
                         <sections>
@@ -117,48 +117,32 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="gie-0p-vGJ">
                                         <rect key="frame" x="16" y="115.5" width="343" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gie-0p-vGJ" id="Eef-hf-qdF">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gie-0p-vGJ" id="Eef-hf-qdF">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vd7-No-lA8">
-                                                    <rect key="frame" x="16" y="0.0" width="311" height="40"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="imV-tb-Vaw">
+                                                    <rect key="frame" x="15" y="15" width="313" height="31"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="IQP-pE-0QZ"/>
+                                                        <constraint firstAttribute="height" constant="30" id="NT0-M1-6lD"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" name="FontColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <segments>
+                                                        <segment title="食物/饮料"/>
+                                                        <segment title="生活必需"/>
+                                                        <segment title="健康护理"/>
+                                                        <segment title="其他"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="onSegmentChange:" destination="WI0-Md-U6r" eventType="valueChanged" id="lxV-Xr-RQO"/>
+                                                    </connections>
+                                                </segmentedControl>
                                             </subviews>
                                             <color key="backgroundColor" name="BGColor"/>
                                             <constraints>
-                                                <constraint firstItem="Vd7-No-lA8" firstAttribute="leading" secondItem="Eef-hf-qdF" secondAttribute="leading" constant="16" id="Lyy-Q9-UPl"/>
-                                                <constraint firstAttribute="trailing" secondItem="Vd7-No-lA8" secondAttribute="trailing" constant="16" id="XVr-1h-rbi"/>
-                                                <constraint firstItem="Vd7-No-lA8" firstAttribute="top" secondItem="Eef-hf-qdF" secondAttribute="top" id="btN-JO-gTP"/>
-                                                <constraint firstAttribute="bottom" secondItem="Vd7-No-lA8" secondAttribute="bottom" id="fuN-Qn-EWc"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="r3b-bA-VwI">
-                                        <rect key="frame" x="16" y="175.5" width="343" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r3b-bA-VwI" id="UuB-I5-Yxi">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dki-zk-wf5">
-                                                    <rect key="frame" x="11.5" y="0.0" width="320" height="60"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="60" id="XrP-zs-ZBJ"/>
-                                                    </constraints>
-                                                </pickerView>
-                                            </subviews>
-                                            <color key="backgroundColor" name="BGColor"/>
-                                            <constraints>
-                                                <constraint firstItem="dki-zk-wf5" firstAttribute="centerX" secondItem="UuB-I5-Yxi" secondAttribute="centerX" id="6Sc-8K-MN8"/>
-                                                <constraint firstAttribute="bottom" secondItem="dki-zk-wf5" secondAttribute="bottom" id="m8g-9L-f45"/>
-                                                <constraint firstItem="dki-zk-wf5" firstAttribute="top" secondItem="UuB-I5-Yxi" secondAttribute="top" id="u6F-dA-S2l"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="imV-tb-Vaw" secondAttribute="bottom" constant="4" id="YCl-IN-Pf0"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="trailing" secondItem="Eef-hf-qdF" secondAttribute="trailingMargin" id="bfW-9M-G4v"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="leading" secondItem="Eef-hf-qdF" secondAttribute="leadingMargin" id="cSc-Kv-0Hi"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="top" secondItem="Eef-hf-qdF" secondAttribute="topMargin" constant="4" id="njW-op-CGe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -167,7 +151,7 @@
                             <tableViewSection headerTitle="标签" id="382-3x-J6F">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="pEX-H7-1le">
-                                        <rect key="frame" x="16" y="291.5" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="231.5" width="343" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pEX-H7-1le" id="qoY-RA-cri">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
@@ -192,7 +176,7 @@
                             <tableViewSection id="dGr-8V-CVx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="q8o-d9-Sre">
-                                        <rect key="frame" x="16" y="387.5" width="343" height="80"/>
+                                        <rect key="frame" x="16" y="327.5" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q8o-d9-Sre" id="G7Q-vq-cwa">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="80"/>
@@ -231,10 +215,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="06N-pD-9fs"/>
                     <connections>
-                        <outlet property="categoryLabel" destination="Vd7-No-lA8" id="rMq-Ys-u2o"/>
-                        <outlet property="itemCategoryPicker" destination="dki-zk-wf5" id="Gzr-cF-2dO"/>
                         <outlet property="itemNameTextField" destination="tDA-hv-s0H" id="1lD-6R-9Lv"/>
                         <outlet property="saveButton" destination="6gJ-0t-lls" id="TDo-0J-Uap"/>
+                        <outlet property="segmentCategory" destination="imV-tb-Vaw" id="0yW-M6-HG2"/>
                         <outlet property="supermarketTextField" destination="j3r-MW-vTL" id="u8I-85-FuC"/>
                     </connections>
                 </tableViewController>

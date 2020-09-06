@@ -172,3 +172,111 @@ func updateRecordFor(name: String, key: String, value: Any) {
       print("Could not update value. \(error), \(error.userInfo)")
     }
 }
+
+// can buy items
+
+struct CanBuyItem {
+    var name: String
+    var category: String
+    var image: String
+    var supermarket: String
+}
+
+//func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
+//    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+//      return
+//    }
+//
+//    let managedContext = appDelegate.persistentContainer.viewContext
+//    let entity = NSEntityDescription.entity(forEntityName: "CanBuys", in: managedContext)!
+//    canBuyItems.forEach { canBuyItem in
+//        let item = NSManagedObject(entity: entity, insertInto: managedContext)
+//
+//        item.setValue(canBuyItem.name, forKeyPath: "name")
+//        item.setValue(canBuyItem.category, forKey: "category")
+//        item.setValue(canBuyItem.image, forKeyPath: "image")
+//        item.setValue(Date(), forKeyPath: "createdAt")
+//        item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
+//    }
+//    
+//    do {
+//      try managedContext.save()
+//    } catch let error as NSError {
+//      print("Could not save. \(error), \(error.userInfo)")
+//    }
+//}
+
+func saveCanBuyItem(canBuyItem: CanBuyItem) {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "CanBuys", in: managedContext)!
+    let item = NSManagedObject(entity: entity, insertInto: managedContext)
+      
+    item.setValue(canBuyItem.name, forKeyPath: "name")
+    item.setValue(canBuyItem.category, forKey: "category")
+    item.setValue(canBuyItem.image, forKeyPath: "image")
+    item.setValue(Date(), forKeyPath: "createdAt")
+    item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
+
+    do {
+      try managedContext.save()
+    } catch let error as NSError {
+      print("Could not save. \(error), \(error.userInfo)")
+    }
+}
+
+func updateCanBuyItem(canBuyItem: CanBuyItem, dict: Dictionary<String, Any>) {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return
+    }
+
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "CanBuys")
+    fetchRequest.predicate = NSPredicate(format: "name = %@", canBuyItem.name)
+    
+    do {
+        let result = try managedContext.fetch(fetchRequest)
+        let obj = result[0] as! NSManagedObject
+        
+        dict.forEach { (key, value) in
+            obj.setValue(value, forKey: key)
+        }
+        
+        do {
+            try managedContext.save()
+        } catch {
+            print(error)
+        }
+    }catch let error as NSError {
+      print("Could not update value. \(error), \(error.userInfo)")
+    }
+}
+
+func fetchAllCanBuyList() -> [CanBuyItem] {
+    var toBuyList: [NSManagedObject] = []
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+      return []
+    }
+
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CanBuys")
+
+    do {
+      toBuyList = try managedContext.fetch(fetchRequest)
+    } catch let error as NSError {
+      print("Could not fetch. \(error), \(error.userInfo)")
+    }
+    
+    let allItems: [CanBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
+        return CanBuyItem(name: nsobj.value(forKey: "name") as! String,
+                         category: nsobj.value(forKey: "category") as! String,
+                         image: nsobj.value(forKey: "category") as! String,
+                         supermarket: nsobj.value(forKey: "category") as! String)
+    }
+    
+    return allItems
+}
