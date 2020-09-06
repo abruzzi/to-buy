@@ -12,16 +12,14 @@ import CoreData
 private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
-    private var toBuyItems: [ToBuyItem]!
     private var canBuyItems: [[CanBuyItem]]!
-    var filteredRecords:[Record]!
+    var filteredRecords: [Record]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        test()
+//        deleteAllToBuys()
         canBuyItems = allCanBuyList()
-        
-        test()
-        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "冰淇淋🍦..."
@@ -36,37 +34,38 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.keyboardDismissMode = .onDrag
     }
     
-    func test() {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        filteredRecords = appDelegate?.records
-        var canBuyItems: [CanBuyItem] = []
-        filteredRecords.forEach {record in
-            record.items.forEach { item in
-                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
-            }
-        }
-        print(canBuyItems)
-        deleteAllCanBuys()
-        saveAllCanBuyItem(canBuyItems: canBuyItems)
-        let x = allCanBuyList()
-        print(x)
-    }
-    
+//    func test() {
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//        filteredRecords = appDelegate?.records
+//        var canBuyItems: [CanBuyItem] = []
+//        filteredRecords.forEach {record in
+//            record.items.forEach { item in
+//                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
+//            }
+//        }
+//        print(canBuyItems)
+//        deleteAllCanBuys()
+//        saveAllCanBuyItem(canBuyItems: canBuyItems)
+//        let x = allCanBuyList()
+//        print(x)
+//    }
+//
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
-        return Array(Dictionary(grouping: canBuyList) { $0.category }.values)
+        return [
+            canBuyList.filter {$0.category == "食物/饮料"},
+            canBuyList.filter {$0.category == "生活必需"},
+            canBuyList.filter {$0.category == "健康护理"},
+            canBuyList.filter {$0.category == "其他"},
+        ]
+//        return Array(Dictionary(grouping: canBuyList) { $0.category }.values)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.refreshToBuyList()
+        print("nav back")
+        canBuyItems = allCanBuyList()
         self.updateBadge()
-        //        self.deleteAllData()
-    }
-    
-    func refreshToBuyList() {
-        let allItems = fetchAllToBuyList()
-        toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
     }
     
     func setupGrid() {
@@ -114,15 +113,14 @@ class ShoppingCollectionViewController: UICollectionViewController {
             cell = itemCell
         }
         
-        //        cell.isSelected = isAlreadyExist(name: data.name)
+//                cell.isSelected = isAlreadyExist(name: data.name)
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = canBuyItems[indexPath.section][indexPath.row]
-        let category = data.category
         if(!isAlreadyExist(name: data.name)) {
-            save(name: data.name, category: category)
+            saveToBuyItem(name: data.name, category: data.category, supermarket: data.supermarket)
         }
         updateBadge()
     }
@@ -139,8 +137,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         
         let obj = canBuyItems[indexPath.section]
-        print(obj[0])
-        sectionHeader.configure(with: obj[0].category, image: UIImage(named: obj[0].image)!)
+
+        if(obj.count > 0) {
+            sectionHeader.configure(with: obj[0].category, image: UIImage(named: obj[0].image)!)
+        } else {
+            sectionHeader.configure(with: "其他", image: UIImage(named: "icons8-barcode")!)
+        }
         
         return sectionHeader
     }
@@ -152,7 +154,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             let addAction = UIAction(
                 title: "Add to list",
                 image: UIImage(systemName: "plus")) { _ in
-                    save(name: data.name, category: data.category)
+                    saveToBuyItem(name: data.name, category: data.category, supermarket: data.supermarket)
                     self.updateBadge()
             }
             

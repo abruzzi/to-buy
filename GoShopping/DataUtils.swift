@@ -13,13 +13,14 @@ import CoreData
 struct ToBuyItem {
     var name: String
     var category: String
+    var supermarket: String
     var image: String?
     var attrs: [String: String]?
     var isCompleted: Bool
     var isDelayed: Bool
 }
 
-func save(name: String, category: String) {
+func saveToBuyItem(name: String, category: String, supermarket: String) {
   guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
     return
   }
@@ -30,6 +31,7 @@ func save(name: String, category: String) {
     
     item.setValue(name, forKeyPath: "name")
     item.setValue(category, forKey: "category")
+    item.setValue(supermarket, forKey: "supermarket")
     item.setValue(Date(), forKeyPath: "createdAt")
     item.setValue(false, forKey: "isCompleted")
     item.setValue(false, forKey: "isDelayed")
@@ -105,6 +107,7 @@ func fetchAllToBuyList() -> [ToBuyItem] {
     let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
         var item:ToBuyItem = ToBuyItem(name: nsobj.value(forKey: "name") as! String,
                          category: nsobj.value(forKey: "category") as! String,
+                         supermarket: nsobj.value(forKey: "supermarket") as! String,
                          isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
                          isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
         
@@ -210,7 +213,7 @@ func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
         item.setValue(Date(), forKeyPath: "createdAt")
         item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
     }
-    
+
     do {
       try managedContext.save()
     } catch let error as NSError {
@@ -218,19 +221,12 @@ func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
     }
 }
 
-//        var canBuyItems: [CanBuyItem] = []
-//        filteredRecords.forEach {record in
-//            record.items.forEach { item in
-//                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
-//            }
-//        }
-//        print(canBuyItems)
-//        saveAllCanBuyItem(canBuyItems: canBuyItems)
-
 func saveCanBuyItem(canBuyItem: CanBuyItem) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
       return
     }
+    
+    print(canBuyItem)
 
     let managedContext = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "CanBuys", in: managedContext)!
@@ -249,7 +245,7 @@ func saveCanBuyItem(canBuyItem: CanBuyItem) {
     }
 }
 
-func updateCanBuyItem(canBuyItem: CanBuyItem, dict: Dictionary<String, Any>) {
+func updateCanBuyItem(name: String, dict: Dictionary<String, Any>) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
       return
     }
@@ -257,7 +253,7 @@ func updateCanBuyItem(canBuyItem: CanBuyItem, dict: Dictionary<String, Any>) {
     let managedContext = appDelegate.persistentContainer.viewContext
     
     let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "CanBuys")
-    fetchRequest.predicate = NSPredicate(format: "name = %@", canBuyItem.name)
+    fetchRequest.predicate = NSPredicate(format: "name = %@", name)
     
     do {
         let result = try managedContext.fetch(fetchRequest)

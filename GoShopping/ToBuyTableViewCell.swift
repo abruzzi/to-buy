@@ -27,8 +27,6 @@ class ToBuyTableViewCell: UITableViewCell {
         toBuyItemLabel.text = toBuyItem.name
         toBuyItemCategory.text = toBuyItem.category
         toBuyItemImage.image = UIImage(named: toBuyItem.image!)
-        
-        let attrs: [String: String] = toBuyItem.attrs!
-        supermarket.text = attrs["supermarket"] != nil ? attrs["supermarket"] : ""
+        supermarket.text = toBuyItem.supermarket
     }
 }

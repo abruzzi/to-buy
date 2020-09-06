@@ -20,9 +20,8 @@ class EditingTableViewController: UITableViewController {
     ]
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
-        print(category)
-        print(itemNameTextField.text)
-        print(supermarketTextField.text)
+        updateCanBuyItem(name: item.name, dict: ["name": itemNameTextField.text ?? "", "supermarket": supermarketTextField.text ?? ""])
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onSegmentChange(_ sender: UISegmentedControl) {

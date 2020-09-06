@@ -13,9 +13,10 @@
         <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isDelayed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="supermarket" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="ToBuys" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="ToBuys" positionX="-63" positionY="-18" width="128" height="133"/>
         <element name="CanBuys" positionX="-63" positionY="18" width="128" height="118"/>
     </elements>
 </model>
