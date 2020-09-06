@@ -13,20 +13,11 @@ private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
     private var toBuyItems: [ToBuyItem]!
-    private var canBuyItems: [Record]!
+    private var canBuyItems: [[CanBuyItem]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        canBuyItems = appDelegate.records
-//        var canBuyItems: [CanBuyItem] = []
-//        filteredRecords.forEach {record in
-//            record.items.forEach { item in
-//                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
-//            }
-//        }
-//        print(canBuyItems)
-//        saveAllCanBuyItem(canBuyItems: canBuyItems)
+        canBuyItems = allCanBuyList()
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "冰淇淋🍦..."
@@ -41,6 +32,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.keyboardDismissMode = .onDrag
     }
     
+    func allCanBuyList() -> [[CanBuyItem]]{
+        let canBuyList = fetchAllCanBuyList()
+        return Array(Dictionary(grouping: canBuyList) { $0.category }.values)
+    }
     
     func deleteAllData(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -74,22 +69,18 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         if(searchText.isEmpty) {
-            canBuyItems = appDelegate.records
+            canBuyItems = allCanBuyList()
         } else {
-            canBuyItems = appDelegate.records.map { (record: Record) in
-                var r = record
-                let items = record.items.filter { (record: Item) -> Bool in
-                    return record.name.lowercased().contains(searchText.lowercased())
+            canBuyItems = allCanBuyList().map { (array: [CanBuyItem]) in
+                let items = array.filter { (item: CanBuyItem) -> Bool in
+                    return item.name.lowercased().contains(searchText.lowercased())
                 }
-                r.items = items
-                return r
+                return items
             }
             
-            canBuyItems = canBuyItems.filter { (record: Record) in
-                record.items.count > 0
+            canBuyItems = canBuyItems.filter { (array: [CanBuyItem]) in
+                array.count > 0
             }
         }
         collectionView.reloadData()
@@ -103,12 +94,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return canBuyItems[section].items.count
+        return canBuyItems[section].count
     }    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        let data = canBuyItems[indexPath.section].items[indexPath.row]
+        let data = canBuyItems[indexPath.section][indexPath.row]
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView {
             itemCell.configure(with: data.name, image: data.image)
@@ -120,8 +111,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let data = canBuyItems[indexPath.section].items[indexPath.row]
-        let category = canBuyItems[indexPath.section].category
+        let data = canBuyItems[indexPath.section][indexPath.row]
+        let category = data.category
         if(!isAlreadyExist(name: data.name)) {
             save(name: data.name, category: category)
         }
@@ -129,7 +120,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let data = canBuyItems[indexPath.section].items[indexPath.row]
+        let data = canBuyItems[indexPath.section][indexPath.row]
         if(isAlreadyExist(name: data.name)) {
             deleteItemByName(name: data.name)
         }
@@ -140,20 +131,20 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         
         let obj = canBuyItems[indexPath.section]
-        sectionHeader.configure(with: obj.category, image: UIImage(named: obj.image)!)
+        print(obj[0])
+        sectionHeader.configure(with: obj[0].category, image: UIImage(named: obj[0].image)!)
         
         return sectionHeader
     }
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let category = canBuyItems[indexPath.section].category
-        let data = canBuyItems[indexPath.section].items[indexPath.row]
+        let data = canBuyItems[indexPath.section][indexPath.row]
         return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
             
             let addAction = UIAction(
                 title: "Add to list",
                 image: UIImage(systemName: "plus")) { _ in
-                    save(name: data.name, category: category)
+                    save(name: data.name, category: data.category)
                     self.updateBadge()
             }
             
@@ -163,7 +154,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
                     let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                         as? EditingTableViewController
                     viewController!.item = data
-                    viewController!.category = category
                     self.navigationController?.pushViewController(viewController!, animated: true)
             }
             

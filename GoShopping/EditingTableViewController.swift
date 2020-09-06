@@ -9,7 +9,7 @@
 import UIKit
 
 class EditingTableViewController: UITableViewController {
-    var item: Item!
+    var item: CanBuyItem!
     var category: String!
     
     let categories = [
@@ -37,9 +37,7 @@ class EditingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         itemNameTextField.text = item.name
-        
-        let supermarket = item.attrs["supermarket"]
-        supermarketTextField.text = supermarket
+        supermarketTextField.text = item.supermarket
     }
 
 }
