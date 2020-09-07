@@ -13,7 +13,7 @@ private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
     private var canBuyItems: [[CanBuyItem]]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         canBuyItems = allCanBuyList()
@@ -72,7 +72,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             if(canBuyItems.count == 0) {
                 canBuyItems = [[
                     CanBuyItem(name: searchText, category: "没找到 - 添加条目？", image: "icons8-barcode", supermarket: "")
-                ]]
+                    ]]
             }
         }
         collectionView.reloadData()
@@ -98,8 +98,16 @@ class ShoppingCollectionViewController: UICollectionViewController {
             cell = itemCell
         }
         
-//                cell.isSelected = isAlreadyExist(name: data.name)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let data = canBuyItems[indexPath.section][indexPath.row]
+        
+        if(isAlreadyExist(name: data.name)){
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+        }
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -124,6 +132,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         if(isAlreadyExist(name: data.name)) {
             deleteItemByName(name: data.name)
         }
+
         updateBadge()
     }
     
@@ -131,7 +140,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
         
         let obj = canBuyItems[indexPath.section]
-
+        
         if(obj.count > 0) {
             sectionHeader.configure(with: obj[0].category, image: UIImage(named: obj[0].image)!)
         } else {
@@ -146,14 +155,14 @@ class ShoppingCollectionViewController: UICollectionViewController {
         return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
             
             let addAction = UIAction(
-                title: "Add to list",
+                title: "Add to To-Buys",
                 image: UIImage(systemName: "plus")) { _ in
                     saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
                     self.updateBadge()
             }
             
             let editAction = UIAction(
-                title: "Edit",
+                title: "Edit item",
                 image: UIImage(systemName: "pencil")) { _ in
                     let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                         as? EditingTableViewController
@@ -162,7 +171,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             }
             
             let deleteAction = UIAction(
-                title: "Delete",
+                title: "Delete from To-Buys",
                 image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
                     deleteItemByName(name: data.name)
