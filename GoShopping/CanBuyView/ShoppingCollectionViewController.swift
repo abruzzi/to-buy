@@ -232,7 +232,11 @@ extension UIViewController {
 extension UIViewController {
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
         if sender.direction == .left {
-            self.tabBarController!.selectedIndex += 1
+            let current = self.tabBarController!.viewControllers![self.tabBarController!.selectedIndex]
+            let next = self.tabBarController!.viewControllers![self.tabBarController!.selectedIndex+1]
+            UIView.transition(from: current.view, to: next.view, duration: 0.3, options: UIView.AnimationOptions.transitionCrossDissolve) { (finished: Bool) in
+                self.tabBarController!.selectedIndex += 1
+            }
         }
         if sender.direction == .right {
             self.tabBarController!.selectedIndex -= 1
