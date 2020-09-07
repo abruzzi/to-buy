@@ -105,7 +105,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let data = canBuyItems[indexPath.section][indexPath.row]
         
         if(isAlreadyExist(name: data.name)){
-            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         }
         
     }
