@@ -19,6 +19,7 @@ class ToBuyTableViewController: UITableViewController {
       super.viewWillAppear(animated)
       self.refreshToBuyList()
       self.tableView.reloadData()
+      self.updateBadge()
     }
     
     func refreshToBuyList() {
