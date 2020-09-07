@@ -29,14 +29,24 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         collectionView.allowsMultipleSelection = true
         collectionView.keyboardDismissMode = .onDrag
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+        
+        self.view.addGestureRecognizer(leftSwipe)
+        self.view.addGestureRecognizer(rightSwipe)
+        
     }
     
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
         return [
-            canBuyList.filter {$0.category == NSLocalizedString("category.food.title", comment: "category.others.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.essentials.title", comment: "category.others.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.health.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.food.title", comment: "category.food.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.essentials.title", comment: "category.essentials.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.health.title", comment: "category.health.title")},
             canBuyList.filter {$0.category == NSLocalizedString("category.others.title", comment: "category.others.title")}
         ]
     }
@@ -105,10 +115,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let data = canBuyItems[indexPath.section][indexPath.row]
         
-        if(isAlreadyExist(name: data.name)){
+        if(isAlreadyExistInToBuyList(name: data.name)){
             self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        } else {
+            self.collectionView.deselectItem(at: indexPath, animated: false)
         }
-        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -120,20 +131,18 @@ class ShoppingCollectionViewController: UICollectionViewController {
             viewController!.item = data
             self.navigationController?.pushViewController(viewController!, animated: true)
         } else {
-            if(!isAlreadyExist(name: data.name)) {
+            if(!isAlreadyExistInToBuyList(name: data.name)) {
                 saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
             }
         }
-        
         updateBadge()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let data = canBuyItems[indexPath.section][indexPath.row]
-        if(isAlreadyExist(name: data.name)) {
+        if(isAlreadyExistInToBuyList(name: data.name)) {
             deleteItemByName(name: data.name)
         }
-
         updateBadge()
     }
     
@@ -155,14 +164,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let data = canBuyItems[indexPath.section][indexPath.row]
         return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
-            
-            let addAction = UIAction(
-                title: NSLocalizedString("action.addToBuyList.title", comment: "action.addToBuyList.title"),
-                image: UIImage(systemName: "plus")) { _ in
-                    saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
-                    self.updateBadge()
-            }
-            
             let editAction = UIAction(
                 title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
                 image: UIImage(systemName: "pencil")) { _ in
@@ -172,17 +173,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                     self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
-            let deleteAction = UIAction(
-                title: NSLocalizedString("action.deleteFromToBuyList.title", comment: "action.deleteFromToBuyList.title"),
-                image: UIImage(systemName: "trash"),
-                attributes: .destructive) { _ in
-                    deleteItemByName(name: data.name)
-                    self.updateBadge()
-            }
-            
-            
-            
-            return UIMenu(title: "", children: [addAction, editAction, deleteAction])
+            return UIMenu(title: "", children: [editAction])
         }
     }
     
@@ -216,7 +207,7 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension UIViewController {
     func updateBadge() {
-        let allItems = fetchAllToBuyList()
+        let allItems = fetchAllToBuyItems()
         let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
         let delayedItems = allItems.filter { $0.isDelayed }
         
@@ -225,6 +216,17 @@ extension UIViewController {
             let delayedTab = items.object(at: 2) as! UITabBarItem
             toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
             delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
+        }
+    }
+}
+
+extension UIViewController {
+    @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
+        if sender.direction == .left {
+            self.tabBarController!.selectedIndex += 1
+        }
+        if sender.direction == .right {
+            self.tabBarController!.selectedIndex -= 1
         }
     }
 }

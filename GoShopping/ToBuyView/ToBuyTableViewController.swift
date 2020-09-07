@@ -22,7 +22,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     func refreshToBuyList() {
-        let allItems = fetchAllToBuyList()
+        let allItems = fetchAllToBuyItems()
         toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
         completedItems = allItems.filter { $0.isCompleted }
     }
@@ -30,6 +30,15 @@ class ToBuyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+        
+        self.view.addGestureRecognizer(leftSwipe)
+        self.view.addGestureRecognizer(rightSwipe)
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -63,6 +72,7 @@ class ToBuyTableViewController: UITableViewController {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.complete.title", comment: "action.complete.title")) { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
             self.markAsCompleted(name: item.name)
+            self.updateBadge()
             self.refreshToBuyList()
             self.tableView.reloadData()
             completion(true)

@@ -32,6 +32,7 @@
 /* Begin PBXFileReference section */
 		7A0536992503581C00A1C8EB /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewController.swift; sourceTree = "<group>"; };
+		7A90DDA22506507600DABD5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7A97C0BC24FCFFFE004800E3 /* GoShopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoShopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 				7A97C0C524FCFFFE004800E3 /* Main.storyboard */,
 				7A97C0D024FD0002004800E3 /* Info.plist */,
 				7A97C0C824FCFFFE004800E3 /* GoShopping.xcdatamodeld */,
-				7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */,
 			);
 			path = GoShopping;
 			sourceTree = "<group>";
@@ -155,6 +155,7 @@
 		7A9F64092505E50F000F638C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */,
 				7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */,
 				7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */,
 			);
@@ -271,6 +272,7 @@
 			children = (
 				7A97C0CE24FD0002004800E3 /* Base */,
 				7A9F640D250621DD000F638C /* zh-Hans */,
+				7A90DDA22506507600DABD5E /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -338,7 +340,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -393,7 +395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

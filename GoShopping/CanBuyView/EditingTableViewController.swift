@@ -42,6 +42,7 @@ class EditingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.keyboardDismissMode = .onDrag
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
     }

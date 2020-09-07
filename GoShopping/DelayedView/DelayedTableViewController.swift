@@ -22,15 +22,44 @@ class DelayedTableViewController: UITableViewController {
     }
     
     func refreshToBuyList() {
-        let allItems = fetchAllToBuyList()
+        let allItems = fetchAllToBuyItems()
         delayedItems = allItems.filter { $0.isDelayed }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+        
+        self.view.addGestureRecognizer(leftSwipe)
+        self.view.addGestureRecognizer(rightSwipe)
     }
 
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = deleteAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
+            let item = self.delayedItems[indexPath.row]
+            deleteItemByName(name: item.name)
+            self.updateBadge()
+            self.refreshToBuyList()
+            self.tableView.reloadData()
+            completion(true)
+        }
+        action.image = UIImage(systemName: "delete.right")
+        action.backgroundColor = .systemRed
+        return action
+    }
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let complete = completeAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [complete])

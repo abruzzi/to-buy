@@ -69,7 +69,7 @@ func deleteItemByName(name: String) {
     }
 }
 
-func isAlreadyExist(name: String) -> Bool{
+func isAlreadyExistInToBuyList(name: String) -> Bool{
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return false
     }
@@ -89,7 +89,7 @@ func isAlreadyExist(name: String) -> Bool{
     return false
 }
 
-func fetchAllToBuyList() -> [ToBuyItem] {
+func fetchAllToBuyItems() -> [ToBuyItem] {
     var toBuyList: [NSManagedObject] = []
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return []
@@ -357,27 +357,19 @@ struct Item: Hashable, Codable, Identifiable {
 
 func resetAllDBItems(lang: String) {
     let records: [Record] = (lang.lowercased() == "en") ? load("category.json") :  load("category-cn.json")
-    
+
     deleteAllToBuys() // clean up user's selection for avoading any poetential conflicts
-    
-    func allCanBuyList() -> [[CanBuyItem]]{
-        let canBuyList = fetchAllCanBuyList()
-        return [
-            canBuyList.filter {$0.category == NSLocalizedString("category.food.title", comment: "category.others.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.essentials.title", comment: "category.others.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.health.title", comment: "category.others.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.others.title", comment: "category.others.title")}
-        ]
-    }
+    deleteAllCanBuys() // clean up dictionary
     
     func resetDatabaseForCategory() {
+        
         var canBuyItems: [CanBuyItem] = []
         records.forEach {record in
             record.items.forEach { item in
                 canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
             }
         }
-        deleteAllCanBuys()
+
         saveAllCanBuyItem(canBuyItems: canBuyItems)
     }
     
