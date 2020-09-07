@@ -55,7 +55,7 @@
     <resources>
         <image name="icons8-buying" width="100" height="100"/>
         <namedColor name="BrandColor">
-            <color red="0.24300000071525574" green="0.83899998664855957" blue="0.65100002288818359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.24313725490196078" green="0.83921568627450982" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

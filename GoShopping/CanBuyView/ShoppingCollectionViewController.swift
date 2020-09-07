@@ -29,10 +29,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
         navigationItem.searchController = searchController
         
         definesPresentationContext = true
+        collectionView.allowsMultipleSelection = true
+        collectionView.keyboardDismissMode = .onDrag
         
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.setupGrid()
-        
     }
     
     func allCanBuyList() -> [[CanBuyItem]]{
@@ -75,7 +76,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
             }
             
             if(canBuyItems.count == 0) {
-//                let categoryTitle = NSLocalizedString("category.unknown.section.header", comment: "category.unknown.section.header")
                 canBuyItems = [[
                     CanBuyItem(name: searchText, category: 3, image: "icons8-autism", supermarket: "")
                     ]]
@@ -150,7 +150,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
             let title = categoryTitles[obj[0].category]
             sectionHeader.configure(with: title, image: UIImage(named: obj[0].image)!)
         } else {
-//            let categoryTitle = NSLocalizedString("category.others.title", comment: "category.others.title")
             let title = categoryTitles[3]
             sectionHeader.configure(with: title, image: UIImage(named: "icons8-autism")!)
         }
