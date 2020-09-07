@@ -13,15 +13,16 @@ class EditingTableViewController: UITableViewController {
     var category: String!
     
     let categories = [
-        "食物/饮料",
-        "生活必须",
-        "健康护理",
-        "其他"
+        NSLocalizedString("category.food.title", comment: "category.others.title"),
+        NSLocalizedString("category.essentials.title", comment: "category.others.title"),
+        NSLocalizedString("category.health.title", comment: "category.others.title"),
+        NSLocalizedString("category.others.title", comment: "category.others.title"),
     ]
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
+        let categoryName = NSLocalizedString("category.others.title", comment: "category.others.title")
         if(isNewItemInApp(name: item.name)) {
-            let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: "其他", image: "icons8-barcode", supermarket: supermarketTextField.text ?? "")
+            let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: categoryName, image: "icons8-barcode", supermarket: supermarketTextField.text ?? "")
             saveCanBuyItem(canBuyItem: newItem)
         } else {
             updateCanBuyItem(name: item.name, dict: ["name": itemNameTextField.text ?? "", "supermarket": supermarketTextField.text ?? ""])

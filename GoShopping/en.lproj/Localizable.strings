@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  GoShopping
+
+  Created by Juntao Qiu on 7/9/20.
+  Copyright © 2020 Juntao Qiu. All rights reserved.
+*/
+"could.not.found.now" = "Could not found at the moment";
+"to.buy.items" = "Items to buy";
+"purchased.items" = "Items Completed";
+
+"action.complete.title" = "Complete";
+"action.delay.title" = "Later";
+"action.delete.title" = "Delete";
+
+"category.food.title" = "Food/Drink";
+"category.essentials.title" = "Essentials";
+"category.health.title" = "Health";
+"category.others.title" = "Other";
+
+"category.unknown.section.header" = "Not found - add a new item?";
+"searchbar.placeholder" = "Icecream...";
+
+"action.addToBuyList.title" = "Add to To-Buys";
+"action.editCanBuyItem.title" = "Edit item";
+"action.deleteFromToBuyList.title"="Delete from To-Buys";

@@ -4,12 +4,11 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--计划-->
+        <!--Select items here-->
         <scene sceneID="hzM-Jf-Kyy">
             <objects>
                 <collectionViewController id="Ypl-f9-r4H" customClass="ShoppingCollectionViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,7 +44,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-c7-ie1">
-                                    <rect key="frame" x="64" y="17" width="303" height="26"/>
+                                    <rect key="frame" x="60" y="17" width="307" height="26"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <color key="textColor" name="FontColor"/>
                                     <nil key="highlightedColor"/>
@@ -59,7 +58,7 @@
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="topMargin" constant="9" id="C13-KK-iYs"/>
                                 <constraint firstAttribute="bottom" secondItem="y0r-EB-TQU" secondAttribute="bottom" constant="12" id="FUC-3y-8X8"/>
                                 <constraint firstItem="y0r-EB-TQU" firstAttribute="top" secondItem="RRx-94-lAT" secondAttribute="top" constant="12" id="kxv-gq-KOE"/>
-                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="y0r-EB-TQU" secondAttribute="trailing" constant="8" id="nIc-Ks-Wp4"/>
+                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="y0r-EB-TQU" secondAttribute="trailing" constant="4" id="nIc-Ks-Wp4"/>
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="centerY" secondItem="RRx-94-lAT" secondAttribute="centerY" id="sK4-h7-e2l"/>
                                 <constraint firstAttribute="trailing" secondItem="QJR-c7-ie1" secondAttribute="trailing" constant="8" id="wwq-H1-9Cq"/>
                             </constraints>
@@ -73,7 +72,7 @@
                             <outlet property="delegate" destination="Ypl-f9-r4H" id="gIU-Km-E3f"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="计划" id="haM-3a-TLZ"/>
+                    <navigationItem key="navigationItem" title="Select items here" id="haM-3a-TLZ"/>
                     <connections>
                         <segue destination="WI0-Md-U6r" kind="presentation" id="kN0-Ib-x7p"/>
                     </connections>
@@ -91,7 +90,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BGColor"/>
                         <sections>
-                            <tableViewSection headerTitle="基本信息" id="ayE-Dw-5Ma">
+                            <tableViewSection headerTitle="Basic information" id="ayE-Dw-5Ma">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="mGu-AK-OPx">
                                         <rect key="frame" x="16" y="55.5" width="343" height="60"/>
@@ -100,7 +99,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-hv-s0H">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-hv-s0H">
                                                     <rect key="frame" x="15" y="13" width="313" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -127,10 +126,10 @@
                                                         <constraint firstAttribute="height" constant="30" id="NT0-M1-6lD"/>
                                                     </constraints>
                                                     <segments>
-                                                        <segment title="食物/饮料"/>
-                                                        <segment title="生活必需"/>
-                                                        <segment title="健康护理"/>
-                                                        <segment title="其他"/>
+                                                        <segment title="Food/Drink"/>
+                                                        <segment title="Essentials"/>
+                                                        <segment title="Health"/>
+                                                        <segment title="Other"/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="onSegmentChange:" destination="WI0-Md-U6r" eventType="valueChanged" id="lxV-Xr-RQO"/>
@@ -148,7 +147,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="标签" id="382-3x-J6F">
+                            <tableViewSection headerTitle="Tags" id="382-3x-J6F">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="pEX-H7-1le">
                                         <rect key="frame" x="16" y="223.5" width="343" height="60"/>
@@ -157,7 +156,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="偏好超市" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j3r-MW-vTL">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prefered supermarket" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j3r-MW-vTL">
                                                     <rect key="frame" x="15" y="13" width="313" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -188,7 +187,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="mfb-YH-mmt"/>
                                                     </constraints>
-                                                    <state key="normal" title="保存">
+                                                    <state key="normal" title="Save">
                                                         <color key="titleColor" name="CardColor"/>
                                                     </state>
                                                     <connections>
@@ -225,40 +224,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujd-6s-qhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="20" y="492.50374812593708"/>
-        </scene>
-        <!--Editing View Controller-->
-        <scene sceneID="bjO-UH-Roh">
-            <objects>
-                <viewController storyboardIdentifier="EditingViewController" id="SPk-Ip-HF3" customClass="EditingViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="pMk-0S-RbC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y41-9b-pK6">
-                                <rect key="frame" x="16" y="35" width="343" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="2bD-Rx-po8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="y41-9b-pK6" firstAttribute="top" secondItem="4nm-HS-y3b" secondAttribute="top" constant="35" id="1Dy-rB-A9L"/>
-                            <constraint firstItem="4nm-HS-y3b" firstAttribute="trailing" secondItem="y41-9b-pK6" secondAttribute="trailing" constant="16" id="NHn-eQ-Mav"/>
-                            <constraint firstItem="y41-9b-pK6" firstAttribute="leading" secondItem="4nm-HS-y3b" secondAttribute="leading" constant="16" id="x7P-7g-HvM"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="4nm-HS-y3b"/>
-                    </view>
-                    <connections>
-                        <outlet property="itemNameLabel" destination="y41-9b-pK6" id="QKF-Wg-QnC"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MHd-Hc-jIR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="718" y="1243"/>
         </scene>
         <!--Base Tab Bar Controller-->
         <scene sceneID="boi-1x-DYB">
@@ -333,7 +298,7 @@
             </objects>
             <point key="canvasLocation" x="871" y="468"/>
         </scene>
-        <!--购物清单-->
+        <!--To buy items-->
         <scene sceneID="z3a-TU-glz">
             <objects>
                 <tableViewController id="x9L-0B-dZZ" customClass="ToBuyTableViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -355,7 +320,7 @@
                             <outlet property="delegate" destination="x9L-0B-dZZ" id="tlR-8U-xeX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="购物清单" id="rgd-B5-3sv"/>
+                    <navigationItem key="navigationItem" title="To buy items" id="rgd-B5-3sv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -387,7 +352,7 @@
             </objects>
             <point key="canvasLocation" x="1018" y="-300"/>
         </scene>
-        <!--临时清单-->
+        <!--Delayed items-->
         <scene sceneID="yLi-dq-dLw">
             <objects>
                 <tableViewController id="XSB-nc-aXv" customClass="DelayedTableViewController" customModule="GoShopping" customModuleProvider="target" sceneMemberID="viewController">
@@ -409,7 +374,7 @@
                             <outlet property="delegate" destination="XSB-nc-aXv" id="jQe-yc-ytK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="临时清单" id="hdY-1C-ygw"/>
+                    <navigationItem key="navigationItem" title="Delayed items" id="hdY-1C-ygw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgf-Pn-lsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

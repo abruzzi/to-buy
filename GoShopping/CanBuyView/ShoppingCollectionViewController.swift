@@ -19,7 +19,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         canBuyItems = allCanBuyList()
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "冰淇淋..."
+        searchController.searchBar.placeholder =  NSLocalizedString("searchbar.placeholder", comment: "searchbar.placeholder")
         navigationItem.searchController = searchController
         
         definesPresentationContext = true
@@ -34,10 +34,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
         return [
-            canBuyList.filter {$0.category == "食物/饮料"},
-            canBuyList.filter {$0.category == "生活必需"},
-            canBuyList.filter {$0.category == "健康护理"},
-            canBuyList.filter {$0.category == "其他"},
+            canBuyList.filter {$0.category == NSLocalizedString("category.food.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.essentials.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.health.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.others.title", comment: "category.others.title")}
         ]
     }
     
@@ -70,8 +70,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
             }
             
             if(canBuyItems.count == 0) {
+                let categoryTitle = NSLocalizedString("category.unknown.section.header", comment: "category.unknown.section.header")
                 canBuyItems = [[
-                    CanBuyItem(name: searchText, category: "没找到 - 添加条目？", image: "icons8-barcode", supermarket: "")
+                    CanBuyItem(name: searchText, category: categoryTitle, image: "icons8-autism", supermarket: "")
                     ]]
             }
         }
@@ -144,7 +145,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
         if(obj.count > 0) {
             sectionHeader.configure(with: obj[0].category, image: UIImage(named: obj[0].image)!)
         } else {
-            sectionHeader.configure(with: "其他", image: UIImage(named: "icons8-barcode")!)
+            let categoryTitle = NSLocalizedString("category.others.title", comment: "category.others.title")
+            sectionHeader.configure(with: categoryTitle, image: UIImage(named: "icons8-autism")!)
         }
         
         return sectionHeader
@@ -155,14 +157,14 @@ class ShoppingCollectionViewController: UICollectionViewController {
         return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
             
             let addAction = UIAction(
-                title: "Add to To-Buys",
+                title: NSLocalizedString("action.addToBuyList.title", comment: "action.addToBuyList.title"),
                 image: UIImage(systemName: "plus")) { _ in
                     saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
                     self.updateBadge()
             }
             
             let editAction = UIAction(
-                title: "Edit item",
+                title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
                 image: UIImage(systemName: "pencil")) { _ in
                     let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                         as? EditingTableViewController
@@ -171,7 +173,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             }
             
             let deleteAction = UIAction(
-                title: "Delete from To-Buys",
+                title: NSLocalizedString("action.deleteFromToBuyList.title", comment: "action.deleteFromToBuyList.title"),
                 image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
                     deleteItemByName(name: data.name)
@@ -212,7 +214,7 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ShoppingCollectionViewController {
+extension UIViewController {
     func updateBadge() {
         let allItems = fetchAllToBuyList()
         let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }

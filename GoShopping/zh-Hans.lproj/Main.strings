@@ -1,0 +1,48 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Tags"; ObjectID = "382-3x-J6F"; */
+"382-3x-J6F.headerTitle" = "标签";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "6gJ-0t-lls"; */
+"6gJ-0t-lls.normalTitle" = "保存";
+
+/* Class = "UITabBarItem"; title = "To Buys"; ObjectID = "Ezc-o8-sKh"; */
+"Ezc-o8-sKh.title" = "要买的";
+
+/* Class = "UITabBarItem"; title = "Delayed"; ObjectID = "FnY-K4-NVt"; */
+"FnY-K4-NVt.title" = "推迟的";
+
+/* Class = "UITabBarItem"; title = "Choose"; ObjectID = "MRD-Tn-bPH"; */
+"MRD-Tn-bPH.title" = "选择";
+
+/* Class = "UILabel"; text = "Section Header"; ObjectID = "QJR-c7-ie1"; */
+"QJR-c7-ie1.text" = "标题";
+
+/* Class = "UITableViewSection"; headerTitle = "Basic information"; ObjectID = "ayE-Dw-5Ma"; */
+"ayE-Dw-5Ma.headerTitle" = "基本信息";
+
+/* Class = "UINavigationItem"; title = "Select items here"; ObjectID = "haM-3a-TLZ"; */
+"haM-3a-TLZ.title" = "选择要买的";
+
+/* Class = "UINavigationItem"; title = "Delayed items"; ObjectID = "hdY-1C-ygw"; */
+"hdY-1C-ygw.title" = "推迟的";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[0] = "Food/Drink"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[0]" = "食物/饮料";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[1] = "Essentials"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[1]" = "生活必须";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[2] = "Health"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[2]" = "健康护理";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[3] = "Other"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[3]" = "其他";
+
+/* Class = "UITextField"; placeholder = "Prefered supermarket"; ObjectID = "j3r-MW-vTL"; */
+"j3r-MW-vTL.placeholder" = "首选超市";
+
+/* Class = "UINavigationItem"; title = "To buy items"; ObjectID = "rgd-B5-3sv"; */
+"rgd-B5-3sv.title" = "要买的";
+
+/* Class = "UITextField"; placeholder = "Item name"; ObjectID = "tDA-hv-s0H"; */
+"tDA-hv-s0H.placeholder" = "名称";

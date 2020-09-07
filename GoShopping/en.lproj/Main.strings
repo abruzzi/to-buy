@@ -1,0 +1,48 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Tags"; ObjectID = "382-3x-J6F"; */
+"382-3x-J6F.headerTitle" = "Tags";
+
+/* Class = "UIButton"; normalTitle = "Save"; ObjectID = "6gJ-0t-lls"; */
+"6gJ-0t-lls.normalTitle" = "Save";
+
+/* Class = "UITabBarItem"; title = "To Buys"; ObjectID = "Ezc-o8-sKh"; */
+"Ezc-o8-sKh.title" = "To Buys";
+
+/* Class = "UITabBarItem"; title = "Delayed"; ObjectID = "FnY-K4-NVt"; */
+"FnY-K4-NVt.title" = "Delayed";
+
+/* Class = "UITabBarItem"; title = "Choose"; ObjectID = "MRD-Tn-bPH"; */
+"MRD-Tn-bPH.title" = "Choose";
+
+/* Class = "UILabel"; text = "Section Header"; ObjectID = "QJR-c7-ie1"; */
+"QJR-c7-ie1.text" = "Section Header";
+
+/* Class = "UITableViewSection"; headerTitle = "Basic information"; ObjectID = "ayE-Dw-5Ma"; */
+"ayE-Dw-5Ma.headerTitle" = "Basic information";
+
+/* Class = "UINavigationItem"; title = "Select items here"; ObjectID = "haM-3a-TLZ"; */
+"haM-3a-TLZ.title" = "Select items here";
+
+/* Class = "UINavigationItem"; title = "Delayed items"; ObjectID = "hdY-1C-ygw"; */
+"hdY-1C-ygw.title" = "Delayed items";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[0] = "Food/Drink"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[0]" = "Food/Drink";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[1] = "Essentials"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[1]" = "Essentials";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[2] = "Health"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[2]" = "Health";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[3] = "Other"; ObjectID = "imV-tb-Vaw"; */
+"imV-tb-Vaw.segmentTitles[3]" = "Other";
+
+/* Class = "UITextField"; placeholder = "Prefered supermarket"; ObjectID = "j3r-MW-vTL"; */
+"j3r-MW-vTL.placeholder" = "Prefered supermarket";
+
+/* Class = "UINavigationItem"; title = "To buy items"; ObjectID = "rgd-B5-3sv"; */
+"rgd-B5-3sv.title" = "To buy items";
+
+/* Class = "UITextField"; placeholder = "Item name"; ObjectID = "tDA-hv-s0H"; */
+"tDA-hv-s0H.placeholder" = "Item name";

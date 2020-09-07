@@ -67,7 +67,8 @@ class DelayedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
                                 section: Int) -> String? {
-        return "暂时没找到的"
+        let text = NSLocalizedString("could.not.found.now", comment: "could.not.found.now")
+        return text
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,20 +78,5 @@ class DelayedTableViewController: UITableViewController {
         cell.configure(with: item)
 
         return cell
-    }
-}
-
-extension DelayedTableViewController {
-    func updateBadge() {
-        let allItems = fetchAllToBuyList()
-        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
-        let delayedItems = allItems.filter { $0.isDelayed }
-        
-        if let items = self.tabBarController?.tabBar.items as NSArray? {
-            let toBuyTab = items.object(at: 1) as! UITabBarItem
-            let delayedTab = items.object(at: 2) as! UITabBarItem
-            toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
-            delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
-        }
     }
 }

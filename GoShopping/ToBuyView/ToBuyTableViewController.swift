@@ -60,7 +60,7 @@ class ToBuyTableViewController: UITableViewController {
     }
 
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Complete") { (_, view, completion) in
+        let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.complete.title", comment: "action.complete.title")) { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
             self.markAsCompleted(name: item.name)
             self.refreshToBuyList()
@@ -73,7 +73,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     func laterAction(at indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Later") { (_, view, completion) in
+        let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delay.title", comment: "action.delay.title")) { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
             self.markAsDelayed(name: item.name)
             self.updateBadge()
@@ -87,7 +87,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Delete") { (_, view, completion) in
+        let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.completedItems[indexPath.row]
             deleteItemByName(name: item.name)
             self.updateBadge()
@@ -123,9 +123,9 @@ class ToBuyTableViewController: UITableViewController {
                                 section: Int) -> String? {
         switch section {
         case 0:
-            return "要买的"
+            return NSLocalizedString("to.buy.items", comment: "to.buy.items")
         case 1:
-            return "买到的"
+            return NSLocalizedString("purchased.items", comment: "purchased.items")
         default:
             return "-"
         }
@@ -138,20 +138,5 @@ class ToBuyTableViewController: UITableViewController {
         cell.configure(with: item)
         
         return cell
-    }
-}
-
-extension ToBuyTableViewController {
-    func updateBadge() {
-        let allItems = fetchAllToBuyList()
-        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
-        let delayedItems = allItems.filter { $0.isDelayed }
-        
-        if let items = self.tabBarController?.tabBar.items as NSArray? {
-            let toBuyTab = items.object(at: 1) as! UITabBarItem
-            let delayedTab = items.object(at: 2) as! UITabBarItem
-            toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
-            delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
-        }
     }
 }
