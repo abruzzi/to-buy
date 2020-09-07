@@ -164,6 +164,11 @@
                "image": "icons8-raspberry",
                "attrs": {}
            },
+           {
+               "name": "草莓",
+               "image": "icons8-strawberry",
+               "attrs": {}
+           },
     
           {
               "name": "豆角",
@@ -180,7 +185,7 @@
           },
           {
               "name": "豆腐",
-              "image": "icons8-spaghetti",
+              "image": "icons8-sugar_cube",
               "attrs": {
                   "supermarket": "亚洲超市",
                   "brand": "svn"

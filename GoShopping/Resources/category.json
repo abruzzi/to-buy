@@ -164,7 +164,11 @@
                "image": "icons8-raspberry",
                "attrs": {}
            },
-    
+            {
+                "name": "Strawberry",
+                "image": "icons8-strawberry",
+                "attrs": {}
+            },
           {
               "name": "Pea",
               "image": "icons8-soy",
@@ -180,7 +184,7 @@
           },
           {
               "name": "Toufu",
-              "image": "icons8-spaghetti",
+              "image": "icons8-sugar_cube",
               "attrs": {
                   "supermarket": "亚洲超市",
                   "brand": "svn"
