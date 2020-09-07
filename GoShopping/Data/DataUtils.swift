@@ -218,8 +218,6 @@ func saveCanBuyItem(canBuyItem: CanBuyItem) {
         return
     }
     
-    print(canBuyItem)
-    
     let managedContext = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "CanBuys", in: managedContext)!
     let item = NSManagedObject(entity: entity, insertInto: managedContext)
@@ -322,9 +320,45 @@ func deleteAllCanBuys(){
     }
 }
 
-func cleanupAllDBItems() {
-    var filteredRecords: [Record]!
-    deleteAllToBuys()
+func load<T: Decodable>(_ filename: String) -> T {
+    let data: Data
+    
+    guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
+        else {
+            fatalError("Couldn't find \(filename) in main bundle.")
+    }
+    
+    do {
+        data = try Data(contentsOf: file)
+    } catch {
+        fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+    }
+    
+    do {
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    } catch {
+        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+    }
+}
+
+struct Record: Hashable, Codable {
+    var category: String
+    var image: String
+    var items: [Item]
+}
+
+struct Item: Hashable, Codable, Identifiable {
+    let id = UUID()
+    var name: String
+    var image: String
+    var attrs: [String: String]
+}
+
+func resetAllDBItems() {
+    let records: [Record] = load("category.json")
+    
+    deleteAllToBuys() // clean up user's selection for avoading any poetential conflicts
     
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
@@ -337,10 +371,8 @@ func cleanupAllDBItems() {
     }
     
     func resetDatabaseForCategory() {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        filteredRecords = appDelegate?.records
         var canBuyItems: [CanBuyItem] = []
-        filteredRecords.forEach {record in
+        records.forEach {record in
             record.items.forEach { item in
                 canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
             }

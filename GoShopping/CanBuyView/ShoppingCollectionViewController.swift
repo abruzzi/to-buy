@@ -19,7 +19,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         canBuyItems = allCanBuyList()
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "冰淇淋🍦..."
+        searchController.searchBar.placeholder = "冰淇淋..."
         navigationItem.searchController = searchController
         
         definesPresentationContext = true
