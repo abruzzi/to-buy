@@ -9,7 +9,13 @@
 import UIKit
 
 class ToBuyTableViewCell: UITableViewCell {
-
+    let categoryTitles = [
+        NSLocalizedString("category.food.title", comment: "category.food.title"),
+        NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
+        NSLocalizedString("category.health.title", comment: "category.health.title"),
+        NSLocalizedString("category.others.title", comment: "category.others.title")
+    ]
+    
     @IBOutlet weak var toBuyItemLabel: UILabel!
     @IBOutlet weak var toBuyItemImage: UIImageView!
     @IBOutlet weak var toBuyItemCategory: UILabel!
@@ -25,7 +31,7 @@ class ToBuyTableViewCell: UITableViewCell {
     
     func configure(with toBuyItem: ToBuyItem) {
         toBuyItemLabel.text = toBuyItem.name
-        toBuyItemCategory.text = toBuyItem.category
+        toBuyItemCategory.text = categoryTitles[toBuyItem.category]
         toBuyItemImage.image = UIImage(named: toBuyItem.image)
         supermarket.text = toBuyItem.supermarket
     }

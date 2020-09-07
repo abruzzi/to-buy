@@ -1,6 +1,6 @@
 [
     {
-        "category": "Food/Drink",
+        "category": 0,
         "image": "icons8-food",
         "items": [
             {
@@ -241,7 +241,7 @@
         ]
     },
     {
-        "category": "Essentials",
+        "category": 1,
         "image": "icons8-supplier",
         "items": [
             {
@@ -304,7 +304,7 @@
         ]
     },
     {
-        "category": "Health",
+        "category": 2,
         "image": "icons8-pill",
         "items": [
             {

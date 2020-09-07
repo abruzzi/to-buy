@@ -13,6 +13,12 @@ private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
     private var canBuyItems: [[CanBuyItem]]!
+    let categoryTitles = [
+        NSLocalizedString("category.food.title", comment: "category.food.title"),
+        NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
+        NSLocalizedString("category.health.title", comment: "category.health.title"),
+        NSLocalizedString("category.others.title", comment: "category.others.title")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +49,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
+        
         return [
-            canBuyList.filter {$0.category == NSLocalizedString("category.food.title", comment: "category.food.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.essentials.title", comment: "category.essentials.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.health.title", comment: "category.health.title")},
-            canBuyList.filter {$0.category == NSLocalizedString("category.others.title", comment: "category.others.title")}
+            canBuyList.filter {$0.category == 0},
+            canBuyList.filter {$0.category == 1},
+            canBuyList.filter {$0.category == 2},
+            canBuyList.filter {$0.category == 3}
         ]
     }
     
@@ -80,9 +87,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
             }
             
             if(canBuyItems.count == 0) {
-                let categoryTitle = NSLocalizedString("category.unknown.section.header", comment: "category.unknown.section.header")
+//                let categoryTitle = NSLocalizedString("category.unknown.section.header", comment: "category.unknown.section.header")
                 canBuyItems = [[
-                    CanBuyItem(name: searchText, category: categoryTitle, image: "icons8-autism", supermarket: "")
+                    CanBuyItem(name: searchText, category: 3, image: "icons8-autism", supermarket: "")
                     ]]
             }
         }
@@ -152,10 +159,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let obj = canBuyItems[indexPath.section]
         
         if(obj.count > 0) {
-            sectionHeader.configure(with: obj[0].category, image: UIImage(named: obj[0].image)!)
+            let title = categoryTitles[obj[0].category]
+            sectionHeader.configure(with: title, image: UIImage(named: obj[0].image)!)
         } else {
-            let categoryTitle = NSLocalizedString("category.others.title", comment: "category.others.title")
-            sectionHeader.configure(with: categoryTitle, image: UIImage(named: "icons8-autism")!)
+//            let categoryTitle = NSLocalizedString("category.others.title", comment: "category.others.title")
+            let title = categoryTitles[3]
+            sectionHeader.configure(with: title, image: UIImage(named: "icons8-autism")!)
         }
         
         return sectionHeader

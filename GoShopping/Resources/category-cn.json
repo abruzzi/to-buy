@@ -1,6 +1,6 @@
 [
     {
-        "category": "食物/饮料",
+        "category": 0,
         "image": "icons8-food",
         "items": [
             {
@@ -236,7 +236,7 @@
         ]
     },
     {
-        "category": "生活必需",
+        "category": 1,
         "image": "icons8-supplier",
         "items": [
             {
@@ -299,7 +299,7 @@
         ]
     },
     {
-        "category": "健康护理",
+        "category": 2,
         "image": "icons8-pill",
         "items": [
             {

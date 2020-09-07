@@ -12,14 +12,14 @@ import CoreData
 
 struct ToBuyItem {
     var name: String
-    var category: String
+    var category: Int
     var supermarket: String
     var image: String
     var isCompleted: Bool
     var isDelayed: Bool
 }
 
-func saveToBuyItem(name: String, category: String, image: String, supermarket: String) {
+func saveToBuyItem(name: String, category: Int, image: String, supermarket: String) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
     }
@@ -111,7 +111,7 @@ func fetchAllToBuyItems() -> [ToBuyItem] {
     
     let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
         return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
-                         category: nsobj.value(forKey: "category") as! String,
+                         category: nsobj.value(forKey: "category") as! Int,
                          supermarket: nsobj.value(forKey: "supermarket") as! String,
                          image: nsobj.value(forKey: "image") as! String,
                          isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
@@ -189,7 +189,7 @@ func deleteAllToBuys(){
 
 struct CanBuyItem {
     var name: String
-    var category: String
+    var category: Int
     var image: String
     var supermarket: String
 }
@@ -308,7 +308,7 @@ func fetchAllCanBuyList() -> [CanBuyItem] {
     
     let allItems: [CanBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
         return CanBuyItem(name: nsobj.value(forKey: "name") as! String,
-                          category: nsobj.value(forKey: "category") as! String,
+                          category: nsobj.value(forKey: "category") as! Int,
                           image: nsobj.value(forKey: "image") as! String,
                           supermarket: nsobj.value(forKey: "supermarket") as! String)
     }
@@ -351,7 +351,7 @@ func load<T: Decodable>(_ filename: String) -> T {
 }
 
 struct Record: Hashable, Codable {
-    var category: String
+    var category: Int
     var image: String
     var items: [Item]
 }
