@@ -98,6 +98,11 @@ func fetchAllToBuyItems() -> [ToBuyItem] {
     let managedContext = appDelegate.persistentContainer.viewContext
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
     
+    let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
+    let sortDescriptorSupermarket = NSSortDescriptor(key: "supermarket", ascending: true)
+
+    fetchRequest.sortDescriptors = [sortDescriptorSupermarket, sortDescriptorCreatedAt]
+    
     do {
         toBuyList = try managedContext.fetch(fetchRequest)
     } catch let error as NSError {
@@ -291,6 +296,9 @@ func fetchAllCanBuyList() -> [CanBuyItem] {
     
     let managedContext = appDelegate.persistentContainer.viewContext
     let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CanBuys")
+    
+    let sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
     
     do {
         toBuyList = try managedContext.fetch(fetchRequest)
