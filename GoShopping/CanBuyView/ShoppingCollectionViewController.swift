@@ -33,18 +33,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.setupGrid()
         
-        collectionView.allowsMultipleSelection = true
-        collectionView.keyboardDismissMode = .onDrag
-        
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        
-        leftSwipe.direction = .left
-        rightSwipe.direction = .right
-        
-        self.view.addGestureRecognizer(leftSwipe)
-        self.view.addGestureRecognizer(rightSwipe)
-        
     }
     
     func allCanBuyList() -> [[CanBuyItem]]{
@@ -229,17 +217,3 @@ extension UIViewController {
     }
 }
 
-extension UIViewController {
-    @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
-        if sender.direction == .left {
-            let current = self.tabBarController!.viewControllers![self.tabBarController!.selectedIndex]
-            let next = self.tabBarController!.viewControllers![self.tabBarController!.selectedIndex+1]
-            UIView.transition(from: current.view, to: next.view, duration: 0.3, options: UIView.AnimationOptions.transitionCrossDissolve) { (finished: Bool) in
-                self.tabBarController!.selectedIndex += 1
-            }
-        }
-        if sender.direction == .right {
-            self.tabBarController!.selectedIndex -= 1
-        }
-    }
-}
