@@ -5,3 +5,22 @@
   Created by Juntao Qiu on 7/9/20.
   Copyright © 2020 Juntao Qiu. All rights reserved.
 */
+"could.not.found.now" = "暂时找不到的";
+"to.buy.items" = "要买的";
+"purchased.items" = "买到的";
+
+"action.complete.title" = "完成";
+"action.delay.title" = "推迟";
+"action.delete.title" = "删除";
+
+"category.food.title" = "食物/饮料";
+"category.essentials.title" = "生活必需";
+"category.health.title" = "健康护理";
+"category.others.title" = "其他";
+
+"category.unknown.section.header" = "没找到 - 添加新条目？";
+"searchbar.placeholder" = "冰淇淋...";
+
+"action.addToBuyList.title" = "添加到要买";
+"action.editCanBuyItem.title" = "编辑条目";
+"action.deleteFromToBuyList.title"="从要买清单中移除";

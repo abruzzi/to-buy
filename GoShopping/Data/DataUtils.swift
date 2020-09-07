@@ -355,18 +355,18 @@ struct Item: Hashable, Codable, Identifiable {
     var attrs: [String: String]
 }
 
-func resetAllDBItems() {
-    let records: [Record] = load("category.json")
+func resetAllDBItems(lang: String) {
+    let records: [Record] = (lang.lowercased() == "en") ? load("category.json") :  load("category-cn.json")
     
     deleteAllToBuys() // clean up user's selection for avoading any poetential conflicts
     
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()
         return [
-            canBuyList.filter {$0.category == "食物/饮料"},
-            canBuyList.filter {$0.category == "生活必需"},
-            canBuyList.filter {$0.category == "健康护理"},
-            canBuyList.filter {$0.category == "其他"},
+            canBuyList.filter {$0.category == NSLocalizedString("category.food.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.essentials.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.health.title", comment: "category.others.title")},
+            canBuyList.filter {$0.category == NSLocalizedString("category.others.title", comment: "category.others.title")}
         ]
     }
     
