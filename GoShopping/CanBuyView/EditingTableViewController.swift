@@ -20,7 +20,6 @@ class EditingTableViewController: UITableViewController {
     ]
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
-//        let categoryName = NSLocalizedString("category.others.title", comment: "category.others.title")
         if(isNewItemInApp(name: item.name)) {
             let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: 3, image: "icons8-autism", supermarket: supermarketTextField.text ?? "")
             saveCanBuyItem(canBuyItem: newItem)
@@ -45,6 +44,8 @@ class EditingTableViewController: UITableViewController {
         self.tableView.keyboardDismissMode = .onDrag
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
+        saveButton.layer.cornerRadius = 4.0
+        
     }
 
 }

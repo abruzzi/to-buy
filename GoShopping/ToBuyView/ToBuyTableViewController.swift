@@ -69,7 +69,7 @@ class ToBuyTableViewController: UITableViewController {
             self.tableView.reloadData()
             completion(true)
         }
-        action.image = UIImage(systemName: "stopwatch")
+        action.image = UIImage(systemName: "checkmark")
         action.backgroundColor = .systemGreen
         return action
     }

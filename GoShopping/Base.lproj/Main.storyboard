@@ -92,15 +92,18 @@
                         <sections>
                             <tableViewSection headerTitle="Basic information" id="ayE-Dw-5Ma">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="mGu-AK-OPx">
-                                        <rect key="frame" x="16" y="55.5" width="343" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="mGu-AK-OPx">
+                                        <rect key="frame" x="16" y="55.5" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mGu-AK-OPx" id="6gf-7W-KcR">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-hv-s0H">
-                                                    <rect key="frame" x="15" y="13" width="313" height="34"/>
+                                                    <rect key="frame" x="15" y="20" width="313" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="Qhm-qx-eRk"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -114,16 +117,16 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="gie-0p-vGJ">
-                                        <rect key="frame" x="16" y="115.5" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="135.5" width="343" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gie-0p-vGJ" id="Eef-hf-qdF">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gie-0p-vGJ" id="Eef-hf-qdF">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="imV-tb-Vaw">
-                                                    <rect key="frame" x="15" y="15" width="313" height="31"/>
+                                                    <rect key="frame" x="15" y="15" width="313" height="41"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="NT0-M1-6lD"/>
+                                                        <constraint firstAttribute="height" constant="40" id="NT0-M1-6lD"/>
                                                     </constraints>
                                                     <segments>
                                                         <segment title="Food/Drink"/>
@@ -150,14 +153,17 @@
                             <tableViewSection headerTitle="Tags" id="382-3x-J6F">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="pEX-H7-1le">
-                                        <rect key="frame" x="16" y="223.5" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="243.5" width="343" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pEX-H7-1le" id="qoY-RA-cri">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prefered supermarket" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j3r-MW-vTL">
-                                                    <rect key="frame" x="15" y="13" width="313" height="34"/>
+                                                    <rect key="frame" x="15" y="10" width="313" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="nrk-qF-mdK"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -175,18 +181,19 @@
                             <tableViewSection id="dGr-8V-CVx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="q8o-d9-Sre">
-                                        <rect key="frame" x="16" y="303.5" width="343" height="60"/>
+                                        <rect key="frame" x="16" y="323.5" width="343" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q8o-d9-Sre" id="G7Q-vq-cwa">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q8o-d9-Sre" id="G7Q-vq-cwa">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gJ-0t-lls">
-                                                    <rect key="frame" x="16" y="10" width="311" height="30"/>
+                                                    <rect key="frame" x="16" y="10" width="311" height="40"/>
                                                     <color key="backgroundColor" name="BrandColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="mfb-YH-mmt"/>
+                                                        <constraint firstAttribute="height" constant="40" id="mfb-YH-mmt"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <state key="normal" title="Save">
                                                         <color key="titleColor" name="CardColor"/>
                                                     </state>
@@ -391,7 +398,7 @@
             <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BrandColor">
-            <color red="0.24313725490196078" green="0.83921568627450982" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.24300000071525574" green="0.83899998664855957" blue="0.65100002288818359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonColor">
             <color red="0.72200000286102295" green="0.16500000655651093" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

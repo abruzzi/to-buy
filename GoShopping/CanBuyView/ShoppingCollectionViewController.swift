@@ -11,8 +11,12 @@ import CoreData
 
 private let reuseIdentifier = "ItemCell"
 
+
 class ShoppingCollectionViewController: UICollectionViewController {
     private var canBuyItems: [[CanBuyItem]]!
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    
     let categoryTitles = [
         NSLocalizedString("category.food.title", comment: "category.food.title"),
         NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
@@ -23,9 +27,12 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         canBuyItems = allCanBuyList()
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder =  NSLocalizedString("searchbar.placeholder", comment: "searchbar.placeholder")
+        searchController.delegate = self
+        
         navigationItem.searchController = searchController
         
         definesPresentationContext = true
@@ -51,6 +58,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         canBuyItems = allCanBuyList()
+        self.updateSelections()
+        self.updateBadge()
+    }
+    
+    func updateSelections() {
         let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
         
         for (section, items) in canBuyItems.enumerated() {
@@ -68,8 +80,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 }
             }
         }
-        
-        self.updateBadge()
     }
     
     func setupGrid() {
@@ -103,7 +113,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.reloadData()
     }
     
-    let searchController = UISearchController(searchResultsController: nil)
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return canBuyItems.count
@@ -190,6 +199,13 @@ extension ShoppingCollectionViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
+    }
+}
+
+extension ShoppingCollectionViewController: UISearchControllerDelegate {
+    func didDismissSearchController(_ searchController: UISearchController) {
+        self.updateSelections()
+        self.updateBadge()
     }
 }
 
