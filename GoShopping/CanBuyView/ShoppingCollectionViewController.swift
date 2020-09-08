@@ -31,6 +31,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         definesPresentationContext = true
         collectionView.allowsMultipleSelection = true
         collectionView.keyboardDismissMode = .onDrag
+        collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         self.setupGrid()
@@ -50,6 +51,24 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         canBuyItems = allCanBuyList()
+        let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
+        
+        for (section, items) in canBuyItems.enumerated() {
+            for(index, item) in items.enumerated() {
+                let indexPath = IndexPath(item: index, section: section)
+                
+                let exist = allToBuys.contains { (toBuy: ToBuyItem) in
+                    return toBuy.name == item.name
+                }
+                
+                if(exist) {
+                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                } else {
+                    self.collectionView.deselectItem(at: indexPath, animated: false)
+                }
+            }
+        }
+        
         self.updateBadge()
     }
     
@@ -105,16 +124,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         }
         
         return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let data = canBuyItems[indexPath.section][indexPath.row]
-        
-        if(isAlreadyExistInToBuyList(name: data.name)){
-            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-        } else {
-            self.collectionView.deselectItem(at: indexPath, animated: false)
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
