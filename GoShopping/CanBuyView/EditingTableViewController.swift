@@ -20,11 +20,16 @@ class EditingTableViewController: UITableViewController {
     ]
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
+        let category = segmentCategory.selectedSegmentIndex
         if(isNewItemInApp(name: item.name)) {
-            let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: 3, image: "icons8-autism", supermarket: supermarketTextField.text ?? "")
+            let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: category, image: "icons8-autism", supermarket: supermarketTextField.text ?? "")
             saveCanBuyItem(canBuyItem: newItem)
         } else {
-            updateCanBuyItem(name: item.name, dict: ["name": itemNameTextField.text ?? "", "supermarket": supermarketTextField.text ?? ""])
+            updateCanBuyItem(name: item.name, dict: [
+                "name": itemNameTextField.text ?? "",
+                "supermarket": supermarketTextField.text ?? "",
+                "category": category
+            ])
         }
         
         self.navigationController?.popViewController(animated: true)
@@ -44,6 +49,7 @@ class EditingTableViewController: UITableViewController {
         self.tableView.keyboardDismissMode = .onDrag
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
+        segmentCategory.selectedSegmentIndex = item.category
         saveButton.layer.cornerRadius = 4.0
         
     }

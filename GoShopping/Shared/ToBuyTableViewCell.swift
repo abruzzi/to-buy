@@ -20,6 +20,7 @@ class ToBuyTableViewCell: UITableViewCell {
     @IBOutlet weak var toBuyItemImage: UIImageView!
     @IBOutlet weak var toBuyItemCategory: UILabel!
     @IBOutlet weak var supermarket: UILabel!
+    @IBOutlet weak var createdAtLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,9 +31,20 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuyItem: ToBuyItem) {
-        toBuyItemLabel.text = toBuyItem.name
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyItem.name)
+        if(toBuyItem.isCompleted) {
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        }
+        toBuyItemLabel.layer.opacity = toBuyItem.isCompleted ? 0.5 : 1
+        toBuyItemLabel.attributedText = attributeString
+
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "MMM dd HH:mm"
+        
+        createdAtLabel.text = dateFormatterGet.string(from: toBuyItem.createdAt)
         toBuyItemCategory.text = categoryTitles[toBuyItem.category]
         toBuyItemImage.image = UIImage(named: toBuyItem.image)
         supermarket.text = toBuyItem.supermarket
+        
     }
 }

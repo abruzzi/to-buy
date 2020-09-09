@@ -11,7 +11,6 @@ import CoreData
 
 private let reuseIdentifier = "ItemCell"
 
-
 class ShoppingCollectionViewController: UICollectionViewController {
     private var canBuyItems: [[CanBuyItem]]!
     
@@ -26,7 +25,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        canBuyItems = allCanBuyList()
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -44,20 +42,14 @@ class ShoppingCollectionViewController: UICollectionViewController {
         self.setupGrid()
     }
     
-    func allCanBuyList() -> [[CanBuyItem]]{
-        let canBuyList = fetchAllCanBuyList()
-        
-        return [
-            canBuyList.filter {$0.category == 0},
-            canBuyList.filter {$0.category == 1},
-            canBuyList.filter {$0.category == 2},
-            canBuyList.filter {$0.category == 3}
-        ]
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        refreshView()
+    }
+    
+    func refreshView () {
         canBuyItems = allCanBuyList()
+        self.collectionView.reloadData()
         self.updateSelections()
         self.updateBadge()
     }
@@ -70,7 +62,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 let indexPath = IndexPath(item: index, section: section)
                 
                 let exist = allToBuys.contains { (toBuy: ToBuyItem) in
-                    return toBuy.name == item.name
+                    return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
                 }
                 
                 if(exist) {
@@ -204,8 +196,7 @@ extension ShoppingCollectionViewController: UISearchResultsUpdating {
 
 extension ShoppingCollectionViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
-        self.updateSelections()
-        self.updateBadge()
+        self.refreshView()
     }
 }
 

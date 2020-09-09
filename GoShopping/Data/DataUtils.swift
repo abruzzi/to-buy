@@ -17,6 +17,7 @@ struct ToBuyItem {
     var image: String
     var isCompleted: Bool
     var isDelayed: Bool
+    var createdAt: Date
 }
 
 func saveToBuyItem(name: String, category: Int, image: String, supermarket: String) {
@@ -115,7 +116,8 @@ func fetchAllToBuyItems() -> [ToBuyItem] {
                          supermarket: nsobj.value(forKey: "supermarket") as! String,
                          image: nsobj.value(forKey: "image") as! String,
                          isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
-                         isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool))
+                         isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool),
+                         createdAt: (nsobj.value(forKey: "createdAt") as! Date))
     }
     
     return allItems
@@ -348,6 +350,17 @@ func load<T: Decodable>(_ filename: String) -> T {
     } catch {
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
     }
+}
+
+func allCanBuyList() -> [[CanBuyItem]]{
+    let canBuyList = fetchAllCanBuyList()
+    
+    return [
+        canBuyList.filter {$0.category == 0},
+        canBuyList.filter {$0.category == 1},
+        canBuyList.filter {$0.category == 2},
+        canBuyList.filter {$0.category == 3}
+    ]
 }
 
 struct Record: Hashable, Codable {
