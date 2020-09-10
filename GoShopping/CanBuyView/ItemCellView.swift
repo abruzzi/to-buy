@@ -32,6 +32,6 @@ class ItemCellView: UICollectionViewCell {
 
     func configure(with itemName: String, image: String) {
         itemNameLabel.text = itemName
-        itemImage.image = UIImage(named: image)
+        itemImage.image = getImageOf(itemName: itemName, fallbackImageName: image)
     }
 }

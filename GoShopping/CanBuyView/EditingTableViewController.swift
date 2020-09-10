@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditingTableViewController: UITableViewController {
+class EditingTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var item: CanBuyItem!
     var category: String!
     
@@ -18,6 +18,8 @@ class EditingTableViewController: UITableViewController {
         NSLocalizedString("category.health.title", comment: "category.others.title"),
         NSLocalizedString("category.others.title", comment: "category.others.title"),
     ]
+    
+    @IBOutlet weak var itemImage: UIImageView!
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
         let category = segmentCategory.selectedSegmentIndex
@@ -44,6 +46,7 @@ class EditingTableViewController: UITableViewController {
     @IBOutlet weak var supermarketTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.keyboardDismissMode = .onDrag
@@ -51,7 +54,49 @@ class EditingTableViewController: UITableViewController {
         supermarketTextField.text = item.supermarket
         segmentCategory.selectedSegmentIndex = item.category
         saveButton.layer.cornerRadius = 4.0
-        
+     
+
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
+        itemImage.image = getImageOf(itemName: item.name, fallbackImageName: item.image)
+        itemImage.addGestureRecognizer(singleTap)
     }
 
+
+    //Action
+    @objc func selectImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        let actionSheet = UIAlertController(title: "Choose photo", message: "", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Carema", style: .default, handler: { (action: UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        saveImageTo(image: (image ?? UIImage(named: item.image))!, imageName: item.name)
+        itemImage.image = image
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
 }

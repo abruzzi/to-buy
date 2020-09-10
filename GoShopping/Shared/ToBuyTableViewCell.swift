@@ -43,8 +43,7 @@ class ToBuyTableViewCell: UITableViewCell {
         
         createdAtLabel.text = dateFormatterGet.string(from: toBuyItem.createdAt)
         toBuyItemCategory.text = categoryTitles[toBuyItem.category]
-        toBuyItemImage.image = UIImage(named: toBuyItem.image)
+        toBuyItemImage.image = getImageOf(itemName: toBuyItem.name, fallbackImageName: toBuyItem.image)
         supermarket.text = toBuyItem.supermarket
-        
     }
 }

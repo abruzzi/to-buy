@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7A97C0BB24FCFFFE004800E3"
-               BuildableName = "GoShopping.app"
+               BuildableName = "To Buy.app"
                BlueprintName = "GoShopping"
                ReferencedContainer = "container:GoShopping.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7A97C0BB24FCFFFE004800E3"
-            BuildableName = "GoShopping.app"
+            BuildableName = "To Buy.app"
             BlueprintName = "GoShopping"
             ReferencedContainer = "container:GoShopping.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7A97C0BB24FCFFFE004800E3"
-            BuildableName = "GoShopping.app"
+            BuildableName = "To Buy.app"
             BlueprintName = "GoShopping"
             ReferencedContainer = "container:GoShopping.xcodeproj">
          </BuildableReference>
