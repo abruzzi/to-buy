@@ -60,13 +60,17 @@ class ToBuyTableViewController: UITableViewController {
         updateRecordFor(name: name, key: "isDelayed", value: true)
     }
 
+    func completeItem (item: ToBuyItem) {
+        self.markAsCompleted(name: item.name)
+        self.updateBadge()
+        self.refreshToBuyList()
+        self.tableView.reloadData()
+    }
+    
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.complete.title", comment: "action.complete.title")) { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
-            self.markAsCompleted(name: item.name)
-            self.updateBadge()
-            self.refreshToBuyList()
-            self.tableView.reloadData()
+            self.completeItem(item: item)
             completion(true)
         }
         action.image = UIImage(systemName: "checkmark")
@@ -74,13 +78,17 @@ class ToBuyTableViewController: UITableViewController {
         return action
     }
     
+    func delayItem(item: ToBuyItem) {
+        self.markAsDelayed(name: item.name)
+        self.updateBadge()
+        self.refreshToBuyList()
+        self.tableView.reloadData()
+    }
+    
     func laterAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delay.title", comment: "action.delay.title")) { (_, view, completion) in
             let item = self.toBuyItems[indexPath.row]
-            self.markAsDelayed(name: item.name)
-            self.updateBadge()
-            self.refreshToBuyList()
-            self.tableView.reloadData()
+            self.delayItem(item: item)
             completion(true)
         }
         action.image = UIImage(systemName: "clock")
@@ -88,13 +96,17 @@ class ToBuyTableViewController: UITableViewController {
         return action
     }
     
+    func deleteItem(item: ToBuyItem) {
+        deleteItemByNameFromToBuys(name: item.name)
+        self.updateBadge()
+        self.refreshToBuyList()
+        self.tableView.reloadData()
+    }
+    
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.completedItems[indexPath.row]
-            deleteItemByNameFromToBuys(name: item.name)
-            self.updateBadge()
-            self.refreshToBuyList()
-            self.tableView.reloadData()
+            self.delayItem(item: item)
             completion(true)
         }
         action.image = UIImage(systemName: "delete.right")
@@ -140,5 +152,40 @@ class ToBuyTableViewController: UITableViewController {
         cell.configure(with: item)
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let item = (indexPath.section == 0) ? toBuyItems[indexPath.row] : completedItems[indexPath.row]
+
+        return UIContextMenuConfiguration(identifier: item.name as NSString, previewProvider: {
+            let view = ItemPreviewViewController(itemName: item.name, image: item.image)
+            return view
+        }){ _ in
+            let delayAction = UIAction(
+                title: NSLocalizedString("action.delay.title", comment: "action.delay.title"),
+                image: UIImage(systemName: "clock")) { _ in
+                    self.completeItem(item: item)
+            }
+            
+            let completeAction = UIAction(
+                title: NSLocalizedString("action.complete.title", comment: "action.complete.title"),
+                image: UIImage(systemName: "checkmark")) { _ in
+                    self.completeItem(item: item)
+            }
+            
+            let deleteAction = UIAction(
+                title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
+                image: UIImage(systemName: "delete.right"),
+                attributes: .destructive) { _ in
+                    self.deleteItem(item: item)
+            }
+            
+            if(indexPath.section == 0) {
+                return UIMenu(title: "", children: [delayAction, completeAction])
+            } else {
+                return UIMenu(title: "", children: [deleteAction])
+            }
+            
+        }
     }
 }

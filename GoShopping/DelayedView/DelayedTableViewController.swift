@@ -37,13 +37,17 @@ class DelayedTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
+    func deleteItem(item: ToBuyItem) {
+        deleteItemByNameFromToBuys(name: item.name)
+        self.updateBadge()
+        self.refreshToBuyList()
+        self.tableView.reloadData()
+    }
+    
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.delayedItems[indexPath.row]
-            deleteItemByNameFromToBuys(name: item.name)
-            self.updateBadge()
-            self.refreshToBuyList()
-            self.tableView.reloadData()
+            self.deleteItem(item: item)
             completion(true)
         }
         action.image = UIImage(systemName: "delete.right")
@@ -61,12 +65,16 @@ class DelayedTableViewController: UITableViewController {
         updateBadge()
     }
     
+    func completeItem(item: ToBuyItem) {
+        self.markAsCompleted(name: item.name)
+        self.refreshToBuyList()
+        self.tableView.reloadData()
+    }
+    
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Complete") { (_, view, completion) in
             let item = self.delayedItems[indexPath.row]
-            self.markAsCompleted(name: item.name)
-            self.refreshToBuyList()
-            self.tableView.reloadData()
+            self.completeItem(item: item)
             completion(true)
         }
         action.image = UIImage(systemName: "checkmark")
@@ -98,5 +106,29 @@ class DelayedTableViewController: UITableViewController {
         cell.configure(with: item)
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let data = delayedItems[indexPath.row]
+
+        return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: {
+            let view = ItemPreviewViewController(itemName: data.name, image: data.image)
+            return view
+        }){ _ in
+            let completeAction = UIAction(
+                title: NSLocalizedString("action.complete.title", comment: "action.complete.title"),
+                image: UIImage(systemName: "checkmark")) { _ in
+                    self.completeItem(item: data)
+            }
+            
+            let deleteAction = UIAction(
+                title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
+                image: UIImage(systemName: "delete.right"),
+                attributes: .destructive) { _ in
+                    self.deleteItem(item: data)
+            }
+            
+            return UIMenu(title: "", children: [completeAction, deleteAction])
+        }
     }
 }
