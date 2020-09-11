@@ -91,7 +91,7 @@ class ToBuyTableViewController: UITableViewController {
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.completedItems[indexPath.row]
-            deleteItemByName(name: item.name)
+            deleteItemByNameFromToBuys(name: item.name)
             self.updateBadge()
             self.refreshToBuyList()
             self.tableView.reloadData()

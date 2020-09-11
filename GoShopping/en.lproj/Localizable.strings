@@ -21,6 +21,5 @@
 "category.unknown.section.header" = "Not found - add a new item?";
 "searchbar.placeholder" = "Ice cream...";
 
-"action.addToBuyList.title" = "Add to To-Buys";
 "action.editCanBuyItem.title" = "Edit item";
-"action.deleteFromToBuyList.title"="Delete from To-Buys";
+"action.deleteFromToBuyList.title"="Delete item";

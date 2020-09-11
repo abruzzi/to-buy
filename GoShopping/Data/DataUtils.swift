@@ -44,7 +44,7 @@ func saveToBuyItem(name: String, category: Int, image: String, supermarket: Stri
     }
 }
 
-func deleteItemByName(name: String) {
+func deleteItemByNameFromToBuys(name: String) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
     }
@@ -217,6 +217,32 @@ func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
         try managedContext.save()
     } catch let error as NSError {
         print("Could not save. \(error), \(error.userInfo)")
+    }
+}
+
+func deleteItemByNameFromCanBuys(name: String) {
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return
+    }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    
+    let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "CanBuys")
+    fetchRequest.predicate = NSPredicate(format: "name = %@", name)
+    
+    do {
+        let result = try managedContext.fetch(fetchRequest)
+        if(result.count > 0) {
+            let obj = result[0] as! NSManagedObject
+            managedContext.delete(obj)
+            do {
+                try managedContext.save()
+            } catch {
+                print(error)
+            }
+        }
+    }catch let error as NSError {
+        print("Could not delete value. \(error), \(error.userInfo)")
     }
 }
 

@@ -21,6 +21,5 @@
 "category.unknown.section.header" = "没找到 - 添加新条目？";
 "searchbar.placeholder" = "冰淇淋...";
 
-"action.addToBuyList.title" = "添加到要买";
 "action.editCanBuyItem.title" = "编辑条目";
-"action.deleteFromToBuyList.title"="从要买清单中移除";
+"action.deleteFromToBuyList.title"="删除条目";

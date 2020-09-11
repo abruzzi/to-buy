@@ -146,7 +146,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let data = canBuyItems[indexPath.section][indexPath.row]
         if(isAlreadyExistInToBuyList(name: data.name)) {
-            deleteItemByName(name: data.name)
+            deleteItemByNameFromToBuys(name: data.name)
         }
         updateBadge()
     }
@@ -179,7 +179,16 @@ class ShoppingCollectionViewController: UICollectionViewController {
                     self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
-            return UIMenu(title: "", children: [editAction])
+            let deleteAction = UIAction(
+                title: NSLocalizedString("action.deleteFromToBuyList.title", comment: "action.deleteFromToBuyList.title"),
+                image: UIImage(systemName: "trash"),
+                attributes: .destructive) { _ in
+                    deleteItemByNameFromCanBuys(name: data.name)
+                    deleteItemByNameFromToBuys(name: data.name)
+                    self.refreshView()
+            }
+            
+            return UIMenu(title: "", children: [editAction, deleteAction])
         }
     }
     
