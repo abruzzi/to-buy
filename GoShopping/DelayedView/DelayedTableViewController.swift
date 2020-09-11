@@ -12,9 +12,9 @@ import CoreData
 private let reuseIdentifier = "ToBuyTableViewCell"
 
 class DelayedTableViewController: UITableViewController {
-    private lazy var dataProvider: ToBuysProvider = {
+    private lazy var dataProvider: DelayedToBuysProvider = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let provider = ToBuysProvider(with: appDelegate.persistentContainer,
+        let provider = DelayedToBuysProvider(with: appDelegate.persistentContainer,
                                    fetchedResultsControllerDelegate: self)
         return provider
     }()
@@ -61,7 +61,8 @@ class DelayedTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        return dataProvider.numberOfDelayed()
+//        return dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection

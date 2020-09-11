@@ -44,6 +44,8 @@ class ToBuyTableViewCell: UITableViewCell {
         createdAtLabel.text = dateFormatterGet.string(from: toBuy.createdAt!)
         toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
         toBuyItemImage.image = getImageOf(itemName: toBuy.name!, fallbackImageName: toBuy.image!)
+        toBuyItemImage.layer.cornerRadius = 4.0
+        toBuyItemImage.layer.masksToBounds = true
         supermarket.text = toBuy.supermarket
     }
     
@@ -61,6 +63,8 @@ class ToBuyTableViewCell: UITableViewCell {
         createdAtLabel.text = dateFormatterGet.string(from: toBuyItem.createdAt)
         toBuyItemCategory.text = categoryTitles[toBuyItem.category]
         toBuyItemImage.image = getImageOf(itemName: toBuyItem.name, fallbackImageName: toBuyItem.image)
+        toBuyItemImage.layer.cornerRadius = 4.0
+        toBuyItemImage.layer.masksToBounds = true
         supermarket.text = toBuyItem.supermarket
     }
 }
