@@ -39,6 +39,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
+
         self.setupGrid()
     }
     
@@ -169,7 +170,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let data = canBuyItems[indexPath.section][indexPath.row]
-        return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: nil) { _ in
+
+        return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: {
+            let view = ItemPreviewViewController(itemName: data.name, image: data.image)
+            return view
+        }) { _ in
             let editAction = UIAction(
                 title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
                 image: UIImage(systemName: "pencil")) { _ in
@@ -191,7 +196,16 @@ class ShoppingCollectionViewController: UICollectionViewController {
             return UIMenu(title: "", children: [editAction, deleteAction])
         }
     }
-    
+//    
+//    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+//        let name = configuration.identifier as! String
+//        
+//        let editing = EditingTableViewController()
+//        
+//        animator.addCompletion {
+//            self.show(EditingTableViewController(), sender: self)
+//        }
+//    }
     var estimateWidth = 80.0
     var cellMargin = 8.0
 }

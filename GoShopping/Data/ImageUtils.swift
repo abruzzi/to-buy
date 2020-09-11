@@ -12,7 +12,7 @@ import UIKit
 func saveImageTo(image: UIImage, imageName: String){
     let fileManager = FileManager.default
     let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
-    let resized = image.resize(toTargetSize: CGSize(width: 400, height: 400))
+    let resized = image.resize(toTargetSize: CGSize(width: 1000, height: 1000))
     let data = UIImage.pngData(resized)
 
     fileManager.createFile(atPath: imagePath as String, contents: data(), attributes: nil)
