@@ -106,7 +106,7 @@ class ToBuyTableViewController: UITableViewController {
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.completedItems[indexPath.row]
-            self.delayItem(item: item)
+            self.deleteItem(item: item)
             completion(true)
         }
         action.image = UIImage(systemName: "delete.right")
@@ -164,7 +164,7 @@ class ToBuyTableViewController: UITableViewController {
             let delayAction = UIAction(
                 title: NSLocalizedString("action.delay.title", comment: "action.delay.title"),
                 image: UIImage(systemName: "clock")) { _ in
-                    self.completeItem(item: item)
+                    self.delayItem(item: item)
             }
             
             let completeAction = UIAction(

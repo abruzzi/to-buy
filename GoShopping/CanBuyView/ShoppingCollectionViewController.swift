@@ -196,16 +196,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             return UIMenu(title: "", children: [editAction, deleteAction])
         }
     }
-//    
-//    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-//        let name = configuration.identifier as! String
-//        
-//        let editing = EditingTableViewController()
-//        
-//        animator.addCompletion {
-//            self.show(EditingTableViewController(), sender: self)
-//        }
-//    }
+
     var estimateWidth = 80.0
     var cellMargin = 8.0
 }

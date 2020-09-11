@@ -39,7 +39,7 @@ class ItemPreviewViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: 240)
         ])
         
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         
         self.imageView = imageView
     }
