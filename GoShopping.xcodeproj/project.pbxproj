@@ -11,6 +11,9 @@
 		7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */; };
 		7A70742C250A35B0002644D2 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A70742B250A35B0002644D2 /* ImageUtils.swift */; };
 		7A70742F250B3D3F002644D2 /* ItemPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */; };
+		7A8304E2250B9B3D00D4A6A8 /* CanBuysProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */; };
+		7A8304E6250B9DBC00D4A6A8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */; };
+		7A8304E8250B9FF800D4A6A8 /* ToBuysProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */; };
 		7A90DDA02506322500DABD5E /* category-cn.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F640C2505F7B7000F638C /* category-cn.json */; };
 		7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */; };
 		7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */; };
@@ -36,6 +39,9 @@
 		7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewController.swift; sourceTree = "<group>"; };
 		7A70742B250A35B0002644D2 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewViewController.swift; sourceTree = "<group>"; };
+		7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanBuysProvider.swift; sourceTree = "<group>"; };
+		7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToBuysProvider.swift; sourceTree = "<group>"; };
 		7A90DDA22506507600DABD5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7A97C0BC24FCFFFE004800E3 /* To Buy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Buy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +135,9 @@
 			children = (
 				7A70742B250A35B0002644D2 /* ImageUtils.swift */,
 				7A0536992503581C00A1C8EB /* DataUtils.swift */,
+				7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */,
+				7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */,
+				7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -250,10 +259,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A97C0DC24FD234A004800E3 /* ShoppingCollectionViewController.swift in Sources */,
+				7A8304E2250B9B3D00D4A6A8 /* CanBuysProvider.swift in Sources */,
 				7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */,
 				7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */,
 				7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */,
 				7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */,
+				7A8304E6250B9DBC00D4A6A8 /* Utilities.swift in Sources */,
 				7A70742C250A35B0002644D2 /* ImageUtils.swift in Sources */,
 				7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */,
 				7A05369A2503581C00A1C8EB /* DataUtils.swift in Sources */,
@@ -262,6 +273,7 @@
 				7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */,
 				7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */,
 				7A70742F250B3D3F002644D2 /* ItemPreviewViewController.swift in Sources */,
+				7A8304E8250B9FF800D4A6A8 /* ToBuysProvider.swift in Sources */,
 				7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

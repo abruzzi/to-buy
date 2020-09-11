@@ -8,73 +8,45 @@
 
 import UIKit
 import CoreData
-import SwiftUI
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
 class DelayedTableViewController: UITableViewController {
-    private var delayedItems: [ToBuyItem]!
-    
-    override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      self.refreshToBuyList()
-      self.tableView.reloadData()
-      self.updateBadge()
-    }
-    
-    func refreshToBuyList() {
-        let allItems = fetchAllToBuyItems()
-        delayedItems = allItems.filter { $0.isDelayed }
-    }
+    private lazy var dataProvider: ToBuysProvider = {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let provider = ToBuysProvider(with: appDelegate.persistentContainer,
+                                   fetchedResultsControllerDelegate: self)
+        return provider
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
-    
+
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = deleteAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [delete])
     }
-    
-    func deleteItem(item: ToBuyItem) {
-        deleteItemByNameFromToBuys(name: item.name)
-        self.updateBadge()
-        self.refreshToBuyList()
-        self.tableView.reloadData()
-    }
-    
+
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
-            let item = self.delayedItems[indexPath.row]
-            self.deleteItem(item: item)
+            self.dataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "delete.right")
         action.backgroundColor = .systemRed
         return action
     }
-    
+
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let complete = completeAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [complete])
     }
-    
-    func markAsCompleted(name: String) {
-        updateRecordFor(name: name, dict: ["isCompleted": true, "isDelayed": false])
-        updateBadge()
-    }
-    
-    func completeItem(item: ToBuyItem) {
-        self.markAsCompleted(name: item.name)
-        self.refreshToBuyList()
-        self.tableView.reloadData()
-    }
-    
+
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Complete") { (_, view, completion) in
-            let item = self.delayedItems[indexPath.row]
-            self.completeItem(item: item)
+            self.dataProvider.markAsCompleted(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "checkmark")
@@ -85,12 +57,11 @@ class DelayedTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return delayedItems.count
+        return dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
@@ -101,7 +72,7 @@ class DelayedTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToBuyTableViewCell", for: indexPath) as! ToBuyTableViewCell
-        let item = delayedItems[indexPath.row]
+        let item = dataProvider.fetchedResultsController.object(at: indexPath)
 
         cell.configure(with: item)
 
@@ -109,26 +80,33 @@ class DelayedTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let data = delayedItems[indexPath.row]
+        let data = dataProvider.fetchedResultsController.object(at: indexPath)
 
-        return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: {
-            let view = ItemPreviewViewController(itemName: data.name, image: data.image)
+        return UIContextMenuConfiguration(identifier: data.name as NSCopying?, previewProvider: {
+            let view = ItemPreviewViewController(itemName: data.name!, image: data.image!)
             return view
         }){ _ in
             let completeAction = UIAction(
                 title: NSLocalizedString("action.complete.title", comment: "action.complete.title"),
                 image: UIImage(systemName: "checkmark")) { _ in
-                    self.completeItem(item: data)
+                    self.dataProvider.markAsCompleted(at: indexPath)
             }
-            
+
             let deleteAction = UIAction(
                 title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
                 image: UIImage(systemName: "delete.right"),
                 attributes: .destructive) { _ in
-                    self.deleteItem(item: data)
+                    self.dataProvider.deleteToBuyItem(at: indexPath)
             }
-            
+
             return UIMenu(title: "", children: [completeAction, deleteAction])
         }
+    }
+}
+
+extension DelayedTableViewController: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
+        self.updateBadge()
     }
 }

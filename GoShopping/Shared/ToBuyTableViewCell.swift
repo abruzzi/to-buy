@@ -30,6 +30,23 @@ class ToBuyTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    func configure(with toBuy: ToBuys) {
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
+        if(toBuy.isCompleted) {
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+        }
+        toBuyItemLabel.layer.opacity = toBuy.isCompleted ? 0.5 : 1
+        toBuyItemLabel.attributedText = attributeString
+
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "MMM dd HH:mm"
+        
+        createdAtLabel.text = dateFormatterGet.string(from: toBuy.createdAt!)
+        toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
+        toBuyItemImage.image = getImageOf(itemName: toBuy.name!, fallbackImageName: toBuy.image!)
+        supermarket.text = toBuy.supermarket
+    }
+    
     func configure(with toBuyItem: ToBuyItem) {
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyItem.name)
         if(toBuyItem.isCompleted) {
