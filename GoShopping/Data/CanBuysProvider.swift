@@ -21,11 +21,11 @@ class CanBuysProvider {
     
     lazy var fetchedResultsController: NSFetchedResultsController<CanBuys> = {
         let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category", ascending: true), NSSortDescriptor(key: "createdAt", ascending: false)]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: persistentContainer.viewContext,
-                                                    sectionNameKeyPath: nil, cacheName: nil)
+                                                    sectionNameKeyPath: "category", cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
         do {
@@ -37,6 +37,29 @@ class CanBuysProvider {
         
         return controller
     }()
+
+//    func group(_ result : [CanBuys])-> [[CanBuys]] {
+//        let dict: [Int: [CanBuys]] = Dictionary(grouping: result) { Int($0.category) }
+//        return dict
+//            .sorted(by: {$0.key < $1.key})
+//            .map {$0.value}
+//        
+//    }
+//
+//
+//    func groupedCanBuyItems() ->  [[CanBuys]] {
+//        let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
+//        let itemsArray = try? group(persistentContainer.viewContext.fetch(fetchRequest))
+//        return itemsArray ?? [[]]
+//    }
+//    
+//    func numberOfSections () -> Int {
+//        let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
+//        let count = try? group(persistentContainer.viewContext.fetch(fetchRequest)).count
+//        
+//        return count ?? 0
+//    }
+//    
     
     func addCanBuy(canBuyItem: CanBuys, context: NSManagedObjectContext, shouldSave: Bool = true) {
         context.performAndWait {

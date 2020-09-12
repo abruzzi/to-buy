@@ -15,7 +15,6 @@
 		7A8304E6250B9DBC00D4A6A8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */; };
 		7A8304E8250B9FF800D4A6A8 /* ToBuysProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */; };
 		7A8304EA250BAA6500D4A6A8 /* DelayedToBuysProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */; };
-		7A8304EC250C7AF400D4A6A8 /* CompletedToBuysProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8304EB250C7AF400D4A6A8 /* CompletedToBuysProvider.swift */; };
 		7A90DDA02506322500DABD5E /* category-cn.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F640C2505F7B7000F638C /* category-cn.json */; };
 		7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */; };
 		7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */; };
@@ -45,7 +44,6 @@
 		7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToBuysProvider.swift; sourceTree = "<group>"; };
 		7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedToBuysProvider.swift; sourceTree = "<group>"; };
-		7A8304EB250C7AF400D4A6A8 /* CompletedToBuysProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedToBuysProvider.swift; sourceTree = "<group>"; };
 		7A90DDA22506507600DABD5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7A97C0BC24FCFFFE004800E3 /* To Buy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Buy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 				7A0536992503581C00A1C8EB /* DataUtils.swift */,
 				7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */,
 				7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */,
-				7A8304EB250C7AF400D4A6A8 /* CompletedToBuysProvider.swift */,
 				7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */,
 				7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */,
 			);
@@ -265,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A97C0DC24FD234A004800E3 /* ShoppingCollectionViewController.swift in Sources */,
-				7A8304EC250C7AF400D4A6A8 /* CompletedToBuysProvider.swift in Sources */,
 				7A8304EA250BAA6500D4A6A8 /* DelayedToBuysProvider.swift in Sources */,
 				7A8304E2250B9B3D00D4A6A8 /* CanBuysProvider.swift in Sources */,
 				7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */,

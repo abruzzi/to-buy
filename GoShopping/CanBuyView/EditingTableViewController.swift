@@ -9,7 +9,7 @@
 import UIKit
 
 class EditingTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var item: CanBuyItem!
+    var item: CanBuys!
     var category: String!
     
     let categories = [
@@ -23,11 +23,11 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
         let category = segmentCategory.selectedSegmentIndex
-        if(isNewItemInApp(name: item.name)) {
+        if(isNewItemInApp(name: item.name!)) {
             let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: category, image: "icons8-autism", supermarket: supermarketTextField.text ?? "")
             saveCanBuyItem(canBuyItem: newItem)
         } else {
-            updateCanBuyItem(name: item.name, dict: [
+            updateCanBuyItem(name: item.name!, dict: [
                 "name": itemNameTextField.text ?? "",
                 "supermarket": supermarketTextField.text ?? "",
                 "category": category
@@ -52,12 +52,12 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         self.tableView.keyboardDismissMode = .onDrag
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
-        segmentCategory.selectedSegmentIndex = item.category
+        segmentCategory.selectedSegmentIndex = Int(item.category)
         saveButton.layer.cornerRadius = 4.0
      
 
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
-        itemImage.image = getImageOf(itemName: item.name, fallbackImageName: item.image)
+        itemImage.image = getImageOf(itemName: item.name!, fallbackImageName: item.image!)
         itemImage.addGestureRecognizer(singleTap)
     }
 
@@ -90,7 +90,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        saveImageTo(image: (image ?? UIImage(named: item.image))!, imageName: item.name)
+        saveImageTo(image: (image ?? UIImage(named: item.image!))!, imageName: item.name!)
         itemImage.image = image
         picker.dismiss(animated: true, completion: nil)
     }

@@ -12,8 +12,6 @@ import CoreData
 private let reuseIdentifier = "ItemCell"
 
 class ShoppingCollectionViewController: UICollectionViewController {
-    private var canBuyItems: [[CanBuyItem]]!
-    
     let searchController = UISearchController(searchResultsController: nil)
     
     let categoryTitles = [
@@ -23,15 +21,26 @@ class ShoppingCollectionViewController: UICollectionViewController {
         NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    
+    private lazy var dataProvider: CanBuysProvider = {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let provider = CanBuysProvider(with: appDelegate.persistentContainer,
+                                      fetchedResultsControllerDelegate: self)
+        return provider
+    }()
+    
+    func setupSearchBar () {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder =  NSLocalizedString("searchbar.placeholder", comment: "searchbar.placeholder")
+        searchController.searchBar.delegate = self
         searchController.delegate = self
-        
         navigationItem.searchController = searchController
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupSearchBar()
         
         definesPresentationContext = true
         collectionView.allowsMultipleSelection = true
@@ -43,37 +52,32 @@ class ShoppingCollectionViewController: UICollectionViewController {
         self.setupGrid()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        refreshView()
-    }
-    
     func refreshView () {
-        canBuyItems = allCanBuyList()
+//        canBuyItems = allCanBuyList()
         self.collectionView.reloadData()
-        self.updateSelections()
+//        self.updateSelections()
         self.updateBadge()
     }
     
-    func updateSelections() {
-        let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
-        
-        for (section, items) in canBuyItems.enumerated() {
-            for(index, item) in items.enumerated() {
-                let indexPath = IndexPath(item: index, section: section)
-                
-                let exist = allToBuys.contains { (toBuy: ToBuyItem) in
-                    return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
-                }
-                
-                if(exist) {
-                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                } else {
-                    self.collectionView.deselectItem(at: indexPath, animated: false)
-                }
-            }
-        }
-    }
+//    func updateSelections() {
+//        let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
+//
+//        for (section, items) in canBuyItems.enumerated() {
+//            for(index, item) in items.enumerated() {
+//                let indexPath = IndexPath(item: index, section: section)
+//
+//                let exist = allToBuys.contains { (toBuy: ToBuyItem) in
+//                    return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
+//                }
+//
+//                if(exist) {
+//                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+//                } else {
+//                    self.collectionView.deselectItem(at: indexPath, animated: false)
+//                }
+//            }
+//        }
+//    }
     
     func setupGrid() {
         let flow = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
@@ -83,83 +87,80 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-        if(searchText.isEmpty) {
-            canBuyItems = allCanBuyList()
-        } else {
-            canBuyItems = allCanBuyList().map { (array: [CanBuyItem]) in
-                let items = array.filter { (item: CanBuyItem) -> Bool in
-                    return item.name.lowercased().contains(searchText.lowercased())
-                }
-                return items
+        if(!searchText.isEmpty) {
+            let predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+            
+            dataProvider.fetchedResultsController.fetchRequest.predicate = predicate
+            
+            do {
+                try dataProvider.fetchedResultsController.performFetch()
+            } catch let err {
+                print(err)
             }
             
-            canBuyItems = canBuyItems.filter { (array: [CanBuyItem]) in
-                array.count > 0
-            }
-            
-            if(canBuyItems.count == 0) {
-                canBuyItems = [[
-                    CanBuyItem(name: searchText, category: 3, image: "icons8-autism", supermarket: "")
-                    ]]
-            }
+            collectionView.reloadData()
         }
-        collectionView.reloadData()
     }
     
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return canBuyItems.count
+        return dataProvider.fetchedResultsController.sections?.count ?? 0
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return canBuyItems[section].count
+        if let count = dataProvider.fetchedResultsController.sections?[section].numberOfObjects {
+            return count
+        }
+        return 0;
     }    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        let data = canBuyItems[indexPath.section][indexPath.row]
+        let data = dataProvider.fetchedResultsController.object(at: indexPath)
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView {
-            itemCell.configure(with: data.name, image: data.image)
+            itemCell.configure(with: data.name!, image: data.image!)
             cell = itemCell
         }
         
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let data = canBuyItems[indexPath.section][indexPath.row]
-        
-        if(isNewItemInApp(name: data.name)) {
-            let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
-                as? EditingTableViewController
-            viewController!.item = data
-            self.navigationController?.pushViewController(viewController!, animated: true)
-        } else {
-            if(!isAlreadyExistInToBuyList(name: data.name)) {
-                saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
-            }
-        }
-        updateBadge()
-    }
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let data = dataProvider.groupedCanBuyItems()[indexPath.section][indexPath.row]
+////        let data = canBuyItems[indexPath.section][indexPath.row]
+//
+//        if(isNewItemInApp(name: data.name!)) {
+//            let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+//                as? EditingTableViewController
+//            viewController!.item = data
+//            self.navigationController?.pushViewController(viewController!, animated: true)
+//        } else {
+//            if(!isAlreadyExistInToBuyList(name: data.name!)) {
+//                saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
+//            }
+//        }
+//        updateBadge()
+//    }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let data = canBuyItems[indexPath.section][indexPath.row]
-        if(isAlreadyExistInToBuyList(name: data.name)) {
-            deleteItemByNameFromToBuys(name: data.name)
+        let data = dataProvider.fetchedResultsController.object(at: indexPath)
+        if(isAlreadyExistInToBuyList(name: data.name!)) {
+            deleteItemByNameFromToBuys(name: data.name!)
         }
         updateBadge()
     }
+
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
+        let data = dataProvider.fetchedResultsController.object(at: indexPath)
         
-        let obj = canBuyItems[indexPath.section]
-        
-        if(obj.count > 0) {
-            let title = categoryTitles[obj[0].category]
-            sectionHeader.configure(with: title, image: UIImage(named: obj[0].image)!)
+        let count = dataProvider.fetchedResultsController.sections?[indexPath.section].numberOfObjects ?? 0
+        if(count > 0) {
+            let title = categoryTitles[Int(data.category)]
+            sectionHeader.configure(with: title, image: UIImage(named: data.image!)!)
         } else {
             let title = categoryTitles[3]
             sectionHeader.configure(with: title, image: UIImage(named: "icons8-autism")!)
@@ -169,10 +170,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let data = canBuyItems[indexPath.section][indexPath.row]
+        let data = dataProvider.fetchedResultsController.object(at: indexPath)
 
-        return UIContextMenuConfiguration(identifier: data.name as NSString, previewProvider: {
-            let view = ItemPreviewViewController(itemName: data.name, image: data.image)
+        return UIContextMenuConfiguration(identifier: data.name! as NSString, previewProvider: {
+            let view = ItemPreviewViewController(itemName: data.name!, image: data.image!)
             return view
         }) { _ in
             let editAction = UIAction(
@@ -188,9 +189,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 title: NSLocalizedString("action.deleteFromToBuyList.title", comment: "action.deleteFromToBuyList.title"),
                 image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
-                    deleteItemByNameFromCanBuys(name: data.name)
-                    deleteItemByNameFromToBuys(name: data.name)
-                    self.refreshView()
+                    self.dataProvider.deleteCanBuy(at: indexPath)
             }
             
             return UIMenu(title: "", children: [editAction, deleteAction])
@@ -211,6 +210,20 @@ extension ShoppingCollectionViewController: UISearchResultsUpdating {
 extension ShoppingCollectionViewController: UISearchControllerDelegate {
     func didDismissSearchController(_ searchController: UISearchController) {
         self.refreshView()
+    }
+}
+
+extension ShoppingCollectionViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dataProvider.fetchedResultsController.fetchRequest.predicate = nil
+        
+        do {
+            try dataProvider.fetchedResultsController.performFetch()
+        } catch let err {
+            print(err)
+        }
+        
+        collectionView.reloadData()
     }
 }
 
@@ -246,3 +259,9 @@ extension UIViewController {
     }
 }
 
+extension ShoppingCollectionViewController: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        collectionView.reloadData()
+        self.updateBadge()
+    }
+}
