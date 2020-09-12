@@ -52,32 +52,39 @@ class ShoppingCollectionViewController: UICollectionViewController {
         self.setupGrid()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.refreshView()
+    }
+    
     func refreshView () {
-//        canBuyItems = allCanBuyList()
         self.collectionView.reloadData()
-//        self.updateSelections()
+        self.updateSelections()
         self.updateBadge()
     }
     
-//    func updateSelections() {
-//        let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
-//
-//        for (section, items) in canBuyItems.enumerated() {
-//            for(index, item) in items.enumerated() {
-//                let indexPath = IndexPath(item: index, section: section)
-//
-//                let exist = allToBuys.contains { (toBuy: ToBuyItem) in
-//                    return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
-//                }
-//
-//                if(exist) {
-//                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-//                } else {
-//                    self.collectionView.deselectItem(at: indexPath, animated: false)
-//                }
-//            }
-//        }
-//    }
+    func updateSelections() {
+        let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
+        
+        let sections = dataProvider.fetchedResultsController.sections?.count ?? 1
+        for section in 0...sections - 1 {
+            let itemsInSection = dataProvider.fetchedResultsController.sections?[section].numberOfObjects ?? 1
+            for index in 0...itemsInSection-1 {
+                let indexPath = IndexPath(row: index, section: section)
+                let item = dataProvider.fetchedResultsController.object(at: indexPath)
+                
+                let exist = allToBuys.contains { (toBuy: ToBuyItem) in
+                    return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
+                }
+
+                if(exist) {
+                    self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+                } else {
+                    self.collectionView.deselectItem(at: indexPath, animated: false)
+                }
+            }
+        }
+    }
     
     func setupGrid() {
         let flow = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
@@ -87,19 +94,17 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-        if(!searchText.isEmpty) {
-            let predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
-            
-            dataProvider.fetchedResultsController.fetchRequest.predicate = predicate
-            
-            do {
-                try dataProvider.fetchedResultsController.performFetch()
-            } catch let err {
-                print(err)
-            }
-            
-            collectionView.reloadData()
+        let predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+        
+        dataProvider.fetchedResultsController.fetchRequest.predicate = searchText.isEmpty ? nil : predicate
+        
+        do {
+            try dataProvider.fetchedResultsController.performFetch()
+        } catch let err {
+            print(err)
         }
+        
+        collectionView.reloadData()
     }
     
     
@@ -127,22 +132,21 @@ class ShoppingCollectionViewController: UICollectionViewController {
         return cell
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let data = dataProvider.groupedCanBuyItems()[indexPath.section][indexPath.row]
-////        let data = canBuyItems[indexPath.section][indexPath.row]
-//
-//        if(isNewItemInApp(name: data.name!)) {
-//            let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
-//                as? EditingTableViewController
-//            viewController!.item = data
-//            self.navigationController?.pushViewController(viewController!, animated: true)
-//        } else {
-//            if(!isAlreadyExistInToBuyList(name: data.name!)) {
-//                saveToBuyItem(name: data.name, category: data.category, image: data.image, supermarket: data.supermarket)
-//            }
-//        }
-//        updateBadge()
-//    }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let data = dataProvider.fetchedResultsController.object(at: indexPath)
+
+        if(isNewItemInApp(name: data.name!)) {
+            let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+                as? EditingTableViewController
+            viewController!.item = data
+            self.navigationController?.pushViewController(viewController!, animated: true)
+        } else {
+            if(!isAlreadyExistInToBuyList(name: data.name!)) {
+                saveToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
+            }
+        }
+        updateBadge()
+    }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
@@ -261,7 +265,6 @@ extension UIViewController {
 
 extension ShoppingCollectionViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        collectionView.reloadData()
-        self.updateBadge()
+        self.refreshView()
     }
 }

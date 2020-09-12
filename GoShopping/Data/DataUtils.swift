@@ -78,7 +78,11 @@ func isAlreadyExistInToBuyList(name: String) -> Bool{
     let managedContext = appDelegate.persistentContainer.viewContext
     
     let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
-    fetchRequest.predicate = NSPredicate(format: "name = %@", name)
+    
+    let namePredicate = NSPredicate(format: "name = %@", name)
+    let completedPredicate = NSPredicate(format: "isCompleted = %d", false)
+    
+    fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [namePredicate, completedPredicate])
     
     do {
         let result = try managedContext.fetch(fetchRequest)
