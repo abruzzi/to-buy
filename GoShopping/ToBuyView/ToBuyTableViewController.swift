@@ -33,22 +33,17 @@ class ToBuyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
         if(!item.isCompleted) {
+            let later = laterAction(at: indexPath)
             let complete = completeAction(at: indexPath)
-            return UISwipeActionsConfiguration(actions: [complete])
+            return UISwipeActionsConfiguration(actions: [complete, later])
         } else {
             return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
-        if(item.isCompleted) {
-            let delete = deleteAction(at: indexPath)
-            return UISwipeActionsConfiguration(actions: [delete])
-        } else {
-            let later = laterAction(at: indexPath)
-            return UISwipeActionsConfiguration(actions: [later])
-        }
+        let delete = deleteAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete])
     }
     
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
@@ -134,7 +129,7 @@ class ToBuyTableViewController: UITableViewController {
             if(item.isCompleted) {
                 return UIMenu(title: "", children: [deleteAction])
             } else {
-                return UIMenu(title: "", children: [delayAction, completeAction])
+                return UIMenu(title: "", children: [delayAction, completeAction, deleteAction])
             }
         }
     }
