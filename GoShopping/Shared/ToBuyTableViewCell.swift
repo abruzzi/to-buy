@@ -31,40 +31,32 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuy: ToBuys) {
-        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
+        let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
+
         if(toBuy.isCompleted) {
-            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+            styledItemName.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, styledItemName.length))
         }
-        toBuyItemLabel.layer.opacity = toBuy.isCompleted ? 0.5 : 1
-        toBuyItemLabel.attributedText = attributeString
+
+        toBuyItemLabel.attributedText = styledItemName
 
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "MMM dd HH:mm"
         
         createdAtLabel.text = dateFormatterGet.string(from: toBuy.createdAt!)
+        
         toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
+        
         toBuyItemImage.image = getImageOf(itemName: toBuy.name!, fallbackImageName: toBuy.image!)
         toBuyItemImage.layer.cornerRadius = 4.0
         toBuyItemImage.layer.masksToBounds = true
-        supermarket.text = toBuy.supermarket
-    }
-    
-    func configure(with toBuyItem: ToBuyItem) {
-        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyItem.name)
-        if(toBuyItem.isCompleted) {
-            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-        }
-        toBuyItemLabel.layer.opacity = toBuyItem.isCompleted ? 0.5 : 1
-        toBuyItemLabel.attributedText = attributeString
-
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "MMM dd HH:mm"
         
-        createdAtLabel.text = dateFormatterGet.string(from: toBuyItem.createdAt)
-        toBuyItemCategory.text = categoryTitles[toBuyItem.category]
-        toBuyItemImage.image = getImageOf(itemName: toBuyItem.name, fallbackImageName: toBuyItem.image)
-        toBuyItemImage.layer.cornerRadius = 4.0
-        toBuyItemImage.layer.masksToBounds = true
-        supermarket.text = toBuyItem.supermarket
+        supermarket.text = toBuy.supermarket
+        
+        if(toBuy.isCompleted) {
+            createdAtLabel.layer.opacity = 0.5
+            toBuyItemCategory.layer.opacity = 0.5
+            toBuyItemLabel.layer.opacity = 0.5
+            supermarket.layer.opacity = 0.5
+        }
     }
 }

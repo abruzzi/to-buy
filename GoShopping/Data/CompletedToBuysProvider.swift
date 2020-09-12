@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class ToBuysProvider {
+class CompletedToBuysProvider {
     private(set) var persistentContainer: NSPersistentContainer
     private weak var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
     
@@ -21,8 +21,8 @@ class ToBuysProvider {
     
     lazy var fetchedResultsController: NSFetchedResultsController<ToBuys> = {
         let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "isCompleted", ascending: true), NSSortDescriptor(key: "createdAt", ascending: false)]
-        fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", false)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        fetchRequest.predicate = NSPredicate(format: "isCompleted = %d", true)
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: persistentContainer.viewContext,
@@ -39,53 +39,14 @@ class ToBuysProvider {
         return controller
     }()
     
-    func numberOfToBuyItems() -> Int {
+    func numberOfCompleted() -> Int {
         let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", false)
+        fetchRequest.predicate = NSPredicate(format: "isCompleted = %d", true)
         
         let number = try? persistentContainer.viewContext.count(for: fetchRequest)
         return number ?? 0
     }
-    
-    func addToBuyItem(canBuyItem: ToBuys, context: NSManagedObjectContext, shouldSave: Bool = true) {
-        context.performAndWait {
-            let item = ToBuys(context: context)
-            item.name = canBuyItem.name
-            item.category = canBuyItem.category
-            item.image = canBuyItem.image
-            item.createdAt = Date()
-            item.supermarket = canBuyItem.supermarket
-            
-            if shouldSave {
-                context.save(with: .addToBuyItem)
-            }
-        }
-    }
 
-    func markAsDelayed(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
-            let item = fetchedResultsController.object(at: indexPath)
-            item.isDelayed = true
-            item.isCompleted = false
-            if shouldSave {
-                context.save(with: .markAsDelayed)
-            }
-        }
-    }
-    
-    func markAsCompleted(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
-            let item = fetchedResultsController.object(at: indexPath)
-            item.isDelayed = false
-            item.isCompleted = true
-            if shouldSave {
-                context.save(with: .markAsCompleted)
-            }
-        }
-    }
-    
     func deleteToBuyItem(at indexPath: IndexPath, shouldSave: Bool = true) {
         let context = fetchedResultsController.managedObjectContext
         context.performAndWait {
