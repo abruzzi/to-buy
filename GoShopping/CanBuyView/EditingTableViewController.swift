@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class EditingTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var item: CanBuys!
@@ -23,17 +24,16 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     
     @IBAction func saveButtonClickHandler(_ sender: UIButton) {
         let category = segmentCategory.selectedSegmentIndex
-        if(isNewItemInApp(name: item.name!)) {
-            let newItem = CanBuyItem(name: itemNameTextField.text ?? "", category: category, image: "icons8-autism", supermarket: supermarketTextField.text ?? "")
-            saveCanBuyItem(canBuyItem: newItem)
-        } else {
-            updateCanBuyItem(name: item.name!, dict: [
-                "name": itemNameTextField.text ?? "",
-                "supermarket": supermarketTextField.text ?? "",
-                "category": category
-            ])
-        }
         
+        let context = item.managedObjectContext!
+        context.performAndWait {
+            item.name = itemNameTextField.text
+            item.category = Int16(category)
+            item.supermarket = supermarketTextField.text
+            
+            context.save(with: .updateCanBuy)
+        }
+  
         self.navigationController?.popViewController(animated: true)
     }
     
