@@ -31,6 +31,7 @@ extension NSPersistentContainer {
  */
 enum ContextSaveContextualInfo: String {
     case addCanBuyItem = "adding a can buy item"
+    case updateCanBuy = "update can buy item"
     case deleteCanBuyItem = "deleting a can buy item"
     case addToBuyItem = "adding a to buy item"
     case deleteToBuyItem = "deleting a to buy item"

@@ -69,6 +69,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
+        //MARK: i18n
         let actionSheet = UIAlertController(title: "Choose photo", message: "", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in

@@ -11,40 +11,9 @@ import CoreData
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
-func emptyStateView(frame: CGRect) -> UIView {
-    let emptyView = UIView(frame: frame)
-
-    emptyView.layer.opacity = 0.5
-    let label = UILabel()
-    label.textColor = UIColor(named: "FontColor")
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.text = NSLocalizedString("to.buy.empty.hint.message", comment: "to.buy.empty.hint.message")
-    label.textAlignment = .center
-    
-    let imageView = UIImageView(frame: .zero)
-    imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-    imageView.translatesAutoresizingMaskIntoConstraints = false
-    
-    imageView.backgroundColor = UIColor(named: "blue")
-    imageView.image = UIImage(named: "icons8-basket")
-
-    emptyView.addSubview(imageView)
-    emptyView.addSubview(label)
-
-    imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-    imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
-    imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-
-    label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-    label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-    
-    return emptyView
-}
-
 extension UITableView {
-    func emptyState () {
-        let emptyView = emptyStateView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
+    func emptyState (label: String, image: String) {
+        let emptyView = EmptyList(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height), label: label, image: image)
         self.backgroundView = emptyView
         self.separatorStyle = .none
     }
@@ -66,6 +35,7 @@ class ToBuyTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.updateBadge()
     }
     
     override func viewDidLoad() {
@@ -130,7 +100,7 @@ class ToBuyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = toBuyDataProvider.numberOfToBuyItems()
         if(count == 0) {
-            self.tableView.emptyState()
+            self.tableView.emptyState(label: NSLocalizedString("to.buy.empty.hint.message", comment: "to.buy.empty.hint.message"), image: "icons8-basket")
         } else {
             self.tableView.restore()
         }

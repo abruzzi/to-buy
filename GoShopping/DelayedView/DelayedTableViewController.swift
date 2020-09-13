@@ -24,6 +24,11 @@ class DelayedTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateBadge()
+    }
+    
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = deleteAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [delete])
@@ -61,7 +66,14 @@ class DelayedTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataProvider.numberOfDelayed()
+        let count = dataProvider.numberOfDelayed()
+        if(count == 0) {
+            self.tableView.emptyState(label: NSLocalizedString("delayed.empty.hint.message", comment: "delayed.empty.hint.message"), image: "icons8-empty_jam_jar")
+        } else {
+            self.tableView.restore()
+        }
+        
+        return count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection

@@ -11,6 +11,58 @@ import CoreData
 
 private let reuseIdentifier = "ItemCell"
 
+extension ShoppingCollectionViewController {
+    func emptyState () {
+        let emptyView = UIView(frame: self.collectionView.frame)
+        emptyView.backgroundColor = UIColor(named: "BGColor")
+        
+        let label = UILabel()
+        label.textColor = UIColor(named: "FontColor")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = searchText
+        label.textAlignment = .center
+        
+        let imageView = UIImageView(frame: .zero)
+        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageView.image = UIImage(named: "icons8-crystal_ball")
+        
+        emptyView.addSubview(imageView)
+        emptyView.addSubview(label)
+        
+        imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+        label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(editNewItem))
+        emptyView.addGestureRecognizer(singleTap)
+
+        self.collectionView.backgroundView = emptyView
+    }
+    
+    //Action
+    @objc func editNewItem() {
+        let context = self.dataProvider.persistentContainer.viewContext
+        self.dataProvider.addCanBuy(in: context, name: self.searchText, image: "icons8-crystal_ball", shouldSave: false) { canBuyItem in
+            let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+                as? EditingTableViewController
+            viewController!.item = canBuyItem
+            
+            self.navigationController?.pushViewController(viewController!, animated: true)
+        }
+    }
+    
+    func restore () {
+        self.collectionView.backgroundView = nil
+    }
+}
+
 class ShoppingCollectionViewController: UICollectionViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -92,7 +144,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
         flow.minimumLineSpacing = CGFloat(cellMargin)
     }
     
+    var searchText: String = ""
+    
     func filterContentForSearchText(_ searchText: String) {
+        self.searchText = searchText
+        
         let predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
         
         dataProvider.fetchedResultsController.fetchRequest.predicate = searchText.isEmpty ? nil : predicate
@@ -108,7 +164,15 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataProvider.fetchedResultsController.sections?.count ?? 0
+        let count = dataProvider.fetchedResultsController.sections?.count ?? 0
+        
+        if(count == 0) {
+            self.emptyState()
+        } else {
+            self.restore()
+        }
+        
+        return count
     }
     
     
@@ -116,6 +180,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         if let count = dataProvider.fetchedResultsController.sections?[section].numberOfObjects {
             return count
         }
+        
         return 0;
     }    
     

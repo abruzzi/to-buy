@@ -26,3 +26,4 @@
 
 
 "to.buy.empty.hint.message" = "Please pick up some items";
+"delayed.empty.hint.message" = "Nothing here yet, which is good";

@@ -37,45 +37,21 @@ class CanBuysProvider {
         
         return controller
     }()
-
-//    func group(_ result : [CanBuys])-> [[CanBuys]] {
-//        let dict: [Int: [CanBuys]] = Dictionary(grouping: result) { Int($0.category) }
-//        return dict
-//            .sorted(by: {$0.key < $1.key})
-//            .map {$0.value}
-//        
-//    }
-//
-//
-//    func groupedCanBuyItems() ->  [[CanBuys]] {
-//        let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
-//        let itemsArray = try? group(persistentContainer.viewContext.fetch(fetchRequest))
-//        return itemsArray ?? [[]]
-//    }
-//    
-//    func numberOfSections () -> Int {
-//        let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
-//        let count = try? group(persistentContainer.viewContext.fetch(fetchRequest)).count
-//        
-//        return count ?? 0
-//    }
-//    
     
-    func addCanBuy(canBuyItem: CanBuys, context: NSManagedObjectContext, shouldSave: Bool = true) {
-        context.performAndWait {
+    func addCanBuy(in context: NSManagedObjectContext, name: String, image: String, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuys) -> Void)? = nil) {
+        context.perform {
             let item = CanBuys(context: context)
-            item.name = canBuyItem.name
-            item.category = canBuyItem.category
-            item.image = canBuyItem.image
-            item.createdAt = Date()
-            item.supermarket = canBuyItem.supermarket
-            
+            item.name = name
+            item.image = image
+            item.category = 3
+
             if shouldSave {
                 context.save(with: .addCanBuyItem)
             }
+            completionHandler?(item)
         }
     }
-    
+
     func deleteCanBuy(at indexPath: IndexPath, shouldSave: Bool = true) {
         let context = fetchedResultsController.managedObjectContext
         context.performAndWait {
