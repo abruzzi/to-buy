@@ -23,3 +23,6 @@
 
 "action.editCanBuyItem.title" = "Edit item";
 "action.deleteFromToBuyList.title"="Delete item";
+
+
+"to.buy.empty.hint.message" = "Please pick up some items";

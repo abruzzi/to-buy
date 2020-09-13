@@ -58,6 +58,8 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
 
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
         itemImage.image = getImageOf(itemName: item.name!, fallbackImageName: item.image!)
+        itemImage.layer.cornerRadius = 4.0
+        itemImage.layer.masksToBounds = true
         itemImage.addGestureRecognizer(singleTap)
     }
 

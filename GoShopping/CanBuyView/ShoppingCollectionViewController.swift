@@ -21,7 +21,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
-    
     private lazy var dataProvider: CanBuysProvider = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let provider = CanBuysProvider(with: appDelegate.persistentContainer,

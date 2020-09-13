@@ -31,6 +31,7 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuy: ToBuys) {
+        self.contentView.backgroundColor =  toBuy.isCompleted ? UIColor(named: "ListCellBGColor") : UIColor(named: "BGColor")
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
 
         if(toBuy.isCompleted) {
@@ -50,6 +51,7 @@ class ToBuyTableViewCell: UITableViewCell {
         toBuyItemImage.layer.cornerRadius = 4.0
         toBuyItemImage.layer.masksToBounds = true
         
+        
         supermarket.text = toBuy.supermarket
         
         if(toBuy.isCompleted) {
@@ -57,6 +59,13 @@ class ToBuyTableViewCell: UITableViewCell {
             toBuyItemCategory.layer.opacity = 0.5
             toBuyItemLabel.layer.opacity = 0.5
             supermarket.layer.opacity = 0.5
+            toBuyItemImage.layer.opacity = 0.3
+        } else {
+            createdAtLabel.layer.opacity = 1
+            toBuyItemCategory.layer.opacity = 1
+            toBuyItemLabel.layer.opacity = 1
+            supermarket.layer.opacity = 1
+            toBuyItemImage.layer.opacity = 1
         }
     }
 }

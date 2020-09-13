@@ -23,3 +23,5 @@
 
 "action.editCanBuyItem.title" = "编辑条目";
 "action.deleteFromToBuyList.title"="删除条目";
+
+"to.buy.empty.hint.message" = "请选择要买的商品";

@@ -11,6 +11,49 @@ import CoreData
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
+func emptyStateView(frame: CGRect) -> UIView {
+    let emptyView = UIView(frame: frame)
+
+    emptyView.layer.opacity = 0.5
+    let label = UILabel()
+    label.textColor = UIColor(named: "FontColor")
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.text = NSLocalizedString("to.buy.empty.hint.message", comment: "to.buy.empty.hint.message")
+    label.textAlignment = .center
+    
+    let imageView = UIImageView(frame: .zero)
+    imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    
+    imageView.backgroundColor = UIColor(named: "blue")
+    imageView.image = UIImage(named: "icons8-basket")
+
+    emptyView.addSubview(imageView)
+    emptyView.addSubview(label)
+
+    imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+    imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
+    imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+
+    label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+    label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+    
+    return emptyView
+}
+
+extension UITableView {
+    func emptyState () {
+        let emptyView = emptyStateView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
+        self.backgroundView = emptyView
+        self.separatorStyle = .none
+    }
+    
+    func restore () {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
+}
 
 class ToBuyTableViewController: UITableViewController {
     
@@ -85,7 +128,14 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toBuyDataProvider.numberOfToBuyItems()
+        let count = toBuyDataProvider.numberOfToBuyItems()
+        if(count == 0) {
+            self.tableView.emptyState()
+        } else {
+            self.tableView.restore()
+        }
+        
+        return count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
