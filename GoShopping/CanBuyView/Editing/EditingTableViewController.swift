@@ -30,6 +30,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
             item.name = itemNameTextField.text
             item.category = Int16(category)
             item.supermarket = supermarketTextField.text
+            item.createdAt = Date()
             
             context.save(with: .updateCanBuy)
         }

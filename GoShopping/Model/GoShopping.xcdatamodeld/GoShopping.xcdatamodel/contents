@@ -6,6 +6,14 @@
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="supermarket" optional="YES" attributeType="String"/>
+        <relationship name="tags" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="canbuys" inverseEntity="Tag"/>
+    </entity>
+    <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="Transformable"/>
+        <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="canbuys" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CanBuys" inverseName="tags" inverseEntity="CanBuys"/>
     </entity>
     <entity name="ToBuys" representedClassName="ToBuys" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -17,7 +25,8 @@
         <attribute name="supermarket" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CanBuys" positionX="-63" positionY="18" width="128" height="118"/>
+        <element name="CanBuys" positionX="-63" positionY="18" width="128" height="133"/>
         <element name="ToBuys" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Tag" positionX="-63" positionY="36" width="128" height="118"/>
     </elements>
 </model>

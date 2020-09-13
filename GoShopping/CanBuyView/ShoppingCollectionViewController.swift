@@ -20,24 +20,29 @@ extension ShoppingCollectionViewController {
         label.textColor = UIColor(named: "FontColor")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = searchText
+        label.font = UIFont.boldSystemFont(ofSize: 16.0)
         label.textAlignment = .center
         
         let imageView = UIImageView(frame: .zero)
-        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.image = UIImage(named: "icons8-crystal_ball")
+        imageView.image = UIImage(named: "icons8-plus")
         
         emptyView.addSubview(imageView)
         emptyView.addSubview(label)
         
-        imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+
+//        imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 8).isActive = true
         
-        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-        label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 120).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
+        label.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+//        label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
         
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(editNewItem))
@@ -198,8 +203,8 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
-
-        if(isNewItemInApp(name: data.name!)) {
+        
+        if(data.createdAt == nil) {
             let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                 as? EditingTableViewController
             viewController!.item = data

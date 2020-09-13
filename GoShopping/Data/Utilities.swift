@@ -37,6 +37,8 @@ enum ContextSaveContextualInfo: String {
     case deleteToBuyItem = "deleting a to buy item"
     case markAsCompleted = "mark as completed"
     case markAsDelayed = "mark as delayed"
+    case addTag = "adding a tag"
+    case deleteTag = "deleting a tag"
 }
 
 extension NSManagedObjectContext {

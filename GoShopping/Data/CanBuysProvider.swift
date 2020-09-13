@@ -46,6 +46,7 @@ class CanBuysProvider {
             item.category = 3
 
             if shouldSave {
+                item.createdAt = Date()
                 context.save(with: .addCanBuyItem)
             }
             completionHandler?(item)
