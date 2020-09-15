@@ -10,17 +10,65 @@ import Foundation
 import UIKit
 import CoreData
 
-struct ToBuyItem {
+struct ToBuyItem: Codable {
     var name: String
     var category: Int
+    var priority: Int
     var supermarket: String
-    var image: String
+    var image: Data?
     var isCompleted: Bool
+    var isForeign: Bool
     var isDelayed: Bool
     var createdAt: Date
+    
+    func getImage() -> UIImage? {
+        if let data = image {
+            return UIImage(data: data)
+        }
+        return nil
+    }
 }
 
-func saveToBuyItem(name: String, category: Int, image: String, supermarket: String) {
+func exportToUrl() -> URL? {
+    let allToBuys = allRemainingToBuys()
+
+    guard let encoded = try? JSONEncoder().encode(allToBuys) else {
+        return nil
+    }
+    
+    let documents = FileManager.default.urls(
+      for: .documentDirectory,
+      in: .userDomainMask
+    ).first
+    
+    guard let path = documents?.appendingPathComponent("/\(UUID()).tblr") else {
+        return nil
+    }
+    
+    do {
+        try encoded.write(to: path, options: .atomicWrite)
+        return path
+    } catch {
+        print(error)
+        return nil
+    }
+}
+
+func importToBuys (from url: URL) {
+    guard
+        let data = try? Data(contentsOf: url),
+        let toBuys = try? JSONDecoder().decode([ToBuyItem].self, from: data)
+      else { return }
+    
+    // skip existing ones
+    toBuys.forEach { toBuy in
+        if (!isAlreadyExistInToBuyList(name: toBuy.name)) {
+            initToBuyItem(name: toBuy.name, category: toBuy.category, image: toBuy.image!, supermarket: toBuy.supermarket, isForeign: true)
+        }
+    }
+}
+
+func initToBuyItem(name: String, category: Int, image: Data, supermarket: String, isForeign: Bool = false) {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return
     }
@@ -36,6 +84,8 @@ func saveToBuyItem(name: String, category: Int, image: String, supermarket: Stri
     item.setValue(Date(), forKeyPath: "createdAt")
     item.setValue(false, forKey: "isCompleted")
     item.setValue(false, forKey: "isDelayed")
+    item.setValue(isForeign, forKey: "isForeign")
+    item.setValue(0, forKey: "priority")
     
     do {
         try managedContext.save()
@@ -94,6 +144,43 @@ func isAlreadyExistInToBuyList(name: String) -> Bool{
     return false
 }
 
+func allRemainingToBuys() -> [ToBuyItem] {
+    var toBuyList: [NSManagedObject] = []
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return []
+    }
+    
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
+    
+    let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
+    let sortDescriptorSupermarket = NSSortDescriptor(key: "supermarket", ascending: true)
+
+    fetchRequest.sortDescriptors = [sortDescriptorSupermarket, sortDescriptorCreatedAt]
+    let completedPredicate = NSPredicate(format: "isCompleted = %d", false)
+    fetchRequest.predicate = completedPredicate
+    
+    do {
+        toBuyList = try managedContext.fetch(fetchRequest)
+    } catch let error as NSError {
+        print("Could not fetch. \(error), \(error.userInfo)")
+    }
+    
+    let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
+        return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
+                         category: nsobj.value(forKey: "category") as! Int,
+                         priority: nsobj.value(forKey: "priority") as! Int,
+                         supermarket: nsobj.value(forKey: "supermarket") as! String,
+                         image: nsobj.value(forKey: "image") as? Data,
+                         isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
+                         isForeign: (nsobj.value(forKey: "isForeign") as! Bool),
+                         isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool),
+                         createdAt: (nsobj.value(forKey: "createdAt") as! Date))
+    }
+    
+    return allItems
+}
+
 func fetchAllToBuyItems() -> [ToBuyItem] {
     var toBuyList: [NSManagedObject] = []
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -117,9 +204,11 @@ func fetchAllToBuyItems() -> [ToBuyItem] {
     let allItems: [ToBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
         return ToBuyItem(name: nsobj.value(forKey: "name") as! String,
                          category: nsobj.value(forKey: "category") as! Int,
+                         priority: nsobj.value(forKey: "priority") as! Int,
                          supermarket: nsobj.value(forKey: "supermarket") as! String,
-                         image: nsobj.value(forKey: "image") as! String,
+                         image: nsobj.value(forKey: "image") as? Data,
                          isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
+                         isForeign: (nsobj.value(forKey: "isForeign") as! Bool),
                          isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool),
                          createdAt: (nsobj.value(forKey: "createdAt") as! Date))
     }
@@ -196,8 +285,15 @@ func deleteAllToBuys(){
 struct CanBuyItem {
     var name: String
     var category: Int
-    var image: String
+    var image: Data?
     var supermarket: String
+    
+    func getImage() -> UIImage? {
+        if let data = image {
+            return UIImage(data: data)
+        }
+        return nil
+    }
 }
 
 func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
@@ -341,7 +437,7 @@ func fetchAllCanBuyList() -> [CanBuyItem] {
     let allItems: [CanBuyItem] = toBuyList.map { (nsobj: NSManagedObject) in
         return CanBuyItem(name: nsobj.value(forKey: "name") as! String,
                           category: nsobj.value(forKey: "category") as! Int,
-                          image: nsobj.value(forKey: "image") as! String,
+                          image: nsobj.value(forKey: "image") as? Data,
                           supermarket: nsobj.value(forKey: "supermarket") as! String)
     }
     
@@ -416,8 +512,13 @@ func resetAllDBItems(lang: String) {
         
         var canBuyItems: [CanBuyItem] = []
         records.forEach {record in
-            record.items.forEach { item in
-                canBuyItems.append(CanBuyItem(name: item.name, category: record.category, image: item.image, supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
+            record.items.forEach { (item: Item) in
+                canBuyItems.append(
+                    CanBuyItem(
+                        name: item.name,
+                        category: record.category,
+                        image: UIImage(named: item.image)?.pngData(),
+                        supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
             }
         }
 

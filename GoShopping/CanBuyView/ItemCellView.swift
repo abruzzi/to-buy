@@ -30,8 +30,8 @@ class ItemCellView: UICollectionViewCell {
         self.layer.masksToBounds = true
     }
 
-    func configure(with itemName: String, image: String) {
+    func configure(with itemName: String, image: UIImage) {
         itemNameLabel.text = itemName
-        itemImage.image = getImageOf(itemName: itemName, fallbackImageName: image)
+        itemImage.image = image // getImageOf(itemName: itemName, fallbackImageName: image)
     }
 }

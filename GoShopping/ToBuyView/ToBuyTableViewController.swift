@@ -38,6 +38,19 @@ class ToBuyTableViewController: UITableViewController {
         self.updateBadge()
     }
     
+    @IBOutlet weak var buttonShare: UIBarButtonItem!
+    
+    @IBAction func shareToBuys(_ sender: UIBarButtonItem) {
+        let path = exportToUrl()
+        
+        let activity = UIActivityViewController(
+          activityItems: ["Share your tobuys with your friend now", path],
+          applicationActivities: nil
+        )
+        activity.popoverPresentationController?.barButtonItem = sender
+        present(activity, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)

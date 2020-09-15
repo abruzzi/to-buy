@@ -26,3 +26,5 @@
 
 "to.buy.empty.hint.message" = "请选择要买的商品";
 "delayed.empty.hint.message" = "暂无推迟的条目";
+
+"message.hint.add.new"="点击添加";

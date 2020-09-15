@@ -20,30 +20,48 @@ extension ShoppingCollectionViewController {
         label.textColor = UIColor(named: "FontColor")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = searchText
-        label.font = UIFont.boldSystemFont(ofSize: 16.0)
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
+        label.font = UIFont.systemFont(ofSize: 13.0)
         label.textAlignment = .center
         
+        let hint = UILabel()
+        hint.textColor = UIColor(named: "FontColor")
+        hint.translatesAutoresizingMaskIntoConstraints = false
+        hint.text = NSLocalizedString("message.hint.add.new", comment: "message.hint.add.new")
+        hint.font = UIFont.boldSystemFont(ofSize: 14.0)
+        hint.textAlignment = .center
+        
+        let width = self.calculateWidth()
         let imageView = UIImageView(frame: .zero)
-        imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        imageView.frame = CGRect(x: 0, y: 0, width: width, height: width)
+        
+        imageView.layer.cornerRadius = 4
+        imageView.layer.borderWidth = 2
+        imageView.layer.backgroundColor = UIColor(named: "BrandColor")?.cgColor
+        imageView.layer.borderColor = UIColor(named: "BrandColor")?.cgColor
+        imageView.layer.opacity = 0.2
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.image = UIImage(named: "icons8-plus")
+        imageView.image = UIImage(named: "icons8-ingredients")
         
         emptyView.addSubview(imageView)
         emptyView.addSubview(label)
+        emptyView.addSubview(hint)
         
-
-//        imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: 8).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
         
-        imageView.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 120).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.topAnchor.constraint(equalTo: emptyView.topAnchor, constant: 174).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: width).isActive = true
         
-        label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
-        label.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-//        label.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+        label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        label.widthAnchor.constraint(equalToConstant: width - 16).isActive = true
         
+        hint.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        hint.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8).isActive = true
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(editNewItem))
         emptyView.addGestureRecognizer(singleTap)
@@ -54,7 +72,7 @@ extension ShoppingCollectionViewController {
     //Action
     @objc func editNewItem() {
         let context = self.dataProvider.persistentContainer.viewContext
-        self.dataProvider.addCanBuy(in: context, name: self.searchText, image: "icons8-crystal_ball", shouldSave: false) { canBuyItem in
+        self.dataProvider.addCanBuy(in: context, name: self.searchText, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, shouldSave: false) { canBuyItem in
             let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                 as? EditingTableViewController
             viewController!.item = canBuyItem
@@ -122,10 +140,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
     func updateSelections() {
         let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
         
-        let sections = dataProvider.fetchedResultsController.sections?.count ?? 1
-        for section in 0...sections - 1 {
-            let itemsInSection = dataProvider.fetchedResultsController.sections?[section].numberOfObjects ?? 1
-            for index in 0...itemsInSection-1 {
+        let sections = dataProvider.fetchedResultsController.sections?.count ?? 0
+        
+        for section in 0..<sections {
+            let itemsInSection = dataProvider.fetchedResultsController.sections?[section].numberOfObjects ?? 0
+            for index in 0..<itemsInSection {
                 let indexPath = IndexPath(row: index, section: section)
                 let item = dataProvider.fetchedResultsController.object(at: indexPath)
                 
@@ -194,7 +213,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView {
-            itemCell.configure(with: data.name!, image: data.image!)
+            itemCell.configure(with: data.name!, image: UIImage(data: data.image!)!)
             cell = itemCell
         }
         
@@ -211,7 +230,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
             self.navigationController?.pushViewController(viewController!, animated: true)
         } else {
             if(!isAlreadyExistInToBuyList(name: data.name!)) {
-                saveToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
+                initToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
             }
         }
         updateBadge()
@@ -233,7 +252,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let count = dataProvider.fetchedResultsController.sections?[indexPath.section].numberOfObjects ?? 0
         if(count > 0) {
             let title = categoryTitles[Int(data.category)]
-            sectionHeader.configure(with: title, image: UIImage(named: data.image!)!)
+            sectionHeader.configure(with: title, image: UIImage(data: data.image!)!)
         } else {
             let title = categoryTitles[3]
             sectionHeader.configure(with: title, image: UIImage(named: "icons8-autism")!)

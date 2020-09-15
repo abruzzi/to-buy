@@ -11,9 +11,9 @@ import UIKit
 class ItemPreviewViewController: UIViewController {
     var imageView : UIImageView!
     var itemName: String!
-    var image: String!
+    var image: Data!
     
-    init(itemName: String, image: String) {
+    init(itemName: String, image: Data) {
         super.init(nibName: nil, bundle: nil)
         self.itemName = itemName
         self.image = image
@@ -46,7 +46,7 @@ class ItemPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = getImageOf(itemName: itemName, fallbackImageName: image)
+        imageView.image = UIImage(data: image) // getImageOf(itemName: itemName, fallbackImageName: image)
     }
     
 }

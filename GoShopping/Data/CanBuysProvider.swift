@@ -38,7 +38,7 @@ class CanBuysProvider {
         return controller
     }()
     
-    func addCanBuy(in context: NSManagedObjectContext, name: String, image: String, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuys) -> Void)? = nil) {
+    func addCanBuy(in context: NSManagedObjectContext, name: String, image: Data, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuys) -> Void)? = nil) {
         context.perform {
             let item = CanBuys(context: context)
             item.name = name
