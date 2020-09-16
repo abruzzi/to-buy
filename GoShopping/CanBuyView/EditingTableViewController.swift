@@ -22,25 +22,25 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     
     @IBOutlet weak var itemImage: UIImageView!
     
-    @IBAction func saveButtonClickHandler(_ sender: UIButton) {
-        let category = segmentCategory.selectedSegmentIndex
-        let context = item.managedObjectContext!
-        context.performAndWait {
-            item.name = itemNameTextField.text
-            item.category = Int16(category)
-            item.supermarket = supermarketTextField.text
-            
-            // the ones from camera
-            if(itemImage.image?.size.width ?? 100 > 600) {
-                item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
-            }
-            
-            item.createdAt = Date()
-            
-            context.save(with: .updateCanBuy)
-        }
-  
-        self.navigationController?.popViewController(animated: true)
+    @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
+          let category = segmentCategory.selectedSegmentIndex
+          let context = item.managedObjectContext!
+          context.performAndWait {
+              item.name = itemNameTextField.text
+              item.category = Int16(category)
+              item.supermarket = supermarketTextField.text
+              
+              // the ones from camera
+              if(itemImage.image?.size.width ?? 100 > 600) {
+                  item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+              }
+              
+              item.createdAt = Date()
+              
+              context.save(with: .updateCanBuy)
+          }
+    
+          self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onSegmentChange(_ sender: UISegmentedControl) {
@@ -50,7 +50,6 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var itemNameTextField: UITextField!
     @IBOutlet weak var supermarketTextField: UITextField!
-    @IBOutlet weak var saveButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -59,7 +58,6 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
         segmentCategory.selectedSegmentIndex = Int(item.category)
-        saveButton.layer.cornerRadius = 4.0
      
 
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))

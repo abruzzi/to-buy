@@ -74,7 +74,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Select items here" id="haM-3a-TLZ"/>
                     <connections>
-                        <segue destination="WI0-Md-U6r" kind="presentation" id="kN0-Ib-x7p"/>
+                        <segue destination="tom-Ck-BNO" kind="presentation" id="kN0-Ib-x7p"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muP-wz-991" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -204,60 +204,30 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="dGr-8V-CVx">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="q8o-d9-Sre">
-                                        <rect key="frame" x="16" y="426" width="288" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q8o-d9-Sre" id="G7Q-vq-cwa">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gJ-0t-lls">
-                                                    <rect key="frame" x="16" y="10" width="256" height="40"/>
-                                                    <color key="backgroundColor" name="BrandColor"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="mfb-YH-mmt"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="Save">
-                                                        <color key="titleColor" name="CardColor"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="saveButtonClickHandler:" destination="WI0-Md-U6r" eventType="touchUpInside" id="78j-ei-jRc"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" name="BGColor"/>
-                                            <constraints>
-                                                <constraint firstItem="6gJ-0t-lls" firstAttribute="top" secondItem="G7Q-vq-cwa" secondAttribute="top" constant="10" id="JGJ-YW-1qa"/>
-                                                <constraint firstAttribute="bottom" secondItem="6gJ-0t-lls" secondAttribute="bottom" constant="10" id="Oqb-me-kHC"/>
-                                                <constraint firstAttribute="trailing" secondItem="6gJ-0t-lls" secondAttribute="trailing" constant="16" id="b2m-aI-ls3"/>
-                                                <constraint firstItem="6gJ-0t-lls" firstAttribute="leading" secondItem="G7Q-vq-cwa" secondAttribute="leading" constant="16" id="cQs-Uv-oCH"/>
-                                                <constraint firstItem="6gJ-0t-lls" firstAttribute="top" secondItem="G7Q-vq-cwa" secondAttribute="top" constant="10" id="oh7-V1-LBU"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="WI0-Md-U6r" id="IgB-K4-heK"/>
                             <outlet property="delegate" destination="WI0-Md-U6r" id="4dY-YL-m49"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="06N-pD-9fs"/>
+                    <navigationItem key="navigationItem" id="06N-pD-9fs">
+                        <barButtonItem key="rightBarButtonItem" image="tray.full" catalog="system" id="qp7-iR-qgH">
+                            <color key="tintColor" name="BrandColor"/>
+                            <connections>
+                                <action selector="saveButtonClickHandler:" destination="WI0-Md-U6r" id="wbZ-yL-2fN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="itemImage" destination="Pk2-50-kJr" id="tbu-jh-zzI"/>
                         <outlet property="itemNameTextField" destination="tDA-hv-s0H" id="1lD-6R-9Lv"/>
-                        <outlet property="saveButton" destination="6gJ-0t-lls" id="TDo-0J-Uap"/>
                         <outlet property="segmentCategory" destination="imV-tb-Vaw" id="0yW-M6-HG2"/>
                         <outlet property="supermarketTextField" destination="j3r-MW-vTL" id="u8I-85-FuC"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujd-6s-qhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="492.50374812593708"/>
+            <point key="canvasLocation" x="1061.25" y="542.95774647887322"/>
         </scene>
         <!--Base Tab Bar Controller-->
         <scene sceneID="boi-1x-DYB">
@@ -330,7 +300,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OkU-Ab-vcm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="468"/>
+            <point key="canvasLocation" x="1867.5" y="467.95774647887322"/>
         </scene>
         <!--To buy items-->
         <scene sceneID="z3a-TU-glz">
@@ -368,7 +338,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1901" y="739"/>
+            <point key="canvasLocation" x="2896.875" y="738.38028169014081"/>
         </scene>
         <!--Delayed-->
         <scene sceneID="zce-bb-lgr">
@@ -424,6 +394,24 @@
             </objects>
             <point key="canvasLocation" x="2202" y="-240"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LtK-P5-iOP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tom-Ck-BNO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SOv-1a-ct5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WI0-Md-U6r" kind="relationship" relationship="rootViewController" id="dVo-f9-y24"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7CG-aV-eSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="63.75" y="542.95774647887322"/>
+        </scene>
     </scenes>
     <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
@@ -432,6 +420,7 @@
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <image name="tray.full" catalog="system" width="128" height="88"/>
         <namedColor name="BGColor">
             <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -440,9 +429,6 @@
         </namedColor>
         <namedColor name="ButtonColor">
             <color red="0.72200000286102295" green="0.16500000655651093" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="CardColor">
-            <color red="0.89399999380111694" green="0.96899998188018799" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="FontColor">
             <color red="0.22699999809265137" green="0.22699999809265137" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
