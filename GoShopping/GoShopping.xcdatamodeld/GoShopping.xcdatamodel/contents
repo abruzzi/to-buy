@@ -7,6 +7,12 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="supermarket" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="Tag" representedClassName="Tag" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
     <entity name="ToBuys" representedClassName="ToBuys" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -21,5 +27,6 @@
     <elements>
         <element name="CanBuys" positionX="-63" positionY="18" width="128" height="118"/>
         <element name="ToBuys" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Tag" positionX="-63" positionY="54" width="128" height="103"/>
     </elements>
 </model>

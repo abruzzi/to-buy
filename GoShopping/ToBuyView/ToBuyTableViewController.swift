@@ -287,11 +287,5 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
         tableView.endUpdates()
         self.updateBadge()
     }
-//
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        print("updating")
-//        tableView.reloadData()
-//        self.updateBadge()
-//    }
 }
 

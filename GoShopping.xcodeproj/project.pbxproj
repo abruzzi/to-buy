@@ -30,6 +30,10 @@
 		7A97C0ED24FDDFF2004800E3 /* category.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A97C0EC24FDDFF2004800E3 /* category.json */; };
 		7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0EE24FDF4E6004800E3 /* SectionHeader.swift */; };
 		7A9F6411250624F6000F638C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F6413250624F6000F638C /* Localizable.strings */; };
+		7ADB0200251382C40068961E /* TagTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB01FF251382C40068961E /* TagTableViewController.swift */; };
+		7ADB0203251383B40068961E /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB0201251383B40068961E /* TagCell.swift */; };
+		7ADB0204251383B40068961E /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7ADB0202251383B40068961E /* TagCell.xib */; };
+		7ADB02062513852F0068961E /* TagProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB02052513852F0068961E /* TagProvider.swift */; };
 		7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA224FE2A3300342844 /* ItemCellView.swift */; };
 		7AE05DA524FE2A3300342844 /* ItemCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE05DA324FE2A3300342844 /* ItemCellView.xib */; };
 		7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */; };
@@ -72,6 +76,10 @@
 		7A9F641625062B87000F638C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		7AC923C52508EE9000789398 /* GoShopping.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoShopping.entitlements; sourceTree = "<group>"; };
 		7AC923C62508F82100789398 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7ADB01FF251382C40068961E /* TagTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewController.swift; sourceTree = "<group>"; };
+		7ADB0201251383B40068961E /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		7ADB0202251383B40068961E /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
+		7ADB02052513852F0068961E /* TagProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagProvider.swift; path = ../TagProvider.swift; sourceTree = "<group>"; };
 		7AE05DA224FE2A3300342844 /* ItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellView.swift; sourceTree = "<group>"; };
 		7AE05DA324FE2A3300342844 /* ItemCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCellView.xib; sourceTree = "<group>"; };
 		7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
@@ -114,6 +122,7 @@
 			children = (
 				7AC923C52508EE9000789398 /* GoShopping.entitlements */,
 				7A9F6413250624F6000F638C /* Localizable.strings */,
+				7ADB01FE2513826A0068961E /* Tags */,
 				7A9F64092505E50F000F638C /* Shared */,
 				7A9F64082505E415000F638C /* DelayedView */,
 				7A9F64072505E3FE000F638C /* ToBuyView */,
@@ -151,6 +160,7 @@
 				7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */,
 				7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */,
 				7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */,
+				7ADB02052513852F0068961E /* TagProvider.swift */,
 				7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */,
 			);
 			path = Data;
@@ -194,6 +204,16 @@
 				7A8304F1250DC42700D4A6A8 /* EmptyList.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		7ADB01FE2513826A0068961E /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				7ADB01FF251382C40068961E /* TagTableViewController.swift */,
+				7ADB0201251383B40068961E /* TagCell.swift */,
+				7ADB0202251383B40068961E /* TagCell.xib */,
+			);
+			path = Tags;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ADB0204251383B40068961E /* TagCell.xib in Resources */,
 				7A97C0CF24FD0002004800E3 /* LaunchScreen.storyboard in Resources */,
 				7AE05DAD24FE62AB00342844 /* ToBuyTableViewCell.xib in Resources */,
 				7A7B9A172512E4FA00BF8936 /* Icon.png in Resources */,
@@ -278,6 +299,8 @@
 			files = (
 				7A97C0DC24FD234A004800E3 /* ShoppingCollectionViewController.swift in Sources */,
 				7A8304EA250BAA6500D4A6A8 /* DelayedToBuysProvider.swift in Sources */,
+				7ADB0200251382C40068961E /* TagTableViewController.swift in Sources */,
+				7ADB02062513852F0068961E /* TagProvider.swift in Sources */,
 				7A8304E2250B9B3D00D4A6A8 /* CanBuysProvider.swift in Sources */,
 				7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */,
 				7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */,
@@ -289,6 +312,7 @@
 				7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */,
 				7A05369A2503581C00A1C8EB /* DataUtils.swift in Sources */,
 				7A97C0CA24FCFFFE004800E3 /* GoShopping.xcdatamodeld in Sources */,
+				7ADB0203251383B40068961E /* TagCell.swift in Sources */,
 				7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */,
 				7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */,
 				7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */,
@@ -461,12 +485,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -482,12 +506,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
