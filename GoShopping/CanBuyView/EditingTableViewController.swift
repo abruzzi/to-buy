@@ -73,7 +73,8 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        let actionSheet = UIAlertController(title: NSLocalizedString( "dialog.image.picker.title", comment:  "dialog.image.picker.title"), message: "", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: NSLocalizedString( "dialog.image.picker.title", comment:  "dialog.image.picker.title"),
+                                            message: NSLocalizedString( "dialog.image.picker.subtitle", comment:  "dialog.image.picker.subtitle"), preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.photo", comment:  "dialog.image.picker.photo"), style: .default, handler: { (action: UIAlertAction) in
             imagePicker.sourceType = .photoLibrary

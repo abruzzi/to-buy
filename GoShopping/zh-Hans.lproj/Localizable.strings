@@ -36,6 +36,7 @@
 "message.hint.merge.shared.cancel"="取消";
 
 "dialog.image.picker.title"="选择图片";
+"dialog.image.picker.subtitle"="选择一个最能描述你想买的商品的图片";
 "dialog.image.picker.photo"="手机相册";
 "dialog.image.picker.carema"="手机摄像头";
 "dialog.image.picker.cancel"="取消";

@@ -37,6 +37,7 @@
 "message.hint.merge.shared.cancel"="Cancel";
 
 "dialog.image.picker.title"="Choose photo";
+"dialog.image.picker.subtitle"="Pick up a photo that can best describe what you want to buy";
 "dialog.image.picker.photo"="Photo Library";
 "dialog.image.picker.carema"="Carema";
 "dialog.image.picker.cancel"="Cancel";
