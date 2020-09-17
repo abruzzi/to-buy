@@ -21,7 +21,7 @@ class CanBuysProvider {
     
     lazy var fetchedResultsController: NSFetchedResultsController<CanBuys> = {
         let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category", ascending: true), NSSortDescriptor(key: "createdAt", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category", ascending: true)]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: persistentContainer.viewContext,
