@@ -270,7 +270,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         }) { _ in
             let editAction = UIAction(
                 title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
-                image: UIImage(systemName: "pencil")) { _ in
+                image: UIImage(systemName: "square.and.pencil")) { _ in
                     let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                         as? EditingTableViewController
                     viewController!.item = data

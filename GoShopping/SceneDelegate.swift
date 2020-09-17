@@ -67,15 +67,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard url!.pathExtension == "tblr" else { return  }
         
         let allToBuys = allRemainingToBuys()
+
+        let title = NSLocalizedString("message.hint.merge.shared.title", comment: "message.hint.merge.shared.title")
+        let message = NSLocalizedString("message.hint.merge.shared.subtitle", comment: "message.hint.merge.shared.subtitle")
         
         if(allToBuys.count > 0) {
-            let alert = UIAlertController(title: "You have unfinished to buys", message: "Do you want to merge items, items with same name will be skipped", preferredStyle: .alert)
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "I don't mind", style: .destructive, handler: { action in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.ok", comment: "message.hint.merge.shared.ok"), style: .destructive, handler: { action in
                 self.importForeignItems(url: url!)
             }))
             
-            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.cancel", comment: "message.hint.merge.shared.cancel"), style: .cancel, handler: nil))
             
             window?.rootViewController!.present(alert, animated: true)
         } else {

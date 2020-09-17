@@ -29,3 +29,14 @@
 "delayed.empty.hint.message" = "Nothing here yet, which is good";
 
 "message.hint.add.new"="Click to add";
+
+"message.hint.merge.shared.title"="You have unfinished to buys";
+"message.hint.merge.shared.subtitle"="Do you want to merge items, items with same name will be skipped";
+
+"message.hint.merge.shared.ok"="I don't mind";
+"message.hint.merge.shared.cancel"="Cancel";
+
+"dialog.image.picker.title"="Choose photo";
+"dialog.image.picker.photo"="Photo Library";
+"dialog.image.picker.carema"="Carema";
+"dialog.image.picker.cancel"="Cancel";

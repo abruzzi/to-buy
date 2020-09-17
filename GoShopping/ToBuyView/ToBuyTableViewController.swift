@@ -45,7 +45,7 @@ class ToBuyTableViewController: UITableViewController {
         let path = exportToUrl()
         
         let activity = UIActivityViewController(
-          activityItems: ["Share your tobuys with your friend now", path],
+            activityItems: ["Share your tobuys with your friend now", path],
           applicationActivities: nil
         )
         activity.popoverPresentationController?.barButtonItem = sender

@@ -73,15 +73,14 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        //MARK: i18n
-        let actionSheet = UIAlertController(title: "Choose photo", message: "", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: NSLocalizedString( "dialog.image.picker.title", comment:  "dialog.image.picker.title"), message: "", preferredStyle: .actionSheet)
         
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.photo", comment:  "dialog.image.picker.photo"), style: .default, handler: { (action: UIAlertAction) in
             imagePicker.sourceType = .photoLibrary
             self.present(imagePicker, animated: true, completion: nil)
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Carema", style: .default, handler: { (action: UIAlertAction) in
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.carema", comment:  "dialog.image.picker.carema"), style: .default, handler: { (action: UIAlertAction) in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 imagePicker.sourceType = .camera
@@ -91,7 +90,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
 
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.cancel", comment:  "dialog.image.picker.cancel"), style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
     }
