@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DYM-EI-wim">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ud5-n9-94q">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -86,7 +86,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="EditingTableViewController" id="WI0-Md-U6r" customClass="EditingTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="80" estimatedRowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="GwE-Ol-kOr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BGColor"/>
                         <sections>
@@ -310,6 +310,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="bXh-1a-ANa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="tintColor" name="BrandColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToBuyTableViewCell" id="g6c-Mu-DXf" customClass="ToBuyTableViewCell" customModule="To_Buy" customModuleProvider="target">
                                 <rect key="frame" x="16" y="55.5" width="288" height="60"/>
@@ -366,7 +367,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ocr-ag-ZL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018" y="-300"/>
+            <point key="canvasLocation" x="1140" y="-398"/>
         </scene>
         <!--Delayed items-->
         <scene sceneID="yLi-dq-dLw">
@@ -395,13 +396,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgf-Pn-lsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2202" y="-240"/>
+            <point key="canvasLocation" x="2250" y="-429"/>
         </scene>
-        <!--Tags-->
+        <!--Tag list-->
         <scene sceneID="7hQ-Ta-JlQ">
             <objects>
                 <tableViewController id="odX-WV-3DR" customClass="TagTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tsg-ta-v2v">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tsg-ta-v2v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -420,7 +421,7 @@
                             <outlet property="delegate" destination="odX-WV-3DR" id="Lc9-5d-gUr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tags" id="iZq-Xl-5AB">
+                    <navigationItem key="navigationItem" title="Tag list" id="iZq-Xl-5AB">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="T4g-yE-GmK">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
@@ -436,7 +437,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LtK-P5-iOP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tom-Ck-BNO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="tom-Ck-BNO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SOv-1a-ct5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
