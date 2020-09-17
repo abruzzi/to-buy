@@ -39,14 +39,6 @@ class ToBuysProvider {
         return controller
     }()
     
-    func numberOfToBuyItems() -> Int {
-        let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", false)
-        
-        let number = try? persistentContainer.viewContext.count(for: fetchRequest)
-        return number ?? 0
-    }
-    
     func addToBuyItem(canBuyItem: ToBuys, context: NSManagedObjectContext, shouldSave: Bool = true) {
         context.performAndWait {
             let item = ToBuys(context: context)

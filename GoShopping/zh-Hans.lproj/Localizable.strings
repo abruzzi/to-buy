@@ -7,6 +7,7 @@
 */
 "could.not.found.now" = "暂时找不到的";
 "to.buy.items" = "要买的";
+"hide.completed.items"="隐藏已完成条目";
 "purchased.items" = "买到的";
 
 "action.complete.title" = "完成";

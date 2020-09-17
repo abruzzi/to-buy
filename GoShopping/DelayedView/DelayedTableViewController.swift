@@ -21,6 +21,7 @@ class DelayedTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "ToBuyTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "toBuyTableHeaderView")
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
 

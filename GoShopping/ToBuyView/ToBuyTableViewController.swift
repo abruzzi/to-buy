@@ -26,6 +26,8 @@ extension UITableView {
 
 class ToBuyTableViewController: UITableViewController {
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     private lazy var toBuyDataProvider: ToBuysProvider = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let provider = ToBuysProvider(with: appDelegate.persistentContainer,
@@ -52,9 +54,53 @@ class ToBuyTableViewController: UITableViewController {
         present(activity, animated: true, completion: nil)
     }
     
+    let categories = ["All", "Remaining", "Shared with me"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for buy items"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        searchController.searchBar.scopeButtonTitles = categories
+        searchController.searchBar.delegate = self
+        
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    func filterContentForSearchText(_ searchText: String,
+                                    category: String) {
+        let keywords = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+        let isNotDelayedPredicate = NSPredicate(format: "isDelayed = false")
+        let isForeignPredicate = NSPredicate(format: "isForeign = true")
+        let isCompletedPredicate = NSPredicate(format: "isCompleted = false")
+        
+        var predicate:NSPredicate
+        
+        switch category {
+        case "All":
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
+        case "Remaining":
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate, isCompletedPredicate] : [keywords, isNotDelayedPredicate, isCompletedPredicate])
+        case "Shared with me":
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate, isForeignPredicate] : [keywords, isNotDelayedPredicate, isForeignPredicate])
+        default:
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
+        }
+        
+        toBuyDataProvider.fetchedResultsController.fetchRequest.predicate = predicate
+        
+        do {
+            try toBuyDataProvider.fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } catch let err {
+            print(err)
+        }
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -112,7 +158,8 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = toBuyDataProvider.numberOfToBuyItems()
+        let count = toBuyDataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        
         if(count == 0) {
             self.tableView.emptyState(label: NSLocalizedString("to.buy.empty.hint.message", comment: "to.buy.empty.hint.message"), image: "icons8-basket")
         } else {
@@ -126,7 +173,7 @@ class ToBuyTableViewController: UITableViewController {
         section: Int) -> String? {
         return NSLocalizedString("to.buy.items", comment: "to.buy.items")
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToBuyTableViewCell", for: indexPath) as! ToBuyTableViewCell
         let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
@@ -169,10 +216,82 @@ class ToBuyTableViewController: UITableViewController {
     }
 }
 
+extension ToBuyTableViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    let searchBar = searchController.searchBar
+    filterContentForSearchText(searchBar.text!, category: searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex])
+  }
+}
+
+extension ToBuyTableViewController: UISearchBarDelegate {
+  func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+    filterContentForSearchText(searchBar.text!, category: searchBar.scopeButtonTitles![selectedScope])
+  }
+}
+
+
 extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
+    // 1
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+        return sectionName
+    }
+    // 2
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    // 3
+    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        case .delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        default:
+            return
+        }
+    }
+    
+    // 4
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                
+                let cell = tableView.cellForRow(at: indexPath) as! ToBuyTableViewCell
+                let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+                cell.configure(with: item)
+                
+            }
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        default:
+            return
+        }
+    }
+    
+    // 5
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.reloadData()
+        tableView.endUpdates()
         self.updateBadge()
     }
+//
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        print("updating")
+//        tableView.reloadData()
+//        self.updateBadge()
+//    }
 }
 

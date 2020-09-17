@@ -7,6 +7,7 @@
 */
 "could.not.found.now" = "Could not found at the moment";
 "to.buy.items" = "Items to buy";
+"hide.completed.items"="Hide completed items";
 "purchased.items" = "Items Completed";
 
 "action.complete.title" = "Complete";
