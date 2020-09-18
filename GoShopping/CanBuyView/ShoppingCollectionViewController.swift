@@ -274,7 +274,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                     as? EditingTableViewController
                 viewController!.item = data
-                self.navigationController?.pushViewController(viewController!, animated: true)
+
+                self.navigationController?.showDetailViewController(viewController!, sender: self)
+//                self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
             let deleteAction = UIAction(

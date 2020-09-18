@@ -437,7 +437,7 @@
         <!--Navigation Controller-->
         <scene sceneID="LtK-P5-iOP">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="tom-Ck-BNO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="EditingTableView" automaticallyAdjustsScrollViewInsets="NO" id="tom-Ck-BNO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="SOv-1a-ct5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
@@ -445,6 +445,10 @@
                         <color key="tintColor" name="BrandColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YLG-tB-v8a">
+                        <rect key="frame" x="0.0" y="-20" width="0.0" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="WI0-Md-U6r" kind="relationship" relationship="rootViewController" id="dVo-f9-y24"/>
                     </connections>
