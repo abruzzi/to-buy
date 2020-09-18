@@ -18,15 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="lya-I8-8tk">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="lya-I8-8tk">
                             <size key="itemSize" width="100" height="100"/>
                             <size key="headerReferenceSize" width="50" height="40"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="8" minY="16" maxX="8" maxY="16"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemCell" id="KT6-vI-eOa" customClass="ItemCellView" customModule="To_Buy" customModuleProvider="target">
-                                <rect key="frame" x="8" y="56" width="100" height="100"/>
+                                <rect key="frame" x="0.0" y="40" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UKJ-tv-R2x">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -39,7 +39,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-c7-ie1">
-                                    <rect key="frame" x="8" y="8" width="135.5" height="24"/>
+                                    <rect key="frame" x="20" y="8" width="135.5" height="24"/>
                                     <attributedString key="attributedText">
                                         <fragment content="Section Header">
                                             <attributes>
@@ -53,7 +53,7 @@
                                 </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leading" constant="8" id="1Nc-Rt-kmA"/>
+                                <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leading" constant="20" id="1Nc-Rt-kmA"/>
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="centerY" secondItem="RRx-94-lAT" secondAttribute="centerY" id="sK4-h7-e2l"/>
                             </constraints>
                             <connections>
@@ -65,14 +65,21 @@
                             <outlet property="delegate" destination="Ypl-f9-r4H" id="gIU-Km-E3f"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Select items here" id="haM-3a-TLZ"/>
+                    <navigationItem key="navigationItem" title="Select items here" id="haM-3a-TLZ">
+                        <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="uU8-6w-v1a">
+                            <color key="tintColor" name="BrandColor"/>
+                            <connections>
+                                <segue destination="DYM-EI-wim" kind="showDetail" id="53a-uZ-DEr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="tom-Ck-BNO" kind="presentation" identifier="canBuyList" id="kN0-Ib-x7p"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muP-wz-991" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-773" y="1070"/>
+            <point key="canvasLocation" x="-1281" y="1236"/>
         </scene>
         <!--Editing Table View Controller-->
         <scene sceneID="YZq-Z2-pAa">
@@ -138,12 +145,12 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="gie-0p-vGJ">
                                         <rect key="frame" x="16" y="238" width="288" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gie-0p-vGJ" id="Eef-hf-qdF">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gie-0p-vGJ" id="Eef-hf-qdF">
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="imV-tb-Vaw">
-                                                    <rect key="frame" x="16" y="15" width="256" height="41"/>
+                                                    <rect key="frame" x="16" y="10" width="256" height="41"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="NT0-M1-6lD"/>
                                                     </constraints>
@@ -160,10 +167,10 @@
                                             </subviews>
                                             <color key="backgroundColor" name="BGColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="imV-tb-Vaw" secondAttribute="bottom" constant="4" id="YCl-IN-Pf0"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="centerX" secondItem="Eef-hf-qdF" secondAttribute="centerX" id="AWe-3h-4qm"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="centerY" secondItem="Eef-hf-qdF" secondAttribute="centerY" id="BOu-mF-Cp1"/>
                                                 <constraint firstItem="imV-tb-Vaw" firstAttribute="trailing" secondItem="Eef-hf-qdF" secondAttribute="trailingMargin" id="bfW-9M-G4v"/>
                                                 <constraint firstItem="imV-tb-Vaw" firstAttribute="leading" secondItem="Eef-hf-qdF" secondAttribute="leadingMargin" id="cSc-Kv-0Hi"/>
-                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="top" secondItem="Eef-hf-qdF" secondAttribute="topMargin" constant="4" id="njW-op-CGe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -178,7 +185,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prefered supermarket" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j3r-MW-vTL">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prefered supermarket" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j3r-MW-vTL" customClass="SearchTextField" customModule="To_Buy" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="10" width="256" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="nrk-qF-mdK"/>
@@ -204,7 +211,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="06N-pD-9fs">
-                        <barButtonItem key="rightBarButtonItem" image="tray.full" catalog="system" id="qp7-iR-qgH">
+                        <barButtonItem key="rightBarButtonItem" image="square.and.arrow.down" catalog="system" id="qp7-iR-qgH">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
                                 <action selector="saveButtonClickHandler:" destination="WI0-Md-U6r" id="wbZ-yL-2fN"/>
@@ -425,7 +432,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjb-Ib-j3w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4339" y="-99"/>
+            <point key="canvasLocation" x="1061" y="1619"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LtK-P5-iOP">
@@ -451,8 +458,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DYM-EI-wim" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZJe-dg-j5q">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ZJe-dg-j5q">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -462,16 +469,17 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H86-cW-sON" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3613" y="-99"/>
+            <point key="canvasLocation" x="176" y="1620"/>
         </scene>
     </scenes>
     <color key="tintColor" systemColor="systemTealColor"/>
     <resources>
         <image name="alarm" catalog="system" width="124" height="128"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
-        <image name="tray.full" catalog="system" width="128" height="88"/>
         <namedColor name="BGColor">
             <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

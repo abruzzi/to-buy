@@ -20,27 +20,41 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         NSLocalizedString("category.others.title", comment: "category.others.title"),
     ]
     
+    private lazy var dataProvider: TagProvider = {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let provider = TagProvider(with: appDelegate.persistentContainer,
+                                   fetchedResultsControllerDelegate: self)
+        return provider
+    }()
+    
     @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var supermarketTextField: SearchTextField!
     
     @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
-          let category = segmentCategory.selectedSegmentIndex
-          let context = item.managedObjectContext!
-          context.performAndWait {
-              item.name = itemNameTextField.text
-              item.category = Int16(category)
-              item.supermarket = supermarketTextField.text
-              
-              // the ones from camera
-              if(itemImage.image?.size.width ?? 100 > 600) {
-                  item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
-              }
-              
-              item.createdAt = Date()
-              
-              context.save(with: .updateCanBuy)
-          }
-    
-          self.navigationController?.popViewController(animated: true)
+        let category = segmentCategory.selectedSegmentIndex
+        let context = item.managedObjectContext!
+        
+        context.performAndWait {
+            item.name = itemNameTextField.text
+            item.category = Int16(category)
+            item.supermarket = supermarketTextField.text
+            
+            // the ones from camera
+            if(itemImage.image?.size.width ?? 100 > 600) {
+                item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+            }
+            
+            item.createdAt = Date()
+            
+            context.save(with: .updateCanBuy)
+        }
+        
+        // also save tag
+        if(!supermarketTextField.text!.isEmpty) {
+            self.dataProvider.addTag(name: supermarketTextField.text!, context: self.dataProvider.persistentContainer.viewContext)
+        }
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onSegmentChange(_ sender: UISegmentedControl) {
@@ -49,7 +63,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var itemNameTextField: UITextField!
-    @IBOutlet weak var supermarketTextField: UITextField!
+    //    @IBOutlet weak var supermarketTextField: UITextField!
     
     
     override func viewDidLoad() {
@@ -58,16 +72,22 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
         segmentCategory.selectedSegmentIndex = Int(item.category)
-     
-
+        
+        
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
         itemImage.image = UIImage(data: item.image!) // getImageOf(itemName: item.name!, fallbackImageName: item.image!)
         itemImage.layer.cornerRadius = 4.0
         itemImage.layer.masksToBounds = true
         itemImage.addGestureRecognizer(singleTap)
+        
+        let options = dataProvider.fetchedResultsController.fetchedObjects?.map { tag in
+            return tag.name
+        } ?? []
+        
+        supermarketTextField.filterStrings(options.compactMap { $0 })
     }
-
-
+    
+    
     //Action
     @objc func selectImage() {
         let imagePicker = UIImagePickerController()
@@ -88,7 +108,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
                 imagePicker.allowsEditing = true
                 self.present(imagePicker, animated: true, completion: nil)
             }
-
+            
         }))
         
         actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.cancel", comment:  "dialog.image.picker.cancel"), style: .cancel, handler: nil))
@@ -107,4 +127,10 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         picker.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension EditingTableViewController: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
+    }
 }

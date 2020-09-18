@@ -496,7 +496,7 @@ struct Record: Hashable, Codable {
 }
 
 struct Item: Hashable, Codable, Identifiable {
-    var id = UUID()
+    let id = UUID()
     var name: String
     var image: String
     var attrs: [String: String]

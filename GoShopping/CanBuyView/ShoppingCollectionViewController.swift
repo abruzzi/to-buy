@@ -65,7 +65,7 @@ extension ShoppingCollectionViewController {
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(editNewItem))
         emptyView.addGestureRecognizer(singleTap)
-
+        
         self.collectionView.backgroundView = emptyView
     }
     
@@ -99,7 +99,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     private lazy var dataProvider: CanBuysProvider = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let provider = CanBuysProvider(with: appDelegate.persistentContainer,
-                                      fetchedResultsControllerDelegate: self)
+                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
     
@@ -111,7 +111,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         searchController.delegate = self
         navigationItem.searchController = searchController
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupSearchBar()
@@ -122,7 +122,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         collectionView.automaticallyAdjustsScrollIndicatorInsets = false
         
         collectionView.register(UINib(nibName: "ItemCellView", bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-
+        
         self.setupGrid()
     }
     
@@ -151,7 +151,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 let exist = allToBuys.contains { (toBuy: ToBuyItem) in
                     return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
                 }
-
+                
                 if(exist) {
                     self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 } else {
@@ -243,7 +243,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
         }
         updateBadge()
     }
-
+    
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeader", for: indexPath) as! SectionHeader
@@ -263,7 +263,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
-
+        
         return UIContextMenuConfiguration(identifier: data.name! as NSString, previewProvider: {
             let view = ItemPreviewViewController(itemName: data.name!, image: data.image!)
             return view
@@ -271,25 +271,30 @@ class ShoppingCollectionViewController: UICollectionViewController {
             let editAction = UIAction(
                 title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
                 image: UIImage(systemName: "square.and.pencil")) { _ in
-                    let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
-                        as? EditingTableViewController
-                    viewController!.item = data
-                    self.navigationController?.pushViewController(viewController!, animated: true)
+                let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+                    as? EditingTableViewController
+                viewController!.item = data
+                self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
             let deleteAction = UIAction(
                 title: NSLocalizedString("action.deleteFromToBuyList.title", comment: "action.deleteFromToBuyList.title"),
                 image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
-                    self.dataProvider.deleteCanBuy(at: indexPath)
+                self.dataProvider.deleteCanBuy(at: indexPath)
             }
             
             return UIMenu(title: "", children: [editAction, deleteAction])
         }
     }
-
+    
     var estimateWidth = 80.0
-    var cellMargin = 8.0
+    var cellMargin = 10.0
+    
+    private let sectionInsets = UIEdgeInsets(top: 20.0,
+                                             left: 16.0,
+                                             bottom: 20.0,
+                                             right: 16.0)
 }
 
 extension ShoppingCollectionViewController: UISearchResultsUpdating {
@@ -320,19 +325,43 @@ extension ShoppingCollectionViewController: UISearchBarDelegate {
 }
 
 extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.calculateWidth()
-        return CGSize(width: width, height: width)
+    
+    //1
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let widthPerItem = calculateWidth()
+        return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    func calculateWidth() -> CGFloat {
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    // 4
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+    
+    func estimatedCellsPerRow() -> Int {
         let estimatedWidth = CGFloat(estimateWidth)
         let cellCount = floor(CGFloat(self.view.frame.width / estimatedWidth))
         
-        let margin = CGFloat(cellMargin * 2)
-        let width = (self.view.frame.width - CGFloat(cellMargin) * (cellCount - 1) - margin) / cellCount
+        return Int(cellCount)
+    }
+    
+    func calculateWidth() -> CGFloat {
+        let itemsPerRow: Int = 5
         
-        return width
+        let paddingSpace = (sectionInsets.left) * CGFloat(itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / CGFloat(itemsPerRow)
+        return widthPerItem
     }
 }
 

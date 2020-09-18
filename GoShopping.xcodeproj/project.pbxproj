@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7A05369A2503581C00A1C8EB /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0536992503581C00A1C8EB /* DataUtils.swift */; };
 		7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */; };
+		7A11D2FB2514CB77002BF321 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11D2FA2514CB77002BF321 /* SearchTextField.swift */; };
 		7A70742C250A35B0002644D2 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A70742B250A35B0002644D2 /* ImageUtils.swift */; };
 		7A70742F250B3D3F002644D2 /* ItemPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */; };
 		7A7B9A162512E4FA00BF8936 /* icon_83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B9A132512E4F900BF8936 /* icon_83.5@2x.png */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		7A0536992503581C00A1C8EB /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewController.swift; sourceTree = "<group>"; };
+		7A11D2FA2514CB77002BF321 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		7A70742B250A35B0002644D2 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewViewController.swift; sourceTree = "<group>"; };
 		7A7B9A132512E4F900BF8936 /* icon_83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_83.5@2x.png"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */,
 				7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */,
 				7A8304F1250DC42700D4A6A8 /* EmptyList.swift */,
+				7A11D2FA2514CB77002BF321 /* SearchTextField.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */,
 				7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */,
 				7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */,
+				7A11D2FB2514CB77002BF321 /* SearchTextField.swift in Sources */,
 				7A8304F2250DC42700D4A6A8 /* EmptyList.swift in Sources */,
 				7A8304E6250B9DBC00D4A6A8 /* Utilities.swift in Sources */,
 				7A70742C250A35B0002644D2 /* ImageUtils.swift in Sources */,

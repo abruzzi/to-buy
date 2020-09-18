@@ -32,6 +32,7 @@ class ItemCellView: UICollectionViewCell {
 
     func configure(with itemName: String, image: UIImage) {
         itemNameLabel.text = itemName
-        itemImage.image = image // getImageOf(itemName: itemName, fallbackImageName: image)
+        itemNameLabel.textColor = UIColor(named: "FontColor")
+        itemImage.image = image
     }
 }

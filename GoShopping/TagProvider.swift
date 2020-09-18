@@ -47,6 +47,15 @@ class TagProvider {
     }
     
     func addTag(name: String, context: NSManagedObjectContext, shouldSave: Bool = true) {
+        let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name = %@", name)
+        
+        let number = try? persistentContainer.viewContext.count(for: fetchRequest)
+        
+        if((number ?? 0) > 0) {
+            return
+        }
+        
         context.performAndWait {
             let item = Tag(context: context)
             item.uuid = UUID()
