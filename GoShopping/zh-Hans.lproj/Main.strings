@@ -21,10 +21,10 @@
 "ayE-Dw-5Ma.headerTitle" = "基本信息";
 
 /* Class = "UINavigationItem"; title = "Select items here"; ObjectID = "haM-3a-TLZ"; */
-"haM-3a-TLZ.title" = "选择要买的";
+"haM-3a-TLZ.title" = "选择";
 
 /* Class = "UINavigationItem"; title = "Delayed items"; ObjectID = "hdY-1C-ygw"; */
-"hdY-1C-ygw.title" = "暂时推迟的";
+"hdY-1C-ygw.title" = "推迟的";
 
 /* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[0] = "Food/Drink"; ObjectID = "imV-tb-Vaw"; */
 "imV-tb-Vaw.segmentTitles[0]" = "食物/饮料";

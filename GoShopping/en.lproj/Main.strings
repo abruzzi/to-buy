@@ -21,10 +21,10 @@
 "ayE-Dw-5Ma.headerTitle" = "Basic information";
 
 /* Class = "UINavigationItem"; title = "Select items here"; ObjectID = "haM-3a-TLZ"; */
-"haM-3a-TLZ.title" = "Select items here";
+"haM-3a-TLZ.title" = "Select";
 
 /* Class = "UINavigationItem"; title = "Delayed items"; ObjectID = "hdY-1C-ygw"; */
-"hdY-1C-ygw.title" = "Delayed items";
+"hdY-1C-ygw.title" = "Delayed";
 
 /* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[0] = "Food/Drink"; ObjectID = "imV-tb-Vaw"; */
 "imV-tb-Vaw.segmentTitles[0]" = "Food/Drink";
@@ -42,7 +42,7 @@
 "j3r-MW-vTL.placeholder" = "Prefered supermarket";
 
 /* Class = "UINavigationItem"; title = "To buy items"; ObjectID = "rgd-B5-3sv"; */
-"rgd-B5-3sv.title" = "To buy items";
+"rgd-B5-3sv.title" = "To buy";
 
 /* Class = "UITextField"; placeholder = "Item name"; ObjectID = "tDA-hv-s0H"; */
 "tDA-hv-s0H.placeholder" = "Item name";

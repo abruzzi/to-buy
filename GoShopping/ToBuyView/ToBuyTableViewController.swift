@@ -48,7 +48,7 @@ class ToBuyTableViewController: UITableViewController {
         
         let activity = UIActivityViewController(
             activityItems: ["Share your tobuys with your friend now", path],
-          applicationActivities: nil
+            applicationActivities: nil
         )
         activity.popoverPresentationController?.barButtonItem = sender
         present(activity, animated: true, completion: nil)

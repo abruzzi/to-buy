@@ -252,10 +252,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let count = dataProvider.fetchedResultsController.sections?[indexPath.section].numberOfObjects ?? 0
         if(count > 0) {
             let title = categoryTitles[Int(data.category)]
-            sectionHeader.configure(with: title, image: UIImage(data: data.image!)!)
+            sectionHeader.configure(with: title)
         } else {
             let title = categoryTitles[3]
-            sectionHeader.configure(with: title, image: UIImage(named: "icons8-autism")!)
+            sectionHeader.configure(with: title)
         }
         
         return sectionHeader
