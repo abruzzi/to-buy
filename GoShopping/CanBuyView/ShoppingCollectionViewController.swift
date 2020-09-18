@@ -275,7 +275,9 @@ class ShoppingCollectionViewController: UICollectionViewController {
                     as? EditingTableViewController
                 viewController!.item = data
 
-                self.navigationController?.showDetailViewController(viewController!, sender: self)
+                self.navigationController?.pushViewController(viewController!, animated: true)
+//                self.performSegue(withIdentifier: "canBuyList", sender: self)
+//                self.navigationController?.showDetailViewController(viewController!, sender: self)
 //                self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
