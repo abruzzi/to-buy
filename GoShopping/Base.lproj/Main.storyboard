@@ -254,9 +254,7 @@
         <scene sceneID="p7n-zW-G6C">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o9u-uS-IvF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Select" image="plus" catalog="system" id="MRD-Tn-bPH">
-                        <color key="badgeColor" name="ButtonColor"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Select" image="cart" catalog="system" id="MRD-Tn-bPH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="lfw-fA-JoP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
@@ -481,6 +479,7 @@
     <color key="tintColor" systemColor="systemTealColor"/>
     <resources>
         <image name="alarm" catalog="system" width="124" height="128"/>
+        <image name="cart" catalog="system" width="128" height="102"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="plus" catalog="system" width="128" height="113"/>
@@ -491,9 +490,6 @@
         </namedColor>
         <namedColor name="BrandColor">
             <color red="0.24300000071525574" green="0.83899998664855957" blue="0.65100002288818359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ButtonColor">
-            <color red="0.72200000286102295" green="0.16500000655651093" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="FontColor">
             <color red="0.22699999809265137" green="0.22699999809265137" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
