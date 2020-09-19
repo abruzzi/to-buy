@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,22 +19,38 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25k-Xu-PdN">
-                        <rect key="frame" x="20" y="28.5" width="410" height="19.5"/>
+                        <rect key="frame" x="20" y="8" width="410" height="60"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" name="FontColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbt-lb-cuA">
+                        <rect key="frame" x="445" y="0.0" width="5" height="76"/>
+                        <color key="backgroundColor" name="BrandColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="5" id="vO8-R6-Xaf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="tintColor" name="BrandColor"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Cbt-lb-cuA" secondAttribute="trailing" id="B2n-42-OAr"/>
+                    <constraint firstItem="25k-Xu-PdN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="U7n-gG-xP3"/>
                     <constraint firstItem="25k-Xu-PdN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XTd-bb-Xna"/>
                     <constraint firstItem="25k-Xu-PdN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="hzR-kH-ywR"/>
                     <constraint firstAttribute="trailing" secondItem="25k-Xu-PdN" secondAttribute="trailing" constant="20" id="nVe-3y-QIh"/>
+                    <constraint firstAttribute="bottom" secondItem="Cbt-lb-cuA" secondAttribute="bottom" id="vfj-oH-26y"/>
+                    <constraint firstItem="Cbt-lb-cuA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xcO-S0-5BG"/>
+                    <constraint firstAttribute="bottom" secondItem="25k-Xu-PdN" secondAttribute="bottom" constant="8" id="yTd-Pd-nlP"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" name="BGColor"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" name="BGColor"/>
             <connections>
+                <outlet property="colorLabel" destination="Cbt-lb-cuA" id="REQ-0h-Mgn"/>
                 <outlet property="tagTextLabel" destination="25k-Xu-PdN" id="rVV-di-L1v"/>
             </connections>
             <point key="canvasLocation" x="94.20289855072464" y="97.098214285714278"/>

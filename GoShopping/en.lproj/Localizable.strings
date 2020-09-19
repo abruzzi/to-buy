@@ -42,3 +42,7 @@
 "dialog.image.picker.photo"="Photo Library";
 "dialog.image.picker.carema"="Carema";
 "dialog.image.picker.cancel"="Cancel";
+
+"tag.empty.hint.message"="You can some tags for your to buy items";
+
+"tag.table.header.message"="Define tags for items";

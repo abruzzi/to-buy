@@ -25,6 +25,7 @@ class EmptyList: UIView {
         label.textColor = UIColor(named: "FontColor")
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = self.label
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         
         let imageView = UIImageView(frame: .zero)

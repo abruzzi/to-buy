@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Select items here-->
+        <!--Select-->
         <scene sceneID="hzM-Jf-Kyy">
             <objects>
                 <collectionViewController id="Ypl-f9-r4H" customClass="ShoppingCollectionViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
@@ -65,7 +65,7 @@
                             <outlet property="delegate" destination="Ypl-f9-r4H" id="gIU-Km-E3f"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Select items here" id="haM-3a-TLZ">
+                    <navigationItem key="navigationItem" title="Select" id="haM-3a-TLZ">
                         <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="uU8-6w-v1a">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
@@ -250,11 +250,11 @@
             </objects>
             <point key="canvasLocation" x="-359" y="-428"/>
         </scene>
-        <!--Choose-->
+        <!--Select-->
         <scene sceneID="p7n-zW-G6C">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o9u-uS-IvF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Choose" image="plus" catalog="system" id="MRD-Tn-bPH">
+                    <tabBarItem key="tabBarItem" title="Select" image="plus" catalog="system" id="MRD-Tn-bPH">
                         <color key="badgeColor" name="ButtonColor"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -264,7 +264,7 @@
                         <color key="tintColor" name="BrandColor"/>
                         <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
                             <color key="textColor" name="FontColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -290,7 +290,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
                             <color key="textColor" name="FontColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -303,7 +303,7 @@
             </objects>
             <point key="canvasLocation" x="1867.5" y="467.95774647887322"/>
         </scene>
-        <!--To buy items-->
+        <!--To buy-->
         <scene sceneID="z3a-TU-glz">
             <objects>
                 <tableViewController id="x9L-0B-dZZ" customClass="ToBuyTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
@@ -326,7 +326,7 @@
                             <outlet property="delegate" destination="x9L-0B-dZZ" id="tlR-8U-xeX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="To buy items" id="rgd-B5-3sv">
+                    <navigationItem key="navigationItem" title="To buy" id="rgd-B5-3sv">
                         <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="aYt-ib-XqW">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
@@ -356,7 +356,7 @@
                         <color key="tintColor" name="BrandColor"/>
                         <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
                             <color key="textColor" name="FontColor"/>
                         </textAttributes>
                     </navigationBar>
@@ -369,7 +369,7 @@
             </objects>
             <point key="canvasLocation" x="1140" y="-398"/>
         </scene>
-        <!--Delayed items-->
+        <!--Delayed-->
         <scene sceneID="yLi-dq-dLw">
             <objects>
                 <tableViewController id="XSB-nc-aXv" customClass="DelayedTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
@@ -392,20 +392,19 @@
                             <outlet property="delegate" destination="XSB-nc-aXv" id="jQe-yc-ytK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Delayed items" id="hdY-1C-ygw"/>
+                    <navigationItem key="navigationItem" title="Delayed" id="hdY-1C-ygw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgf-Pn-lsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2250" y="-429"/>
         </scene>
-        <!--Tag list-->
+        <!--Tags-->
         <scene sceneID="7hQ-Ta-JlQ">
             <objects>
                 <tableViewController id="odX-WV-3DR" customClass="TagTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tsg-ta-v2v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="BGColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tagCell" id="8Po-fw-1Pv" customClass="TagCell" customModule="To_Buy" customModuleProvider="target">
                                 <rect key="frame" x="16" y="55.5" width="288" height="43.5"/>
@@ -421,7 +420,7 @@
                             <outlet property="delegate" destination="odX-WV-3DR" id="Lc9-5d-gUr"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tag list" id="iZq-Xl-5AB">
+                    <navigationItem key="navigationItem" title="Tags" id="iZq-Xl-5AB">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="T4g-yE-GmK">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
@@ -465,6 +464,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ZJe-dg-j5q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -488,16 +490,16 @@
             <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BrandColor">
-            <color red="0.24313725490196078" green="0.83921568627450982" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.24300000071525574" green="0.83899998664855957" blue="0.65100002288818359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonColor">
             <color red="0.72200000286102295" green="0.16500000655651093" blue="0.32199999690055847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="FontColor">
-            <color red="0.22745098039215686" green="0.22745098039215686" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.22699999809265137" green="0.22699999809265137" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="FontColor">
-            <color red="0.22699999809265137" green="0.22699999809265137" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.22745098039215686" green="0.22745098039215686" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="HeroScreenColor">
             <color red="0.83899998664855957" green="0.035000000149011612" blue="0.43500000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

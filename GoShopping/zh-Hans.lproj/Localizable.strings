@@ -41,3 +41,6 @@
 "dialog.image.picker.photo"="手机相册";
 "dialog.image.picker.carema"="手机摄像头";
 "dialog.image.picker.cancel"="取消";
+
+"tag.empty.hint.message"="为待买条目添加一些标签吧";
+"tag.table.header.message"="标签列表";

@@ -38,7 +38,14 @@ class TagTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        let count = dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        if(count == 0) {
+            self.tableView.emptyState(label: NSLocalizedString("tag.empty.hint.message", comment: "tag.empty.hint.message"), image: "icons8-price_tag")
+        } else {
+            self.tableView.restore()
+        }
+        
+        return count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,6 +53,7 @@ class TagTableViewController: UITableViewController {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
         
         cell.tagTextLabel.text = item.name
+        cell.configure(name: item.name!)
         
         return cell
     }
@@ -54,6 +62,11 @@ class TagTableViewController: UITableViewController {
         if editingStyle == .delete {
             dataProvider.deleteTag(at: indexPath)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection
+        section: Int) -> String? {
+        return NSLocalizedString("tag.table.header.message", comment: "tag.table.header.message")
     }
 }
 
@@ -65,16 +78,16 @@ extension TagTableViewController: NSFetchedResultsControllerDelegate {
 
 extension TagTableViewController {
     @IBAction func addNewTagClicked(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "New Tag.", message: "Create a new tag.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Create a new tag", message: "You can put a supermarket name here", preferredStyle: .alert)
         alert.addTextField { textField in
-            textField.placeholder = "Enter a tag name."
+            textField.placeholder = "Name"
             textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
         }
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         
-        alertActionToEnable = UIAlertAction(title: "Craete", style: .default) {_ in
+        alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
             guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
             self.dataProvider.addTag(name: name, context: self.dataProvider.persistentContainer.viewContext)
         }

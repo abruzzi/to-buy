@@ -82,7 +82,7 @@ open class SearchTextField: UITextField {
     open var userStoppedTypingHandler: (() -> Void)?
     
     /// Set your custom set of attributes in order to highlight the string found in each item
-    open var highlightAttributes: [NSAttributedString.Key: AnyObject] = [.font: UIFont.boldSystemFont(ofSize: 10)]
+    open var highlightAttributes: [NSAttributedString.Key: AnyObject] = [.font: UIFont.boldSystemFont(ofSize: 14)]
     
     /// Start showing the default loading indicator, useful for searches that take some time.
     open func showLoadingIndicator() {
@@ -130,7 +130,7 @@ open class SearchTextField: UITextField {
     // Move the table around to customize for your layout
     open var tableXOffset: CGFloat = 0.0
     open var tableYOffset: CGFloat = 0.0
-    open var tableCornerRadius: CGFloat = 2.0
+    open var tableCornerRadius: CGFloat = 4.0
     open var tableBottomMargin: CGFloat = 10.0
     
     ////////////////////////////////////////////////////////////////////////
