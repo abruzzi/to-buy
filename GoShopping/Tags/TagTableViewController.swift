@@ -85,6 +85,7 @@ extension TagTableViewController {
         }
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        addActionSheetForiPad(actionSheet: alert)
         present(alert, animated: true, completion: nil)
         
         alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
