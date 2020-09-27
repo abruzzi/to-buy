@@ -205,8 +205,6 @@ class ToBuyTableViewController: UITableViewController {
             count = sections.count
         }
         
-        print("number of sections \(count)")
-        
         if(count == 0) {
             self.tableView.emptyState(label: NSLocalizedString("to.buy.empty.hint.message", comment: "to.buy.empty.hint.message"), image: "icons8-basket")
         } else {
@@ -295,7 +293,6 @@ extension ToBuyTableViewController: UISearchBarDelegate {
 extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     // 1
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
-        print("section name: \(sectionName)")
         return sectionName
     }
     
@@ -306,7 +303,6 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        print("section changed \(type) - \(sectionInfo)")
         switch type {
         case .insert:
             tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
@@ -322,7 +318,6 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        print("didchange anObject: \(anObject)")
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else {

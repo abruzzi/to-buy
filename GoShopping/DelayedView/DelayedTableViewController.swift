@@ -70,11 +70,11 @@ class DelayedTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = dataProvider.numberOfDelayed()
+        var count = 0
+        if let sections = dataProvider.fetchedResultsController.sections {
+            count = sections.count
+        }
+        
         if(count == 0) {
             self.tableView.emptyState(label: NSLocalizedString("delayed.empty.hint.message", comment: "delayed.empty.hint.message"), image: "icons8-empty_jam_jar")
         } else {
@@ -83,11 +83,24 @@ class DelayedTableViewController: UITableViewController {
         
         return count
     }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
+        if let sections = dataProvider.fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.numberOfObjects
+        }
+        
+        return 0
+    }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
                                 section: Int) -> String? {
-        let text = NSLocalizedString("could.not.found.now", comment: "could.not.found.now")
-        return text
+        
+        if let sections = dataProvider.fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.name.isEmpty ? NSLocalizedString("could.not.found.now", comment: "could.not.found.now")  : currentSection.name
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

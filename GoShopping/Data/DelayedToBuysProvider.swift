@@ -21,12 +21,12 @@ class DelayedToBuysProvider {
     
     lazy var fetchedResultsController: NSFetchedResultsController<ToBuys> = {
         let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "supermarket", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", true)
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: persistentContainer.viewContext,
-                                                    sectionNameKeyPath: nil, cacheName: nil)
+                                                    sectionNameKeyPath: "supermarket", cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
         do {
