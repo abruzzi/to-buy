@@ -42,6 +42,8 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     @IBOutlet weak var buttonShare: UIBarButtonItem!
+    @IBOutlet weak var headerViewContainer: UIView!
+    @IBOutlet weak var historyCountLabel: UILabel!
     
     @IBAction func shareToBuys(_ sender: UIBarButtonItem) {
         let path = exportToUrl()
@@ -67,6 +69,10 @@ class ToBuyTableViewController: UITableViewController {
         
         searchController.searchBar.scopeButtonTitles = categories
         searchController.searchBar.delegate = self
+        
+        headerViewContainer.layer.cornerRadius = 4
+        historyCountLabel.layer.cornerRadius = 4
+        historyCountLabel.layer.masksToBounds = true
         
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }

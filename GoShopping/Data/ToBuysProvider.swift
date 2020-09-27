@@ -24,6 +24,7 @@ class ToBuysProvider {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "isCompleted", ascending: true), NSSortDescriptor(key: "supermarket", ascending: true), NSSortDescriptor(key: "createdAt", ascending: false)]
         fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", false)
         
+        
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: persistentContainer.viewContext,
                                                     sectionNameKeyPath: nil, cacheName: nil)
