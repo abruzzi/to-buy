@@ -128,11 +128,11 @@ class DelayedTableViewController: UITableViewController {
 
 extension DelayedTableViewController: HistoryDelegate {
     func historyCountChanged(_ hisotryManager: HistoryManager, count: Int) {
-        print(count)
+        // print(count)
     }
     
     func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
-        print(images.count)
+        // print(images.count)
     }
 }
 

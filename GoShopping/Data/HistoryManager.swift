@@ -37,7 +37,6 @@ class HistoryManager {
         let entity = NSEntityDescription.entity(forEntityName: "ToBuyHistory", in: managedContext)!
         let item = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        print(tobuy)
         item.setValue(UUID(), forKey: "uuid")
         item.setValue(tobuy.name, forKeyPath: "name")
         item.setValue(tobuy.category, forKey: "category")

@@ -200,12 +200,12 @@ class ToBuyTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = toBuyDataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        var count = 0
+        if let sections = toBuyDataProvider.fetchedResultsController.sections {
+            count = sections.count
+        }
+        
+        print("number of sections \(count)")
         
         if(count == 0) {
             self.tableView.emptyState(label: NSLocalizedString("to.buy.empty.hint.message", comment: "to.buy.empty.hint.message"), image: "icons8-basket")
@@ -216,9 +216,22 @@ class ToBuyTableViewController: UITableViewController {
         return count
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let sections = toBuyDataProvider.fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.numberOfObjects
+        }
+        
+        return 0
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
         section: Int) -> String? {
-        return NSLocalizedString("to.buy.items", comment: "to.buy.items")
+        if let sections = toBuyDataProvider.fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.name.isEmpty ? NSLocalizedString("to.buy.items", comment: "to.buy.items")  : currentSection.name
+        }
+        return nil
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -282,52 +295,60 @@ extension ToBuyTableViewController: UISearchBarDelegate {
 extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     // 1
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+        print("section name: \(sectionName)")
         return sectionName
     }
+    
     // 2
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    // 3
-    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        print("section changed \(type) - \(sectionInfo)")
         switch type {
         case .insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
         case .delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-        default:
-            return
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
+        case .update:
+            tableView.reloadSections(IndexSet(integer: sectionIndex), with: .automatic)
+        case .move:
+            break
+        @unknown default:
+            fatalError("unknown \(type)")
         }
     }
     
-    // 4
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        print("didchange anObject: \(anObject)")
         switch type {
         case .insert:
-            if let indexPath = newIndexPath {
-                tableView.insertRows(at: [indexPath], with: .automatic)
+            guard let newIndexPath = newIndexPath else {
+                return
             }
-        case .update:
-            if let indexPath = indexPath {
-                
-                let cell = tableView.cellForRow(at: indexPath) as! ToBuyTableViewCell
-                let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
-                cell.configure(with: item)
-                
-            }
-        case .move:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-            }
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
         case .delete:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+            guard let indexPath = indexPath else {
+                return
             }
-        default:
-            return
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        case .update:
+            guard let indexPath = indexPath else {
+                return
+            }
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        case .move:
+            guard let indexPath = indexPath else {
+                return
+            }
+            guard let newIndexPath = newIndexPath else {
+                return
+            }
+            tableView.moveRow(at: indexPath, to: newIndexPath)
+        @unknown default:
+            fatalError("unknown \(type)")
         }
     }
     
