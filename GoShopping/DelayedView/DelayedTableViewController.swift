@@ -19,8 +19,12 @@ class DelayedTableViewController: UITableViewController {
         return provider
     }()
     
+    private let historyManager = HistoryManager(UIApplication.shared.delegate as! AppDelegate)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        historyManager.historyDelegate = self
         tableView.register(UINib(nibName: "ToBuyTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "toBuyTableHeaderView")
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
@@ -38,6 +42,8 @@ class DelayedTableViewController: UITableViewController {
 
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
+            let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
+            self.historyManager.pushIntoToBuyHistory(item: item)
             self.dataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
         }
@@ -110,11 +116,23 @@ class DelayedTableViewController: UITableViewController {
                 title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
                 image: UIImage(systemName: "delete.right"),
                 attributes: .destructive) { _ in
+                    let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
+                    self.historyManager.pushIntoToBuyHistory(item: item)
                     self.dataProvider.deleteToBuyItem(at: indexPath)
             }
 
             return UIMenu(title: "", children: [completeAction, deleteAction])
         }
+    }
+}
+
+extension DelayedTableViewController: HistoryDelegate {
+    func historyCountChanged(_ hisotryManager: HistoryManager, count: Int) {
+        print(count)
+    }
+    
+    func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
+        print(images.count)
     }
 }
 

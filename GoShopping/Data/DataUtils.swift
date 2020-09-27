@@ -120,7 +120,7 @@ func deleteItemByNameFromToBuys(name: String) {
     }
 }
 
-func isAlreadyExistInToBuyList(name: String) -> Bool{
+func isAlreadyExistInToBuyList(name: String) -> Bool {
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
         return false
     }

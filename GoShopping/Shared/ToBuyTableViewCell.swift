@@ -47,7 +47,7 @@ class ToBuyTableViewCell: UITableViewCell {
         
         toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
         
-        toBuyItemImage.image = UIImage(data: toBuy.image!) // getImageOf(itemName: toBuy.name!, fallbackImageName: toBuy.image!)
+        toBuyItemImage.image = UIImage(data: toBuy.image!)
         toBuyItemImage.layer.cornerRadius = 4.0
         toBuyItemImage.layer.masksToBounds = true
         

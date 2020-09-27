@@ -24,9 +24,31 @@ extension UITableView {
     }
 }
 
+extension ToBuyTableViewController: HistoryDelegate {
+    func historyCountChanged(_ hisotryManager: HistoryManager, count: Int) {
+        DispatchQueue.main.async {
+            self.historyCountLabel.text = String(count)
+        }
+    }
+    
+    func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
+        DispatchQueue.main.async {
+            if(images.count == 4) {
+                self.firstImageSnapshot.image = images[0]
+                self.secondImageSnapshot.image = images[1]
+                self.thirdImageSnapshot.image = images[2]
+                self.forthImageSnapshot.image = images[3]
+            }
+            
+        }
+    }
+}
+
 class ToBuyTableViewController: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
+    
+    let historyManager = HistoryManager(UIApplication.shared.delegate as! AppDelegate)
     
     private lazy var toBuyDataProvider: ToBuysProvider = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -38,12 +60,18 @@ class ToBuyTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        historyManager.fetchToBuyHistory()
         self.updateBadge()
     }
     
     @IBOutlet weak var buttonShare: UIBarButtonItem!
     @IBOutlet weak var headerViewContainer: UIView!
     @IBOutlet weak var historyCountLabel: UILabel!
+    
+    @IBOutlet weak var firstImageSnapshot: UIImageView!
+    @IBOutlet weak var secondImageSnapshot: UIImageView!
+    @IBOutlet weak var thirdImageSnapshot: UIImageView!
+    @IBOutlet weak var forthImageSnapshot: UIImageView!
     
     @IBAction func shareToBuys(_ sender: UIBarButtonItem) {
         let path = exportToUrl()
@@ -74,6 +102,13 @@ class ToBuyTableViewController: UITableViewController {
         historyCountLabel.layer.cornerRadius = 4
         historyCountLabel.layer.masksToBounds = true
         
+        firstImageSnapshot.layer.cornerRadius = 4.0
+        secondImageSnapshot.layer.cornerRadius = 4.0
+        thirdImageSnapshot.layer.cornerRadius = 4.0
+        forthImageSnapshot.layer.cornerRadius = 4.0
+        
+        
+        historyManager.historyDelegate = self
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
     
@@ -145,8 +180,14 @@ class ToBuyTableViewController: UITableViewController {
         return action
     }
     
+    func pushItemIntoHistory(item: ToBuys) {
+        return historyManager.pushIntoToBuyHistory(item: item)
+    }
+    
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
+            let item = self.toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+            self.pushItemIntoHistory(item: item)
             self.toBuyDataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
         }
@@ -210,6 +251,8 @@ class ToBuyTableViewController: UITableViewController {
                 title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
                 image: UIImage(systemName: "delete.right"),
                 attributes: .destructive) { _ in
+                    let item = self.toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+                    self.pushItemIntoHistory(item: item)
                     self.toBuyDataProvider.deleteToBuyItem(at: indexPath)
             }
             
