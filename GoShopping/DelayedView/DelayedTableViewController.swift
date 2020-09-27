@@ -29,6 +29,11 @@ class DelayedTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
 
+    private func updateBadge() {
+        let tabbar = self.tabBarController as? BaseTabBarController
+        tabbar?.updateBadge()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()

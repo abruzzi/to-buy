@@ -88,6 +88,7 @@ extension ShoppingCollectionViewController {
 
 class ShoppingCollectionViewController: UICollectionViewController {
     let searchController = UISearchController(searchResultsController: nil)
+    let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
     
     let categoryTitles = [
         NSLocalizedString("category.food.title", comment: "category.food.title"),
@@ -138,7 +139,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     func updateSelections() {
-        let allToBuys: [ToBuyItem] = fetchAllToBuyItems()
+        let allToBuys: [ToBuyItem] = toBuyManager.fetchAllToBuyItems()
         
         let sections = dataProvider.fetchedResultsController.sections?.count ?? 0
         
@@ -229,17 +230,22 @@ class ShoppingCollectionViewController: UICollectionViewController {
             viewController!.item = data
             self.navigationController?.pushViewController(viewController!, animated: true)
         } else {
-            if(!isAlreadyExistInToBuyList(name: data.name!)) {
-                initToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
+            if(!toBuyManager.isAlreadyExistInToBuyList(name: data.name!)) {
+                toBuyManager.initToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
             }
         }
         updateBadge()
     }
     
+    private func updateBadge() {
+        let tabbar = self.tabBarController as? BaseTabBarController
+        tabbar?.updateBadge()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
-        if(isAlreadyExistInToBuyList(name: data.name!)) {
-            deleteItemByNameFromToBuys(name: data.name!)
+        if(toBuyManager.isAlreadyExistInToBuyList(name: data.name!)) {
+            toBuyManager.deleteItemByNameFromToBuys(name: data.name!)
         }
         updateBadge()
     }
@@ -369,20 +375,20 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension UIViewController {
-    func updateBadge() {
-        let allItems = fetchAllToBuyItems()
-        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
-        let delayedItems = allItems.filter { $0.isDelayed }
-        
-        if let items = self.tabBarController?.tabBar.items as NSArray? {
-            let toBuyTab = items.object(at: 1) as! UITabBarItem
-            let delayedTab = items.object(at: 2) as! UITabBarItem
-            toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
-            delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
-        }
-    }
-}
+//extension UIViewController {
+//    func updateBadge() {
+//        let allItems = fetchAllToBuyItems()
+//        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
+//        let delayedItems = allItems.filter { $0.isDelayed }
+//
+//        if let items = self.tabBarController?.tabBar.items as NSArray? {
+//            let toBuyTab = items.object(at: 1) as! UITabBarItem
+//            let delayedTab = items.object(at: 2) as! UITabBarItem
+//            toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
+//            delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
+//        }
+//    }
+//}
 
 extension ShoppingCollectionViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

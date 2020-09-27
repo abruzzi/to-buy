@@ -49,6 +49,7 @@ class ToBuyTableViewController: UITableViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     let historyManager = HistoryManager(UIApplication.shared.delegate as! AppDelegate)
+    let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
     
     private lazy var toBuyDataProvider: ToBuysProvider = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -56,6 +57,11 @@ class ToBuyTableViewController: UITableViewController {
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
+    
+    private func updateBadge() {
+        let tabbar = self.tabBarController as? BaseTabBarController
+        tabbar?.updateBadge()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -74,10 +80,10 @@ class ToBuyTableViewController: UITableViewController {
     @IBOutlet weak var forthImageSnapshot: UIImageView!
     
     @IBAction func shareToBuys(_ sender: UIBarButtonItem) {
-        let path = exportToUrl()
+        let path = toBuyManager.exportToUrl()
         
         let activity = UIActivityViewController(
-            activityItems: ["Share your tobuys with your friend now", path],
+            activityItems: ["Share your to buy items with your friend", path],
             applicationActivities: nil
         )
         activity.popoverPresentationController?.barButtonItem = sender

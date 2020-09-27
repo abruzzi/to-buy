@@ -51,8 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
-    func importForeignItems(url: URL) {
-        importToBuys(from: url)
+    func refreshToBuyList(url: URL) {
         guard
             let navigationController = self.window?.rootViewController as? UINavigationController,
             let toBuyTableViewController = navigationController.viewControllers.first as? ToBuyTableViewController
@@ -63,10 +62,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         let url = URLContexts.first?.url
-        
+        let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
         guard url!.pathExtension == "tblr" else { return  }
         
-        let allToBuys = allRemainingToBuys()
+        let allToBuys = toBuyManager.allRemainingToBuys()
 
         let title = NSLocalizedString("message.hint.merge.shared.title", comment: "message.hint.merge.shared.title")
         let message = NSLocalizedString("message.hint.merge.shared.subtitle", comment: "message.hint.merge.shared.subtitle")
@@ -75,14 +74,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.ok", comment: "message.hint.merge.shared.ok"), style: .destructive, handler: { action in
-                self.importForeignItems(url: url!)
+                toBuyManager.importToBuys(from: url!)
+                self.refreshToBuyList(url: url!)
             }))
             
             alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.cancel", comment: "message.hint.merge.shared.cancel"), style: .cancel, handler: nil))
             
             window?.rootViewController!.present(alert, animated: true)
         } else {
-            self.importForeignItems(url: url!)
+            toBuyManager.importToBuys(from: url!)
+            self.refreshToBuyList(url: url!)
         }
     }
 }

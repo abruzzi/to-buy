@@ -37,6 +37,7 @@
 		7ADB02062513852F0068961E /* TagProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB02052513852F0068961E /* TagProvider.swift */; };
 		7ADD3C2B2520563000819DFC /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD3C2A2520563000819DFC /* HistoryManager.swift */; };
 		7ADD3C2E25206CA600819DFC /* ToBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */; };
+		7ADD3C322520BD4700819DFC /* CanBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD3C312520BD4700819DFC /* CanBuyManager.swift */; };
 		7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA224FE2A3300342844 /* ItemCellView.swift */; };
 		7AE05DA524FE2A3300342844 /* ItemCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE05DA324FE2A3300342844 /* ItemCellView.xib */; };
 		7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */; };
@@ -86,6 +87,7 @@
 		7ADB02052513852F0068961E /* TagProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagProvider.swift; path = ../TagProvider.swift; sourceTree = "<group>"; };
 		7ADD3C2A2520563000819DFC /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyManager.swift; sourceTree = "<group>"; };
+		7ADD3C312520BD4700819DFC /* CanBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanBuyManager.swift; sourceTree = "<group>"; };
 		7AE05DA224FE2A3300342844 /* ItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellView.swift; sourceTree = "<group>"; };
 		7AE05DA324FE2A3300342844 /* ItemCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCellView.xib; sourceTree = "<group>"; };
 		7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				7A8304E5250B9DBC00D4A6A8 /* Utilities.swift */,
 				7ADD3C2A2520563000819DFC /* HistoryManager.swift */,
 				7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */,
+				7ADD3C312520BD4700819DFC /* CanBuyManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */,
 				7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */,
 				7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */,
+				7ADD3C322520BD4700819DFC /* CanBuyManager.swift in Sources */,
 				7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */,
 				7A11D2FB2514CB77002BF321 /* SearchTextField.swift in Sources */,
 				7A8304F2250DC42700D4A6A8 /* EmptyList.swift in Sources */,
