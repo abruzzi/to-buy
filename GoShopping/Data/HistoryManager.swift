@@ -28,8 +28,10 @@ class HistoryManager {
         let count = totalInToBuyHistory()
         let images = getMostRecentImageSnapshots() ?? []
         
-        historyDelegate.historyCountChanged(self, count: count)
-        historyDelegate.mostRecentSnapshotsChanged(self, images: images)
+        if let delegate = historyDelegate {
+            delegate.historyCountChanged(self, count: count)
+            delegate.mostRecentSnapshotsChanged(self, images: images)
+        }
     }
     
     func pushIntoToBuyHistory(item tobuy: ToBuys) {
@@ -52,8 +54,12 @@ class HistoryManager {
         
         let count = totalInToBuyHistory()
         let images = getMostRecentImageSnapshots() ?? []
-        historyDelegate.historyCountChanged(self, count: count)
-        historyDelegate.mostRecentSnapshotsChanged(self, images: images)
+        
+        if let delegate = historyDelegate {
+            delegate.historyCountChanged(self, count: count)
+            delegate.mostRecentSnapshotsChanged(self, images: images)
+        }
+        
     }
 
     func totalInToBuyHistory() -> Int {
