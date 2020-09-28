@@ -10,12 +10,12 @@ import Foundation
 import CoreData
 
 class ToBuysProvider {
-    private(set) var persistentContainer: NSPersistentContainer
+    private(set) var viewContext: NSManagedObjectContext
     private weak var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
     
-    init(with persistentContainer: NSPersistentContainer,
+    init(with viewContext: NSManagedObjectContext,
          fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?) {
-        self.persistentContainer = persistentContainer
+        self.viewContext = viewContext
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
@@ -26,7 +26,7 @@ class ToBuysProvider {
         
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                    managedObjectContext: persistentContainer.viewContext,
+                                                    managedObjectContext: viewContext,
                                                     sectionNameKeyPath: "supermarket", cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
@@ -40,9 +40,9 @@ class ToBuysProvider {
         return controller
     }()
     
-    func addToBuyItem(canBuyItem: ToBuy, context: NSManagedObjectContext, shouldSave: Bool = true) {
-        context.performAndWait {
-            let item = ToBuy(context: context)
+    func addToBuyItem(canBuyItem: ToBuy, shouldSave: Bool = true) {
+        viewContext.performAndWait {
+            let item = ToBuy(context: viewContext)
             item.name = canBuyItem.name
             item.category = canBuyItem.category
             item.image = canBuyItem.image
@@ -50,41 +50,38 @@ class ToBuysProvider {
             item.supermarket = canBuyItem.supermarket
             
             if shouldSave {
-                context.save(with: .addToBuyItem)
+                viewContext.save(with: .addToBuyItem)
             }
         }
     }
 
     func markAsDelayed(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
+        viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)
             item.isDelayed = true
             item.isCompleted = false
             if shouldSave {
-                context.save(with: .markAsDelayed)
+                viewContext.save(with: .markAsDelayed)
             }
         }
     }
     
     func markAsCompleted(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
+        viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)
             item.isDelayed = false
             item.isCompleted = true
             if shouldSave {
-                context.save(with: .markAsCompleted)
+                viewContext.save(with: .markAsCompleted)
             }
         }
     }
     
     func deleteToBuyItem(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
-            context.delete(fetchedResultsController.object(at: indexPath))
+        viewContext.performAndWait {
+            viewContext.delete(fetchedResultsController.object(at: indexPath))
             if shouldSave {
-                context.save(with: .deleteToBuyItem)
+                viewContext.save(with: .deleteToBuyItem)
             }
         }
     }

@@ -46,7 +46,7 @@ class ItemPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = UIImage(data: image) // getImageOf(itemName: itemName, fallbackImageName: image)
+        imageView.image = UIImage(data: image)
     }
     
 }

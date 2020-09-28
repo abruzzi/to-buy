@@ -13,6 +13,16 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
+    static var persistentContainer: NSPersistentContainer {
+        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    }
+    
+    static var viewContext: NSManagedObjectContext {
+        let viewContext = persistentContainer.viewContext
+        viewContext.automaticallyMergesChangesFromParent = true
+        return viewContext
+    }
+    
     let defaults = UserDefaults.standard
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -53,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "GoShopping")
+        let container = NSPersistentCloudKitContainer(name: "GoShopping")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -73,10 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
+    
     // MARK: - Core Data Saving support
 
     func saveContext () {
-        let context = persistentContainer.viewContext
+        let context = AppDelegate.viewContext
         if context.hasChanges {
             do {
                 try context.save()

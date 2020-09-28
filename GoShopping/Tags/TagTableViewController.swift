@@ -15,8 +15,7 @@ class TagTableViewController: UITableViewController {
     private var alertActionToEnable: UIAlertAction!
     
     private lazy var dataProvider: TagProvider = {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let provider = TagProvider(with: appDelegate.persistentContainer,
+        let provider = TagProvider(with: AppDelegate.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
@@ -90,7 +89,7 @@ extension TagTableViewController {
         
         alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
             guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
-            self.dataProvider.addTag(name: name, context: self.dataProvider.persistentContainer.viewContext)
+            self.dataProvider.addTag(name: name)
         }
         alertActionToEnable.isEnabled = false
         alert.addAction(alertActionToEnable!)

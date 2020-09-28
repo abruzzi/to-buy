@@ -21,8 +21,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     ]
     
     private lazy var dataProvider: TagProvider = {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let provider = TagProvider(with: appDelegate.persistentContainer,
+        let provider = TagProvider(with: AppDelegate.viewContext,
                                    fetchedResultsControllerDelegate: self)
         return provider
     }()
@@ -51,7 +50,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         
         // also save tag
         if(!supermarketTextField.text!.isEmpty) {
-            self.dataProvider.addTag(name: supermarketTextField.text!, context: self.dataProvider.persistentContainer.viewContext)
+            self.dataProvider.addTag(name: supermarketTextField.text!)
         }
         
         self.navigationController?.popViewController(animated: true)
@@ -75,7 +74,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
-        itemImage.image = UIImage(data: item.image!) // getImageOf(itemName: item.name!, fallbackImageName: item.image!)
+        itemImage.image = UIImage(data: item.image!)
         itemImage.layer.cornerRadius = 4.0
         itemImage.layer.masksToBounds = true
         itemImage.addGestureRecognizer(singleTap)

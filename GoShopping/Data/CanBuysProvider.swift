@@ -10,12 +10,13 @@ import Foundation
 import CoreData
 
 class CanBuysProvider {
-    private(set) var persistentContainer: NSPersistentContainer
+    private(set) var viewContext: NSManagedObjectContext
+    
     private weak var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
     
-    init(with persistentContainer: NSPersistentContainer,
+    init(with viewContext: NSManagedObjectContext,
          fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?) {
-        self.persistentContainer = persistentContainer
+        self.viewContext = viewContext
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
@@ -24,7 +25,7 @@ class CanBuysProvider {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category", ascending: true)]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                    managedObjectContext: persistentContainer.viewContext,
+                                                    managedObjectContext: viewContext,
                                                     sectionNameKeyPath: "category", cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
@@ -38,27 +39,26 @@ class CanBuysProvider {
         return controller
     }()
     
-    func addCanBuy(in context: NSManagedObjectContext, name: String, image: Data, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuy) -> Void)? = nil) {
-        context.perform {
-            let item = CanBuy(context: context)
+    func addCanBuy(name: String, image: Data, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuy) -> Void)? = nil) {
+        viewContext.perform {
+            let item = CanBuy(context: self.viewContext)
             item.name = name
             item.image = image
             item.category = 3
 
             if shouldSave {
                 item.createdAt = Date()
-                context.save(with: .addCanBuyItem)
+                self.viewContext.save(with: .addCanBuyItem)
             }
             completionHandler?(item)
         }
     }
 
     func deleteCanBuy(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
-            context.delete(fetchedResultsController.object(at: indexPath))
+        viewContext.performAndWait {
+            viewContext.delete(fetchedResultsController.object(at: indexPath))
             if shouldSave {
-                context.save(with: .deleteCanBuyItem)
+                viewContext.save(with: .deleteCanBuyItem)
             }
         }
     }

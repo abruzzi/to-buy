@@ -9,28 +9,6 @@
 import Foundation
 import UIKit
 
-// deprecated
-func saveImageTo(image: UIImage, imageName: String){
-    let fileManager = FileManager.default
-    let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
-    let resized = image.resize(toTargetSize: CGSize(width: 1000, height: 1000))
-    let data = UIImage.pngData(resized)
-
-    fileManager.createFile(atPath: imagePath as String, contents: data(), attributes: nil)
-}
-
-// deprecated
-func getImageOf(itemName: String, fallbackImageName: String) -> UIImage? {
-    let fileManager = FileManager.default
-    let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(itemName)
-    
-    if fileManager.fileExists(atPath: imagePath){
-        return UIImage(contentsOfFile: imagePath)
-    }else{
-        return UIImage(named: fallbackImageName)
-    }
-}
-
 extension UIImage {
     
     func resize(toTargetSize targetSize: CGSize) -> UIImage {

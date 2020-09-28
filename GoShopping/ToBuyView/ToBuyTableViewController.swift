@@ -52,8 +52,7 @@ class ToBuyTableViewController: UITableViewController {
     let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
     
     private lazy var toBuyDataProvider: ToBuysProvider = {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let provider = ToBuysProvider(with: appDelegate.persistentContainer,
+        let provider = ToBuysProvider(with: AppDelegate.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()

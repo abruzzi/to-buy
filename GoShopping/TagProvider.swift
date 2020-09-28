@@ -10,12 +10,13 @@ import Foundation
 import CoreData
 
 class TagProvider {
-    private(set) var persistentContainer: NSPersistentContainer
+    private(set) var viewContext: NSManagedObjectContext
+    
     private weak var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
     
-    init(with persistentContainer: NSPersistentContainer,
+    init(with viewContext: NSManagedObjectContext,
          fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?) {
-        self.persistentContainer = persistentContainer
+        self.viewContext = viewContext
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
@@ -24,7 +25,7 @@ class TagProvider {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                    managedObjectContext: persistentContainer.viewContext,
+                                                    managedObjectContext: viewContext,
                                                     sectionNameKeyPath: nil, cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
@@ -42,37 +43,36 @@ class TagProvider {
         let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "name == %@", tagName)
         
-        let number = try? persistentContainer.viewContext.count(for: fetchRequest)
+        let number = try? viewContext.count(for: fetchRequest)
         return number ?? 0
     }
     
-    func addTag(name: String, context: NSManagedObjectContext, shouldSave: Bool = true) {
+    func addTag(name: String, shouldSave: Bool = true) {
         let fetchRequest: NSFetchRequest<Tag> = Tag.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
-        let number = try? persistentContainer.viewContext.count(for: fetchRequest)
+        let number = try? viewContext.count(for: fetchRequest)
         
         if((number ?? 0) > 0) {
             return
         }
         
-        context.performAndWait {
-            let item = Tag(context: context)
+        viewContext.performAndWait {
+            let item = Tag(context: viewContext)
             item.uuid = UUID()
             item.name = name
             
             if shouldSave {
-                context.save(with: .addTag)
+                viewContext.save(with: .addTag)
             }
         }
     }
     
     func deleteTag(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
-            context.delete(fetchedResultsController.object(at: indexPath))
+        viewContext.performAndWait {
+            viewContext.delete(fetchedResultsController.object(at: indexPath))
             if shouldSave {
-                context.save(with: .deleteTag)
+                viewContext.save(with: .deleteTag)
             }
         }
     }

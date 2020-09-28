@@ -10,12 +10,12 @@ import Foundation
 import CoreData
 
 class DelayedToBuysProvider {
-    private(set) var persistentContainer: NSPersistentContainer
+    private(set) var viewContext: NSManagedObjectContext
     private weak var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
     
-    init(with persistentContainer: NSPersistentContainer,
+    init(with viewContext: NSManagedObjectContext,
          fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?) {
-        self.persistentContainer = persistentContainer
+        self.viewContext = viewContext
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
@@ -25,7 +25,7 @@ class DelayedToBuysProvider {
         fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", true)
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                    managedObjectContext: persistentContainer.viewContext,
+                                                    managedObjectContext: viewContext,
                                                     sectionNameKeyPath: "supermarket", cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
@@ -39,32 +39,22 @@ class DelayedToBuysProvider {
         return controller
     }()
     
-    func numberOfDelayed() -> Int {
-        let fetchRequest: NSFetchRequest<ToBuy> = ToBuy.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", true)
-        
-        let number = try? persistentContainer.viewContext.count(for: fetchRequest)
-        return number ?? 0
-    }
-    
     func markAsCompleted(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
+        viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)
             item.isDelayed = false
             item.isCompleted = true
             if shouldSave {
-                context.save(with: .markAsCompleted)
+                viewContext.save(with: .markAsCompleted)
             }
         }
     }
     
     func deleteToBuyItem(at indexPath: IndexPath, shouldSave: Bool = true) {
-        let context = fetchedResultsController.managedObjectContext
-        context.performAndWait {
-            context.delete(fetchedResultsController.object(at: indexPath))
+        viewContext.performAndWait {
+            viewContext.delete(fetchedResultsController.object(at: indexPath))
             if shouldSave {
-                context.save(with: .deleteToBuyItem)
+                viewContext.save(with: .deleteToBuyItem)
             }
         }
     }

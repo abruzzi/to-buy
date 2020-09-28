@@ -13,8 +13,7 @@ private let reuseIdentifier = "ToBuyTableViewCell"
 
 class DelayedTableViewController: UITableViewController {
     private lazy var dataProvider: DelayedToBuysProvider = {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let provider = DelayedToBuysProvider(with: appDelegate.persistentContainer,
+        let provider = DelayedToBuysProvider(with: AppDelegate.viewContext,
                                    fetchedResultsControllerDelegate: self)
         return provider
     }()

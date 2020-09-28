@@ -71,8 +71,7 @@ extension ShoppingCollectionViewController {
     
     //Action
     @objc func editNewItem() {
-        let context = self.dataProvider.persistentContainer.viewContext
-        self.dataProvider.addCanBuy(in: context, name: self.searchText, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, shouldSave: false) { canBuyItem in
+        self.dataProvider.addCanBuy(name: self.searchText, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, shouldSave: false) { canBuyItem in
             let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                 as? EditingTableViewController
             viewController!.item = canBuyItem
@@ -98,8 +97,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     ]
     
     private lazy var dataProvider: CanBuysProvider = {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let provider = CanBuysProvider(with: appDelegate.persistentContainer,
+        let provider = CanBuysProvider(with: AppDelegate.viewContext,
                                        fetchedResultsControllerDelegate: self)
         return provider
     }()
