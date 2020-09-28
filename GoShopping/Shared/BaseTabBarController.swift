@@ -9,7 +9,7 @@
 import UIKit
 
 class BaseTabBarController: UITabBarController {
-    let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
+    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
     
     override func viewDidLoad() {
         super.viewDidLoad()

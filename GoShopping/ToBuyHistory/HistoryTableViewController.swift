@@ -12,7 +12,7 @@ import CoreData
 private let reuseIdentifier = "ToBuyTableViewCell"
 
 class HistoryTableViewController: UITableViewController {
-    private let toBuyManger = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
+    private let toBuyManger = ToBuyManager(AppDelegate.viewContext)
     
     private lazy var dataProvider: ToBuyHistoryProvider = {
         let provider = ToBuyHistoryProvider(with: AppDelegate.viewContext,

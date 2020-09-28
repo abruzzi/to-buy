@@ -20,7 +20,7 @@ class DelayedTableViewController: UITableViewController {
         return provider
     }()
     
-    private let historyManager = HistoryManager(UIApplication.shared.delegate as! AppDelegate)
+    private let historyManager = HistoryManager(AppDelegate.viewContext)
     
     override func viewDidLoad() {
         super.viewDidLoad()

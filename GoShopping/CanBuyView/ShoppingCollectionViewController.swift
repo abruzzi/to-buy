@@ -87,7 +87,7 @@ extension ShoppingCollectionViewController {
 
 class ShoppingCollectionViewController: UICollectionViewController {
     let searchController = UISearchController(searchResultsController: nil)
-    let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
+    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
     
     let categoryTitles = [
         NSLocalizedString("category.food.title", comment: "category.food.title"),

@@ -17,11 +17,11 @@ protocol HistoryDelegate {
 class HistoryManager {
     private let entityName = "ToBuyHistory"
     
-    private var appDelegate: AppDelegate!
+    private(set) var viewContext: NSManagedObjectContext
     var historyDelegate: HistoryDelegate!
     
-    init(_ appDelegate: AppDelegate) {
-        self.appDelegate = appDelegate
+    init(_ viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
     }
     
     func fetchToBuyHistory() {
@@ -35,9 +35,8 @@ class HistoryManager {
     }
     
     func pushIntoToBuyHistory(item tobuy: ToBuy) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
-        let item = NSManagedObject(entity: entity, insertInto: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
+        let item = NSManagedObject(entity: entity, insertInto: viewContext)
         
         item.setValue(UUID(), forKey: "uuid")
         item.setValue(tobuy.name, forKeyPath: "name")
@@ -47,7 +46,7 @@ class HistoryManager {
         item.setValue(Date(), forKeyPath: "createdAt")
         
         do {
-            try managedContext.save()
+            try viewContext.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -63,11 +62,10 @@ class HistoryManager {
     }
 
     func totalInToBuyHistory() -> Int {
-        let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         do {
-            let result = try managedContext.count(for: fetchRequest)
+            let result = try viewContext.count(for: fetchRequest)
             return result
         }catch let error as NSError {
             print("Could not fetch value. \(error), \(error.userInfo)")
@@ -77,10 +75,9 @@ class HistoryManager {
     }
 
     func cleanupAllHistory() {
-        let managedContext = appDelegate.persistentContainer.viewContext
         let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
-            try managedContext.execute(request)
+            try viewContext.execute(request)
         }
         catch {
             print(error)
@@ -89,9 +86,6 @@ class HistoryManager {
     
     func getMostRecentImageSnapshots() -> [UIImage]? {
         var mostRecentToBuyItems: [NSManagedObject] = []
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
@@ -100,7 +94,7 @@ class HistoryManager {
         fetchRequest.fetchLimit = 4
         
         do {
-            mostRecentToBuyItems = try managedContext.fetch(fetchRequest)
+            mostRecentToBuyItems = try viewContext.fetch(fetchRequest)
         }catch let error as NSError {
             print("Could not fetch value. \(error), \(error.userInfo)")
         }

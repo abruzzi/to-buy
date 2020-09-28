@@ -47,11 +47,9 @@ struct Item: Hashable, Codable, Identifiable {
 
 func resetAllDBItems(lang: String) {
     let records: [Record] = (lang.lowercased() == "en") ? load("category.json") :  load("category-cn.json")
-
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    let toBuyManager = ToBuyManager(appDelegate)
-    let canBuyManager = CanBuyManager(appDelegate)
+    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
+    let canBuyManager = CanBuyManager(AppDelegate.viewContext)
     
     toBuyManager.deleteAllToBuys() // clean up user's selection for avoading any poetential conflicts
     canBuyManager.deleteAllCanBuys() // clean up dictionary

@@ -26,17 +26,17 @@ struct CanBuyItem {
 
 class CanBuyManager {
     private let entityName = "CanBuy"
-    private var appDelegate: AppDelegate!
+    private(set) var viewContext: NSManagedObjectContext
     
-    init(_ appDelegate: AppDelegate) {
-        self.appDelegate = appDelegate
+    init(_ viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
     }
     
     func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
+        
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
         canBuyItems.forEach { canBuyItem in
-            let item = NSManagedObject(entity: entity, insertInto: managedContext)
+            let item = NSManagedObject(entity: entity, insertInto: viewContext)
             
             item.setValue(canBuyItem.name, forKeyPath: "name")
             item.setValue(canBuyItem.category, forKey: "category")
@@ -46,25 +46,23 @@ class CanBuyManager {
         }
         
         do {
-            try managedContext.save()
+            try viewContext.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
 
     func deleteItemByNameFromCanBuys(name: String) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             if(result.count > 0) {
                 let obj = result[0] as! NSManagedObject
-                managedContext.delete(obj)
+                viewContext.delete(obj)
                 do {
-                    try managedContext.save()
+                    try viewContext.save()
                 } catch {
                     print(error)
                 }
@@ -75,9 +73,8 @@ class CanBuyManager {
     }
 
     func saveCanBuyItem(canBuyItem: CanBuyItem) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
-        let item = NSManagedObject(entity: entity, insertInto: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
+        let item = NSManagedObject(entity: entity, insertInto: viewContext)
         
         item.setValue(canBuyItem.name, forKeyPath: "name")
         item.setValue(canBuyItem.category, forKey: "category")
@@ -86,20 +83,18 @@ class CanBuyManager {
         item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
         
         do {
-            try managedContext.save()
+            try viewContext.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
 
     func isNewItemInApp(name: String) -> Bool{
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             return result.count == 0
         }catch let error as NSError {
             print("Could not fetch value. \(error), \(error.userInfo)")
@@ -109,13 +104,11 @@ class CanBuyManager {
     }
 
     func updateCanBuyItem(name: String, dict: Dictionary<String, Any>) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             let obj = result[0] as! NSManagedObject
             
             dict.forEach { (key, value) in
@@ -123,7 +116,7 @@ class CanBuyManager {
             }
             
             do {
-                try managedContext.save()
+                try viewContext.save()
             } catch {
                 print(error)
             }
@@ -134,15 +127,13 @@ class CanBuyManager {
 
     func fetchAllCanBuyList() -> [CanBuyItem] {
         var toBuyList: [NSManagedObject] = []
-
-        let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            toBuyList = try managedContext.fetch(fetchRequest)
+            toBuyList = try viewContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -158,16 +149,14 @@ class CanBuyManager {
     }
 
     func deleteAllCanBuys(){
-        let managedContext = appDelegate.persistentContainer.viewContext
         let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
-            try managedContext.execute(DelAllReqVar)
+            try viewContext.execute(DelAllReqVar)
         }
         catch {
             print(error)
         }
     }
-
 
     func allCanBuyList() -> [[CanBuyItem]]{
         let canBuyList = fetchAllCanBuyList()

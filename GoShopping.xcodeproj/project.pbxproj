@@ -192,11 +192,11 @@
 				7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */,
 				7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */,
 				7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */,
+				7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */,
 				7ADB02052513852F0068961E /* TagProvider.swift */,
 				7ADD3C2A2520563000819DFC /* HistoryManager.swift */,
 				7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */,
 				7ADD3C312520BD4700819DFC /* CanBuyManager.swift */,
-				7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";

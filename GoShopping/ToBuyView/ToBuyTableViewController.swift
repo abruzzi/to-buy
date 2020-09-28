@@ -50,8 +50,8 @@ class ToBuyTableViewController: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    let historyManager = HistoryManager(UIApplication.shared.delegate as! AppDelegate)
-    let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
+    let historyManager = HistoryManager(AppDelegate.viewContext)
+    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
     
     private lazy var dataProvider: ToBuysProvider = {
         let provider = ToBuysProvider(with: AppDelegate.viewContext,

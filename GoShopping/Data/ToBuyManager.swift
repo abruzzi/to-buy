@@ -37,12 +37,12 @@ protocol ToBuyListDelegate {
 
 class ToBuyManager {
     private let entityName = "ToBuy"
-    private var appDelegate: AppDelegate!
+    private(set) var viewContext: NSManagedObjectContext
     
     var delegate: ToBuyListDelegate!
     
-    init(_ appDelegate: AppDelegate) {
-        self.appDelegate = appDelegate
+    init(_ viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
     }
     
     func importToBuys (from url: URL) {
@@ -85,9 +85,8 @@ class ToBuyManager {
     }
 
     func initToBuyItem(name: String, category: Int, image: Data, supermarket: String, isForeign: Bool = false) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
-        let item = NSManagedObject(entity: entity, insertInto: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
+        let item = NSManagedObject(entity: entity, insertInto: viewContext)
         
         item.setValue(name, forKeyPath: "name")
         item.setValue(category, forKey: "category")
@@ -100,25 +99,23 @@ class ToBuyManager {
         item.setValue(0, forKey: "priority")
         
         do {
-            try managedContext.save()
+            try viewContext.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
 
     func deleteItemByNameFromToBuys(name: String) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             if(result.count > 0) {
                 let obj = result[0] as! NSManagedObject
-                managedContext.delete(obj)
+                viewContext.delete(obj)
                 do {
-                    try managedContext.save()
+                    try viewContext.save()
                 } catch {
                     print(error)
                 }
@@ -129,8 +126,6 @@ class ToBuyManager {
     }
 
     func isAlreadyExistInToBuyList(name: String) -> Bool {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         
         let namePredicate = NSPredicate(format: "name = %@", name)
@@ -139,7 +134,7 @@ class ToBuyManager {
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [namePredicate, completedPredicate])
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             return result.count != 0
         }catch let error as NSError {
             print("Could not fetch value. \(error), \(error.userInfo)")
@@ -150,7 +145,6 @@ class ToBuyManager {
 
     func allRemainingToBuys() -> [ToBuyItem] {
         var toBuyList: [NSManagedObject] = []
-        let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
@@ -161,7 +155,7 @@ class ToBuyManager {
         fetchRequest.predicate = completedPredicate
         
         do {
-            toBuyList = try managedContext.fetch(fetchRequest)
+            toBuyList = try viewContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -183,8 +177,6 @@ class ToBuyManager {
 
     func fetchAllToBuyItems() -> [ToBuyItem] {
         var toBuyList: [NSManagedObject] = []
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
@@ -193,7 +185,7 @@ class ToBuyManager {
         fetchRequest.sortDescriptors = [sortDescriptorSupermarket, sortDescriptorCreatedAt]
         
         do {
-            toBuyList = try managedContext.fetch(fetchRequest)
+            toBuyList = try viewContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -222,13 +214,11 @@ class ToBuyManager {
     }
 
     func updateRecordFor(name: String, dict: Dictionary<String, Any>) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             let obj = result[0] as! NSManagedObject
             
             dict.forEach { (key, value) in
@@ -236,7 +226,7 @@ class ToBuyManager {
             }
             
             do {
-                try managedContext.save()
+                try viewContext.save()
             } catch {
                 print(error)
             }
@@ -246,17 +236,15 @@ class ToBuyManager {
     }
 
     func updateRecordFor(name: String, key: String, value: Any) {
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
-            let result = try managedContext.fetch(fetchRequest)
+            let result = try viewContext.fetch(fetchRequest)
             let obj = result[0] as! NSManagedObject
             obj.setValue(value, forKey: key)
             do {
-                try managedContext.save()
+                try viewContext.save()
             } catch {
                 print(error)
             }
@@ -266,10 +254,9 @@ class ToBuyManager {
     }
 
     func deleteAllToBuys(){
-        let managedContext = appDelegate.persistentContainer.viewContext
         let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
-            try managedContext.execute(request)
+            try viewContext.execute(request)
         }
         catch {
             print(error)

@@ -62,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         let url = URLContexts.first?.url
-        let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
+        let toBuyManager = ToBuyManager(AppDelegate.viewContext)
         guard url!.pathExtension == "tblr" else { return  }
         
         let allToBuys = toBuyManager.allRemainingToBuys()
