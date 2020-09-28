@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class EditingTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var item: CanBuys!
+    var item: CanBuy!
     var category: String!
     
     let categories = [

@@ -36,7 +36,7 @@ protocol ToBuyListDelegate {
 }
 
 class ToBuyManager {
-    private let entityName = "ToBuys"
+    private let entityName = "ToBuy"
     private var appDelegate: AppDelegate!
     
     var delegate: ToBuyListDelegate!
@@ -86,7 +86,7 @@ class ToBuyManager {
 
     func initToBuyItem(name: String, category: Int, image: Data, supermarket: String, isForeign: Bool = false) {
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "ToBuys", in: managedContext)!
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
         let item = NSManagedObject(entity: entity, insertInto: managedContext)
         
         item.setValue(name, forKeyPath: "name")
@@ -109,7 +109,7 @@ class ToBuyManager {
     func deleteItemByNameFromToBuys(name: String) {
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
@@ -131,7 +131,7 @@ class ToBuyManager {
     func isAlreadyExistInToBuyList(name: String) -> Bool {
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         
         let namePredicate = NSPredicate(format: "name = %@", name)
         let completedPredicate = NSPredicate(format: "isCompleted = %d", false)
@@ -151,7 +151,7 @@ class ToBuyManager {
     func allRemainingToBuys() -> [ToBuyItem] {
         var toBuyList: [NSManagedObject] = []
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
         let sortDescriptorSupermarket = NSSortDescriptor(key: "supermarket", ascending: true)
@@ -185,7 +185,7 @@ class ToBuyManager {
         var toBuyList: [NSManagedObject] = []
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuys")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
         let sortDescriptorSupermarket = NSSortDescriptor(key: "supermarket", ascending: true)
@@ -224,7 +224,7 @@ class ToBuyManager {
     func updateRecordFor(name: String, dict: Dictionary<String, Any>) {
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
@@ -248,7 +248,7 @@ class ToBuyManager {
     func updateRecordFor(name: String, key: String, value: Any) {
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ToBuys")
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
         fetchRequest.predicate = NSPredicate(format: "name = %@", name)
         
         do {
@@ -267,7 +267,7 @@ class ToBuyManager {
 
     func deleteAllToBuys(){
         let managedContext = appDelegate.persistentContainer.viewContext
-        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuys"))
+        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
             try managedContext.execute(DelAllReqVar)
         }

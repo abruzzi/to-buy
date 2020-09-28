@@ -19,8 +19,8 @@ class ToBuysProvider {
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
-    lazy var fetchedResultsController: NSFetchedResultsController<ToBuys> = {
-        let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
+    lazy var fetchedResultsController: NSFetchedResultsController<ToBuy> = {
+        let fetchRequest: NSFetchRequest<ToBuy> = ToBuy.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "supermarket", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", false)
         
@@ -40,9 +40,9 @@ class ToBuysProvider {
         return controller
     }()
     
-    func addToBuyItem(canBuyItem: ToBuys, context: NSManagedObjectContext, shouldSave: Bool = true) {
+    func addToBuyItem(canBuyItem: ToBuy, context: NSManagedObjectContext, shouldSave: Bool = true) {
         context.performAndWait {
-            let item = ToBuys(context: context)
+            let item = ToBuy(context: context)
             item.name = canBuyItem.name
             item.category = canBuyItem.category
             item.image = canBuyItem.image

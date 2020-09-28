@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CanBuys" representedClassName="CanBuys" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CanBuy" representedClassName="CanBuy" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
@@ -13,15 +13,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
-    <entity name="ToBuyHistory" representedClassName="ToBuyHistory" syncable="YES" codeGenerationType="class">
-        <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="image" optional="YES" attributeType="Binary"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="supermarket" optional="YES" attributeType="String"/>
-        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-    </entity>
-    <entity name="ToBuys" representedClassName="ToBuys" syncable="YES" codeGenerationType="class">
+    <entity name="ToBuy" representedClassName="ToBuy" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
@@ -32,10 +24,18 @@
         <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="supermarket" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="ToBuyHistory" representedClassName="ToBuyHistory" syncable="YES" codeGenerationType="class">
+        <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="supermarket" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
     <elements>
-        <element name="CanBuys" positionX="-63" positionY="18" width="128" height="118"/>
+        <element name="CanBuy" positionX="-63" positionY="18" width="128" height="118"/>
         <element name="Tag" positionX="-63" positionY="54" width="128" height="103"/>
-        <element name="ToBuys" positionX="-63" positionY="-18" width="128" height="178"/>
         <element name="ToBuyHistory" positionX="-63" positionY="54" width="128" height="133"/>
+        <element name="ToBuy" positionX="-63" positionY="-18" width="128" height="178"/>
     </elements>
 </model>

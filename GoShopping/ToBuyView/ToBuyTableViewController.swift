@@ -186,7 +186,7 @@ class ToBuyTableViewController: UITableViewController {
         return action
     }
     
-    func pushItemIntoHistory(item: ToBuys) {
+    func pushItemIntoHistory(item: ToBuy) {
         return historyManager.pushIntoToBuyHistory(item: item)
     }
     

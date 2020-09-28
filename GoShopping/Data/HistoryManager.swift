@@ -34,9 +34,9 @@ class HistoryManager {
         }
     }
     
-    func pushIntoToBuyHistory(item tobuy: ToBuys) {
+    func pushIntoToBuyHistory(item tobuy: ToBuy) {
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "ToBuyHistory", in: managedContext)!
+        let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
         let item = NSManagedObject(entity: entity, insertInto: managedContext)
         
         item.setValue(UUID(), forKey: "uuid")
@@ -64,7 +64,7 @@ class HistoryManager {
 
     func totalInToBuyHistory() -> Int {
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuyHistory")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         do {
             let result = try managedContext.count(for: fetchRequest)
@@ -78,7 +78,7 @@ class HistoryManager {
 
     func cleanupAllHistory() {
         let managedContext = appDelegate.persistentContainer.viewContext
-        let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ToBuyHistory"))
+        let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
             try managedContext.execute(request)
         }
@@ -92,7 +92,7 @@ class HistoryManager {
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ToBuyHistory")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
         
         let sortDescriptorCreatedAt = NSSortDescriptor(key: "createdAt", ascending: false)
         

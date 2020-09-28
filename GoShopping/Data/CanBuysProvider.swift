@@ -19,8 +19,8 @@ class CanBuysProvider {
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
-    lazy var fetchedResultsController: NSFetchedResultsController<CanBuys> = {
-        let fetchRequest: NSFetchRequest<CanBuys> = CanBuys.fetchRequest()
+    lazy var fetchedResultsController: NSFetchedResultsController<CanBuy> = {
+        let fetchRequest: NSFetchRequest<CanBuy> = CanBuy.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "category", ascending: true)]
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -38,9 +38,9 @@ class CanBuysProvider {
         return controller
     }()
     
-    func addCanBuy(in context: NSManagedObjectContext, name: String, image: Data, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuys) -> Void)? = nil) {
+    func addCanBuy(in context: NSManagedObjectContext, name: String, image: Data, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuy) -> Void)? = nil) {
         context.perform {
-            let item = CanBuys(context: context)
+            let item = CanBuy(context: context)
             item.name = name
             item.image = image
             item.category = 3

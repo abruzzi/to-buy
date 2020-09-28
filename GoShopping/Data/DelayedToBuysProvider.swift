@@ -19,8 +19,8 @@ class DelayedToBuysProvider {
         self.fetchedResultsControllerDelegate = fetchedResultsControllerDelegate
     }
     
-    lazy var fetchedResultsController: NSFetchedResultsController<ToBuys> = {
-        let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
+    lazy var fetchedResultsController: NSFetchedResultsController<ToBuy> = {
+        let fetchRequest: NSFetchRequest<ToBuy> = ToBuy.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "supermarket", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", true)
         
@@ -40,7 +40,7 @@ class DelayedToBuysProvider {
     }()
     
     func numberOfDelayed() -> Int {
-        let fetchRequest: NSFetchRequest<ToBuys> = ToBuys.fetchRequest()
+        let fetchRequest: NSFetchRequest<ToBuy> = ToBuy.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", true)
         
         let number = try? persistentContainer.viewContext.count(for: fetchRequest)

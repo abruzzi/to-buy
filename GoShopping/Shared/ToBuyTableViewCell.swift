@@ -30,7 +30,7 @@ class ToBuyTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(with toBuy: ToBuys) {
+    func configure(with toBuy: ToBuy) {
         self.contentView.backgroundColor =  toBuy.isCompleted ? UIColor(named: "ListCellBGColor") : UIColor(named: "BGColor")
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
 
