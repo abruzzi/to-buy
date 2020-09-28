@@ -213,46 +213,7 @@ class ToBuyManager {
         return allItems
     }
 
-    func updateRecordFor(name: String, dict: Dictionary<String, Any>) {
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "name = %@", name)
-        
-        do {
-            let result = try viewContext.fetch(fetchRequest)
-            let obj = result[0] as! NSManagedObject
-            
-            dict.forEach { (key, value) in
-                obj.setValue(value, forKey: key)
-            }
-            
-            do {
-                try viewContext.save()
-            } catch {
-                print(error)
-            }
-        }catch let error as NSError {
-            print("Could not update value. \(error), \(error.userInfo)")
-        }
-    }
-
-    func updateRecordFor(name: String, key: String, value: Any) {
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
-        fetchRequest.predicate = NSPredicate(format: "name = %@", name)
-        
-        do {
-            let result = try viewContext.fetch(fetchRequest)
-            let obj = result[0] as! NSManagedObject
-            obj.setValue(value, forKey: key)
-            do {
-                try viewContext.save()
-            } catch {
-                print(error)
-            }
-        }catch let error as NSError {
-            print("Could not update value. \(error), \(error.userInfo)")
-        }
-    }
-
+    // internal use only
     func deleteAllToBuys(){
         let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
