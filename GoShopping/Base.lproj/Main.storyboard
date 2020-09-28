@@ -286,6 +286,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="UKK-08-YFs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="BrandColor"/>
                         <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
@@ -426,11 +427,45 @@
                         <outlet property="historyCountLabel" destination="Hjm-wu-5Hv" id="5le-Ji-WlM"/>
                         <outlet property="secondImageSnapshot" destination="fBq-HC-Hhi" id="Exk-Iu-8Kd"/>
                         <outlet property="thirdImageSnapshot" destination="jG7-I2-uxj" id="0yc-Sf-tfY"/>
+                        <segue destination="wV7-mU-M6N" kind="presentation" id="reK-L7-S4U"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3007.5" y="475.35211267605632"/>
+            <point key="canvasLocation" x="2758" y="468"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="JzN-a5-QGt">
+            <objects>
+                <tableViewController storyboardIdentifier="HistoryTableViewController" id="zzr-jr-a3H" customClass="HistoryTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="9AL-8G-28L">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jGs-hf-fMZ">
+                                <rect key="frame" x="16" y="55.5" width="288" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jGs-hf-fMZ" id="L4f-Xg-TOZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="zzr-jr-a3H" id="Ibo-mW-yYk"/>
+                            <outlet property="delegate" destination="zzr-jr-a3H" id="oZ4-t0-2jy"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="History" id="c9S-40-kRC">
+                        <barButtonItem key="rightBarButtonItem" image="delete.left" catalog="system" id="gfn-O4-wbE">
+                            <color key="tintColor" name="buttonColor"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="avz-XS-AQv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4786.875" y="647.53521126760563"/>
         </scene>
         <!--Delayed-->
         <scene sceneID="zce-bb-lgr">
@@ -567,12 +602,32 @@
             </objects>
             <point key="canvasLocation" x="176" y="1620"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o16-1q-3B4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wV7-mU-M6N" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="UgQ-fS-FUi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="BrandColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zzr-jr-a3H" kind="relationship" relationship="rootViewController" id="ylL-U8-LJW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4YP-D7-WYV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3787.5" y="647.53521126760563"/>
+        </scene>
     </scenes>
     <color key="tintColor" systemColor="systemTealColor"/>
     <resources>
         <image name="alarm" catalog="system" width="124" height="128"/>
         <image name="book.circle" catalog="system" width="128" height="121"/>
         <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="delete.left" catalog="system" width="128" height="104"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="icons8-avocado" width="96" height="96"/>
         <image name="icons8-beer_can" width="100" height="100"/>

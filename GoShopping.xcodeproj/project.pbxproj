@@ -10,6 +10,8 @@
 		7A05369A2503581C00A1C8EB /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0536992503581C00A1C8EB /* DataUtils.swift */; };
 		7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */; };
 		7A11D2FB2514CB77002BF321 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11D2FA2514CB77002BF321 /* SearchTextField.swift */; };
+		7A5B9A092521FC8E00F55305 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5B9A082521FC8E00F55305 /* HistoryTableViewController.swift */; };
+		7A5B9A0D2521FCF600F55305 /* ToBuyHistoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */; };
 		7A70742C250A35B0002644D2 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A70742B250A35B0002644D2 /* ImageUtils.swift */; };
 		7A70742F250B3D3F002644D2 /* ItemPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */; };
 		7A7B9A162512E4FA00BF8936 /* icon_83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7B9A132512E4F900BF8936 /* icon_83.5@2x.png */; };
@@ -55,6 +57,8 @@
 		7A0536992503581C00A1C8EB /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		7A05369B25047DF600A1C8EB /* EditingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingTableViewController.swift; sourceTree = "<group>"; };
 		7A11D2FA2514CB77002BF321 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		7A5B9A082521FC8E00F55305 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyHistoryProvider.swift; sourceTree = "<group>"; };
 		7A70742B250A35B0002644D2 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewViewController.swift; sourceTree = "<group>"; };
 		7A7B9A132512E4F900BF8936 /* icon_83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_83.5@2x.png"; sourceTree = "<group>"; };
@@ -117,6 +121,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A5B9A042521EE0800F55305 /* ToBuyHistory */ = {
+			isa = PBXGroup;
+			children = (
+				7A5B9A082521FC8E00F55305 /* HistoryTableViewController.swift */,
+			);
+			path = ToBuyHistory;
+			sourceTree = "<group>";
+		};
 		7A97C0B324FCFFFE004800E3 = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +156,7 @@
 				7A9F64092505E50F000F638C /* Shared */,
 				7A9F64082505E415000F638C /* DelayedView */,
 				7A9F64072505E3FE000F638C /* ToBuyView */,
+				7A5B9A042521EE0800F55305 /* ToBuyHistory */,
 				7A9F64062505E3ED000F638C /* CanBuyView */,
 				7A9F64052505E3B4000F638C /* Data */,
 				7A97C0EB24FDDF99004800E3 /* Resources */,
@@ -183,6 +196,7 @@
 				7ADD3C2A2520563000819DFC /* HistoryManager.swift */,
 				7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */,
 				7ADD3C312520BD4700819DFC /* CanBuyManager.swift */,
+				7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -352,6 +366,7 @@
 				7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */,
 				7A11D2FB2514CB77002BF321 /* SearchTextField.swift in Sources */,
 				7A8304F2250DC42700D4A6A8 /* EmptyList.swift in Sources */,
+				7A5B9A092521FC8E00F55305 /* HistoryTableViewController.swift in Sources */,
 				7ADD3C2B2520563000819DFC /* HistoryManager.swift in Sources */,
 				7A70742C250A35B0002644D2 /* ImageUtils.swift in Sources */,
 				7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */,
@@ -364,6 +379,7 @@
 				7A05369D25047DF600A1C8EB /* EditingTableViewController.swift in Sources */,
 				7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */,
 				7A70742F250B3D3F002644D2 /* ItemPreviewViewController.swift in Sources */,
+				7A5B9A0D2521FCF600F55305 /* ToBuyHistoryProvider.swift in Sources */,
 				7A8304E8250B9FF800D4A6A8 /* ToBuysProvider.swift in Sources */,
 				7ABCEEE325218392005B232E /* Tag.swift in Sources */,
 				7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */,
@@ -529,14 +545,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoShopping/GoShopping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
@@ -551,14 +567,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoShopping/GoShopping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;

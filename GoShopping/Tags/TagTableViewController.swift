@@ -31,12 +31,10 @@ class TagTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         let count = dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
         if(count == 0) {
             self.tableView.emptyState(label: NSLocalizedString("tag.empty.hint.message", comment: "tag.empty.hint.message"), image: "icons8-price_tag")

@@ -99,6 +99,7 @@ enum ContextSaveContextualInfo: String {
     case markAsDelayed = "mark as delayed"
     case addTag = "adding a tag"
     case deleteTag = "deleting a tag"
+    case deleteHistoryItem = "deleting a history item"
 }
 
 extension NSManagedObjectContext {

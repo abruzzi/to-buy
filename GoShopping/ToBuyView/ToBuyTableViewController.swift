@@ -84,7 +84,7 @@ class ToBuyTableViewController: UITableViewController {
         let path = toBuyManager.exportToUrl()
         
         let activity = UIActivityViewController(
-            activityItems: ["Share your to buy items with your friend", path],
+            activityItems: ["Share your to buy items with your friend", path!],
             applicationActivities: nil
         )
         activity.popoverPresentationController?.barButtonItem = sender
@@ -154,7 +154,16 @@ class ToBuyTableViewController: UITableViewController {
         // spotlight indexing
         setupSearchableContent()
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        headerViewContainer.addGestureRecognizer(tap)
+
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+    }
+
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        let viewController = self.storyboard?.instantiateViewController(identifier: "HistoryTableViewController")
+            as? HistoryTableViewController
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
     
     func filterContentForSearchText(_ searchText: String,

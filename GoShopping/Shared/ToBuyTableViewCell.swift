@@ -26,8 +26,29 @@ class ToBuyTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func configure(with toBuyHistoryItem: ToBuyHistory) {
+        let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyHistoryItem.name!)
+        toBuyItemLabel.attributedText = styledItemName
+
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "MMM dd HH:mm"
+        
+        createdAtLabel.text = dateFormatterGet.string(from: toBuyHistoryItem.createdAt!)
+        
+        toBuyItemCategory.text = categoryTitles[Int(toBuyHistoryItem.category)]
+        
+        toBuyItemImage.image = UIImage(data: toBuyHistoryItem.image!)
+        toBuyItemImage.layer.cornerRadius = 4.0
+        toBuyItemImage.layer.masksToBounds = true
+        
+        
+        supermarket.text = toBuyHistoryItem.supermarket
+
+        createdAtLabel.layer.opacity = 0.7
+        toBuyItemCategory.layer.opacity = 0.7
+        toBuyItemLabel.layer.opacity = 0.7
+        supermarket.layer.opacity = 0.7
+        toBuyItemImage.layer.opacity = 0.7
     }
     
     func configure(with toBuy: ToBuy) {

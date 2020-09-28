@@ -10,5 +10,11 @@ import Foundation
 import CoreData
 
 class ToBuyHistory: NSManagedObject {
-    
+    @objc var formattedCreatedAt: String {
+        get {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy MMM dd"
+            return dateFormatter.string(from: self.createdAt!)
+        }
+    }
 }

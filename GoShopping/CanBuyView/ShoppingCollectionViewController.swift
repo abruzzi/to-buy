@@ -280,9 +280,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 viewController!.item = data
 
                 self.navigationController?.pushViewController(viewController!, animated: true)
-//                self.performSegue(withIdentifier: "canBuyList", sender: self)
-//                self.navigationController?.showDetailViewController(viewController!, sender: self)
-//                self.navigationController?.pushViewController(viewController!, animated: true)
             }
             
             let deleteAction = UIAction(
