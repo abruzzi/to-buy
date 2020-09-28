@@ -35,7 +35,7 @@
     <elements>
         <element name="CanBuy" positionX="-63" positionY="18" width="128" height="118"/>
         <element name="Tag" positionX="-63" positionY="54" width="128" height="103"/>
-        <element name="ToBuyHistory" positionX="-63" positionY="54" width="128" height="133"/>
         <element name="ToBuy" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="ToBuyHistory" positionX="-63" positionY="54" width="128" height="133"/>
     </elements>
 </model>

@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import CoreSpotlight
+import MobileCoreServices
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
@@ -28,6 +30,39 @@ class DelayedTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
 
+    //MARK: Setup Searchable Content for our app
+    
+    func setupSearchableContent() {
+        var searchableItems = [CSSearchableItem]()
+        
+        let toBuyItems: [ToBuy] = dataProvider.fetchedResultsController.fetchedObjects ?? []
+        
+        for (_, toBuyItem) in toBuyItems.enumerated() {
+            let searchableItemAttributeSet = CSSearchableItemAttributeSet.init()
+            searchableItemAttributeSet.title = "\(toBuyItem.name!) · \(toBuyItem.supermarket!)"
+            searchableItemAttributeSet.thumbnailData = toBuyItem.image
+            searchableItemAttributeSet.contentType = kUTTypeText as String
+            
+            var kws = [String]()
+            
+            kws.append(toBuyItem.name!)
+            kws.append(toBuyItem.supermarket!)
+            
+            searchableItemAttributeSet.keywords = kws
+
+            let uniq = "\(Bundle.main.bundleIdentifier!).\(toBuyItem.name!)"
+            let searchableItem = CSSearchableItem.init(uniqueIdentifier: uniq, domainIdentifier: "To Buy", attributeSet: searchableItemAttributeSet)
+            
+            searchableItems.append(searchableItem)
+        }
+        
+        CSSearchableIndex.default().indexSearchableItems(searchableItems) { (error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Spotlight search API error")
+            }
+        }
+    }
+    
     private func updateBadge() {
         let tabbar = self.tabBarController as? BaseTabBarController
         tabbar?.updateBadge()

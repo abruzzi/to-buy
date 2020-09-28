@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import CoreSpotlight
+import MobileCoreServices
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
@@ -51,7 +53,7 @@ class ToBuyTableViewController: UITableViewController {
     let historyManager = HistoryManager(UIApplication.shared.delegate as! AppDelegate)
     let toBuyManager = ToBuyManager(UIApplication.shared.delegate as! AppDelegate)
     
-    private lazy var toBuyDataProvider: ToBuysProvider = {
+    private lazy var dataProvider: ToBuysProvider = {
         let provider = ToBuysProvider(with: AppDelegate.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
@@ -89,6 +91,40 @@ class ToBuyTableViewController: UITableViewController {
         present(activity, animated: true, completion: nil)
     }
     
+    
+    //MARK: Setup Searchable Content for our app
+    
+    func setupSearchableContent() {
+        var searchableItems = [CSSearchableItem]()
+        
+        let toBuyItems: [ToBuy] = dataProvider.fetchedResultsController.fetchedObjects ?? []
+        
+        for (_, toBuyItem) in toBuyItems.enumerated() {
+            let searchableItemAttributeSet = CSSearchableItemAttributeSet.init()
+            searchableItemAttributeSet.title = "\(toBuyItem.name!) · \(toBuyItem.supermarket!)"
+            searchableItemAttributeSet.thumbnailData = toBuyItem.image
+            searchableItemAttributeSet.contentType = kUTTypeText as String
+            
+            var kws = [String]()
+            
+            kws.append(toBuyItem.name!)
+            kws.append(toBuyItem.supermarket!)
+            
+            searchableItemAttributeSet.keywords = kws
+
+            let uniq = "\(Bundle.main.bundleIdentifier!).\(toBuyItem.name!)"
+            let searchableItem = CSSearchableItem.init(uniqueIdentifier: uniq, domainIdentifier: "To Buy", attributeSet: searchableItemAttributeSet)
+            
+            searchableItems.append(searchableItem)
+        }
+        
+        CSSearchableIndex.default().indexSearchableItems(searchableItems) { (error) in
+            if error != nil {
+                print(error?.localizedDescription ?? "Spotlight search API error")
+            }
+        }
+    }
+    
     let categories = ["All", "Remaining", "Shared with me"]
     
     override func viewDidLoad() {
@@ -114,6 +150,10 @@ class ToBuyTableViewController: UITableViewController {
         
         
         historyManager.historyDelegate = self
+        
+        // spotlight indexing
+        setupSearchableContent()
+        
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
     
@@ -137,10 +177,10 @@ class ToBuyTableViewController: UITableViewController {
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
         }
         
-        toBuyDataProvider.fetchedResultsController.fetchRequest.predicate = predicate
+        dataProvider.fetchedResultsController.fetchRequest.predicate = predicate
         
         do {
-            try toBuyDataProvider.fetchedResultsController.performFetch()
+            try dataProvider.fetchedResultsController.performFetch()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -150,7 +190,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+        let item = dataProvider.fetchedResultsController.object(at: indexPath)
         if(!item.isCompleted) {
             let later = laterAction(at: indexPath)
             let complete = completeAction(at: indexPath)
@@ -167,7 +207,7 @@ class ToBuyTableViewController: UITableViewController {
     
     func completeAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.complete.title", comment: "action.complete.title")) { (_, view, completion) in
-            self.toBuyDataProvider.markAsCompleted(at: indexPath)
+            self.dataProvider.markAsCompleted(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "checkmark")
@@ -177,7 +217,7 @@ class ToBuyTableViewController: UITableViewController {
     
     func laterAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delay.title", comment: "action.delay.title")) { (_, view, completion) in
-            self.toBuyDataProvider.markAsDelayed(at: indexPath)
+            self.dataProvider.markAsDelayed(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "clock")
@@ -191,9 +231,9 @@ class ToBuyTableViewController: UITableViewController {
     
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
-            let item = self.toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+            let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
             self.pushItemIntoHistory(item: item)
-            self.toBuyDataProvider.deleteToBuyItem(at: indexPath)
+            self.dataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "delete.right")
@@ -206,7 +246,7 @@ class ToBuyTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         var count = 0
-        if let sections = toBuyDataProvider.fetchedResultsController.sections {
+        if let sections = dataProvider.fetchedResultsController.sections {
             count = sections.count
         }
         
@@ -220,7 +260,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = toBuyDataProvider.fetchedResultsController.sections {
+        if let sections = dataProvider.fetchedResultsController.sections {
             let currentSection = sections[section]
             return currentSection.numberOfObjects
         }
@@ -230,7 +270,7 @@ class ToBuyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
         section: Int) -> String? {
-        if let sections = toBuyDataProvider.fetchedResultsController.sections {
+        if let sections = dataProvider.fetchedResultsController.sections {
             let currentSection = sections[section]
             return currentSection.name.isEmpty ? NSLocalizedString("to.buy.items", comment: "to.buy.items")  : currentSection.name
         }
@@ -239,13 +279,13 @@ class ToBuyTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToBuyTableViewCell", for: indexPath) as! ToBuyTableViewCell
-        let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+        let item = dataProvider.fetchedResultsController.object(at: indexPath)
         cell.configure(with: item)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let item = toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+        let item = dataProvider.fetchedResultsController.object(at: indexPath)
         
         return UIContextMenuConfiguration(identifier: item.name as NSCopying?, previewProvider: {
             let view = ItemPreviewViewController(itemName: item.name!, image: item.image!)
@@ -254,22 +294,22 @@ class ToBuyTableViewController: UITableViewController {
             let delayAction = UIAction(
                 title: NSLocalizedString("action.delay.title", comment: "action.delay.title"),
                 image: UIImage(systemName: "clock")) { _ in
-                    self.toBuyDataProvider.markAsDelayed(at: indexPath)
+                    self.dataProvider.markAsDelayed(at: indexPath)
             }
             
             let completeAction = UIAction(
                 title: NSLocalizedString("action.complete.title", comment: "action.complete.title"),
                 image: UIImage(systemName: "checkmark")) { _ in
-                    self.toBuyDataProvider.markAsCompleted(at: indexPath)
+                    self.dataProvider.markAsCompleted(at: indexPath)
             }
             
             let deleteAction = UIAction(
                 title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
                 image: UIImage(systemName: "delete.right"),
                 attributes: .destructive) { _ in
-                    let item = self.toBuyDataProvider.fetchedResultsController.object(at: indexPath)
+                    let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
                     self.pushItemIntoHistory(item: item)
-                    self.toBuyDataProvider.deleteToBuyItem(at: indexPath)
+                    self.dataProvider.deleteToBuyItem(at: indexPath)
             }
             
             if(item.isCompleted) {
