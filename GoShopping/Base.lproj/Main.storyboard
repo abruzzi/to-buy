@@ -341,29 +341,29 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xtR-SW-QC9">
                                                     <rect key="frame" x="41" y="11.5" width="188" height="32"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-blueberry" translatesAutoresizingMaskIntoConstraints="NO" id="0Dq-7b-HTt">
-                                                            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0Dq-7b-HTt">
+                                                            <rect key="frame" x="0.0" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="aUD-7c-CPO"/>
                                                                 <constraint firstAttribute="width" constant="32" id="eTp-mn-1xc"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-cheese" translatesAutoresizingMaskIntoConstraints="NO" id="fBq-HC-Hhi">
-                                                            <rect key="frame" x="52" y="0.0" width="32" height="32"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fBq-HC-Hhi">
+                                                            <rect key="frame" x="52" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32" id="0Ey-5y-vSM"/>
                                                                 <constraint firstAttribute="height" constant="32" id="G0N-l4-EZW"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-avocado" translatesAutoresizingMaskIntoConstraints="NO" id="jG7-I2-uxj">
-                                                            <rect key="frame" x="104" y="0.0" width="32" height="32"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jG7-I2-uxj">
+                                                            <rect key="frame" x="104" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="d6H-GM-auZ"/>
                                                                 <constraint firstAttribute="width" constant="32" id="oPc-0j-uG2"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-beer_can" translatesAutoresizingMaskIntoConstraints="NO" id="DDK-3P-Z1f">
-                                                            <rect key="frame" x="156" y="0.0" width="32" height="32"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DDK-3P-Z1f">
+                                                            <rect key="frame" x="156" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="eQQ-Y8-93I"/>
                                                                 <constraint firstAttribute="width" constant="32" id="sdk-jK-heh"/>
@@ -460,6 +460,9 @@
                     <navigationItem key="navigationItem" title="History" id="c9S-40-kRC">
                         <barButtonItem key="rightBarButtonItem" image="delete.left" catalog="system" id="gfn-O4-wbE">
                             <color key="tintColor" name="buttonColor"/>
+                            <connections>
+                                <action selector="cleanHistory:" destination="zzr-jr-a3H" id="aed-5j-DwL"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
@@ -629,11 +632,8 @@
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="delete.left" catalog="system" width="128" height="104"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="icons8-avocado" width="96" height="96"/>
-        <image name="icons8-beer_can" width="100" height="100"/>
-        <image name="icons8-blueberry" width="96" height="96"/>
-        <image name="icons8-cheese" width="96" height="96"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
+        <image name="placeholdertext.fill" catalog="system" width="80" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>

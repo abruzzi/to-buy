@@ -267,9 +267,9 @@ class ToBuyManager {
 
     func deleteAllToBuys(){
         let managedContext = appDelegate.persistentContainer.viewContext
-        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
+        let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
-            try managedContext.execute(DelAllReqVar)
+            try managedContext.execute(request)
         }
         catch {
             print(error)

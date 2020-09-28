@@ -47,5 +47,16 @@ class ToBuyHistoryProvider {
             }
         }
     }
+    
+    func cleanupAllHistory() {
+        if let historyItems = fetchedResultsController.fetchedObjects {
+            viewContext.performAndWait {
+                historyItems.forEach { item in
+                    viewContext.delete(item)
+                }
+                viewContext.save(with: .deleteHistoryItem)
+            }
+        }
+    }
 
 }

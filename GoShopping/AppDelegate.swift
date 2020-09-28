@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static var viewContext: NSManagedObjectContext {
         let viewContext = persistentContainer.viewContext
+        
         viewContext.automaticallyMergesChangesFromParent = true
+        viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
         return viewContext
     }
     
