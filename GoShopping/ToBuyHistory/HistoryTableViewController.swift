@@ -23,12 +23,12 @@ class HistoryTableViewController: UITableViewController {
     @IBAction func clearHistory(_ sender: UIButton) {
         let alert = UIAlertController(title: "Warnning", message: "Are you sure you want to clean up all the shopping history", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.ok", comment: "message.hint.merge.shared.ok"), style: .destructive, handler: { action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.clean.history.ok", comment: "message.hint.clean.history.ok"), style: .destructive, handler: { action in
             self.dataProvider.cleanupAllHistory()
             self.tableView.reloadData()
         }))
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.cancel", comment: "message.hint.merge.shared.cancel"), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.clean.history.cancel", comment: "message.hint.clean.history.cancel"), style: .cancel, handler: nil))
         
         self.present(alert, animated: true)
     }

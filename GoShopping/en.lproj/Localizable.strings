@@ -49,3 +49,6 @@
 "tag.table.header.message"="Define tags for items";
 
 "history.empty.hint.message"="No shopping history, let's go shopping";
+
+"message.hint.clean.history.ok"="OK";
+"message.hint.clean.history.cancel"="Cancel";
