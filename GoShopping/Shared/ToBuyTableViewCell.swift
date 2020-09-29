@@ -88,6 +88,7 @@ class ToBuyTableViewCell: UITableViewCell {
             toBuyItemLabel.layer.opacity = 0.5
             supermarket.layer.opacity = 0.5
             toBuyItemImage.layer.opacity = 0.3
+            priorityDotView.layer.opacity = 0
         } else {
             createdAtLabel.layer.opacity = 1
             toBuyItemCategory.layer.opacity = 1

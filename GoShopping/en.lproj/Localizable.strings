@@ -13,6 +13,7 @@
 "action.complete.title" = "Complete";
 "action.delay.title" = "Later";
 "action.priority.title" = "Mark as important";
+"action.downgrade.title" = "Unmark as important";
 "action.delete.title" = "Delete";
 
 "category.food.title" = "Food/Drink";

@@ -306,6 +306,12 @@ class ToBuyTableViewController: UITableViewController {
                     self.dataProvider.markAsImportant(at: indexPath)
             }
             
+            let downgradeAction = UIAction(
+                title: NSLocalizedString("action.downgrade.title", comment: "action.downgrade.title"),
+                image: UIImage(systemName: "chevron.down.circle")) { _ in
+                    self.dataProvider.markAsNormal(at: indexPath)
+            }
+            
             let delayAction = UIAction(
                 title: NSLocalizedString("action.delay.title", comment: "action.delay.title"),
                 image: UIImage(systemName: "clock")) { _ in
@@ -330,7 +336,11 @@ class ToBuyTableViewController: UITableViewController {
             if(item.isCompleted) {
                 return UIMenu(title: "", children: [deleteAction])
             } else {
-                return UIMenu(title: "", children: [liftPriorityAction, delayAction, completeAction, deleteAction])
+                return UIMenu(title: "", children: [
+                                item.priority > 0 ? downgradeAction : liftPriorityAction,
+                                delayAction,
+                                completeAction,
+                                deleteAction])
             }
         }
     }

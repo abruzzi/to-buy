@@ -324,8 +324,6 @@ extension ShoppingCollectionViewController: UISearchBarDelegate {
         } catch let err {
             print(err)
         }
-        
-        collectionView.reloadData()
     }
 }
 
@@ -370,23 +368,9 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//extension UIViewController {
-//    func updateBadge() {
-//        let allItems = fetchAllToBuyItems()
-//        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
-//        let delayedItems = allItems.filter { $0.isDelayed }
-//
-//        if let items = self.tabBarController?.tabBar.items as NSArray? {
-//            let toBuyTab = items.object(at: 1) as! UITabBarItem
-//            let delayedTab = items.object(at: 2) as! UITabBarItem
-//            toBuyTab.badgeValue = toBuyItems.count == 0 ? nil : String(toBuyItems.count)
-//            delayedTab.badgeValue = delayedItems.count == 0 ? nil : String(delayedItems.count)
-//        }
-//    }
-//}
-
 extension ShoppingCollectionViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("controller did change: \(controller.fetchedObjects?.count)")
         self.refreshView()
     }
 }
