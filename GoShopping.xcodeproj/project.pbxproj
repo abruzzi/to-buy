@@ -51,6 +51,7 @@
 		7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */; };
 		7AE05DAD24FE62AB00342844 /* ToBuyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */; };
 		7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DAE24FFAF9300342844 /* DelayedTableViewController.swift */; };
+		7AE446D025234BCC009DE740 /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE446CF25234BCC009DE740 /* TagManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,7 +97,7 @@
 		7ADB01FF251382C40068961E /* TagTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableViewController.swift; sourceTree = "<group>"; };
 		7ADB0201251383B40068961E /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		7ADB0202251383B40068961E /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
-		7ADB02052513852F0068961E /* TagProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagProvider.swift; path = ../TagProvider.swift; sourceTree = "<group>"; };
+		7ADB02052513852F0068961E /* TagProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagProvider.swift; sourceTree = "<group>"; };
 		7ADD3C2A2520563000819DFC /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyManager.swift; sourceTree = "<group>"; };
 		7ADD3C312520BD4700819DFC /* CanBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanBuyManager.swift; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 		7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyTableViewCell.swift; sourceTree = "<group>"; };
 		7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToBuyTableViewCell.xib; sourceTree = "<group>"; };
 		7AE05DAE24FFAF9300342844 /* DelayedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedTableViewController.swift; sourceTree = "<group>"; };
+		7AE446CF25234BCC009DE740 /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,17 +188,11 @@
 		7A9F64052505E3B4000F638C /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				7AE446CE25234B6E009DE740 /* DataProvider */,
+				7AE446CD25234B63009DE740 /* Manager */,
 				7ABCEEE825218400005B232E /* Model */,
 				7A70742B250A35B0002644D2 /* ImageUtils.swift */,
 				7A0536992503581C00A1C8EB /* DataUtils.swift */,
-				7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */,
-				7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */,
-				7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */,
-				7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */,
-				7ADB02052513852F0068961E /* TagProvider.swift */,
-				7ADD3C2A2520563000819DFC /* HistoryManager.swift */,
-				7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */,
-				7ADD3C312520BD4700819DFC /* CanBuyManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -269,6 +265,29 @@
 				7ADB0202251383B40068961E /* TagCell.xib */,
 			);
 			path = Tags;
+			sourceTree = "<group>";
+		};
+		7AE446CD25234B63009DE740 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				7ADD3C2A2520563000819DFC /* HistoryManager.swift */,
+				7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */,
+				7ADD3C312520BD4700819DFC /* CanBuyManager.swift */,
+				7AE446CF25234BCC009DE740 /* TagManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		7AE446CE25234B6E009DE740 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				7ADB02052513852F0068961E /* TagProvider.swift */,
+				7A8304E1250B9B3D00D4A6A8 /* CanBuysProvider.swift */,
+				7A8304E7250B9FF800D4A6A8 /* ToBuysProvider.swift */,
+				7A8304E9250BAA6500D4A6A8 /* DelayedToBuysProvider.swift */,
+				7A5B9A0C2521FCF600F55305 /* ToBuyHistoryProvider.swift */,
+			);
+			path = DataProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,6 +373,7 @@
 			files = (
 				7ABCEEDD25218354005B232E /* ToBuy.swift in Sources */,
 				7A97C0DC24FD234A004800E3 /* ShoppingCollectionViewController.swift in Sources */,
+				7AE446D025234BCC009DE740 /* TagManager.swift in Sources */,
 				7A8304EA250BAA6500D4A6A8 /* DelayedToBuysProvider.swift in Sources */,
 				7ADD3C2E25206CA600819DFC /* ToBuyManager.swift in Sources */,
 				7ADB0200251382C40068961E /* TagTableViewController.swift in Sources */,

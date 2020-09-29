@@ -49,9 +49,13 @@ func resetAllDBItems(lang: String) {
     
     let toBuyManager = ToBuyManager(AppDelegate.viewContext)
     let canBuyManager = CanBuyManager(AppDelegate.viewContext)
+    let historyManager = HistoryManager(AppDelegate.viewContext)
+    let tagManager = TagManager(AppDelegate.viewContext)
     
     toBuyManager.deleteAllToBuys()
     canBuyManager.deleteAllCanBuys()
+    historyManager.cleanupAllHistory()
+    tagManager.deleteAllTags()
     
     records.forEach {record in
         record.items.forEach { (item: Item) in
