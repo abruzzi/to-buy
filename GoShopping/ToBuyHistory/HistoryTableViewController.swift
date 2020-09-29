@@ -99,6 +99,7 @@ class HistoryTableViewController: UITableViewController {
             completion(true)
         }
         action.image = UIImage(systemName: "backward")
+        action.backgroundColor = .systemGreen
         return action
     }
     

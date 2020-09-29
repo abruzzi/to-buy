@@ -25,8 +25,6 @@ class ToBuyTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        priorityDotView.layer.cornerRadius = 3
     }
 
     func configure(with toBuyHistoryItem: ToBuyHistory) {
