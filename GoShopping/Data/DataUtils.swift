@@ -95,6 +95,7 @@ enum ContextSaveContextualInfo: String {
     case deleteToBuyItem = "deleting a to buy item"
     case markAsCompleted = "mark as completed"
     case markAsDelayed = "mark as delayed"
+    case markAsImportant = "mark as important item"
     case addTag = "adding a tag"
     case deleteTag = "deleting a tag"
     case deleteHistoryItem = "deleting a history item"

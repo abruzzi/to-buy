@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -49,13 +50,22 @@
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-30-DTV">
+                        <rect key="frame" x="346" y="3" width="6" height="6"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="6" id="6jZ-4S-DHp"/>
+                            <constraint firstAttribute="height" constant="6" id="C5F-Dl-SAr"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" name="BGColor"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="djD-1l-sZS" secondAttribute="bottom" constant="12" id="1md-Kk-cmG"/>
+                    <constraint firstItem="CYJ-30-DTV" firstAttribute="trailing" secondItem="TNQ-vj-C8h" secondAttribute="trailing" id="1mo-L5-hus"/>
                     <constraint firstItem="t0Z-Vm-J5N" firstAttribute="leading" secondItem="djD-1l-sZS" secondAttribute="trailing" constant="8" id="2aR-8h-eyg"/>
                     <constraint firstAttribute="trailing" secondItem="TNQ-vj-C8h" secondAttribute="trailing" constant="12" id="Fde-o5-HKc"/>
                     <constraint firstItem="Vnu-MQ-b7h" firstAttribute="top" secondItem="t0Z-Vm-J5N" secondAttribute="bottom" constant="4" id="Gwl-s7-ea3"/>
+                    <constraint firstItem="CYJ-30-DTV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="JwL-0A-BoT"/>
                     <constraint firstAttribute="bottom" secondItem="HiV-Za-mwK" secondAttribute="bottom" constant="10.5" id="Q1q-WA-t3W"/>
                     <constraint firstItem="TNQ-vj-C8h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="Ud8-G7-sKO"/>
                     <constraint firstItem="t0Z-Vm-J5N" firstAttribute="leading" secondItem="djD-1l-sZS" secondAttribute="trailing" constant="8" id="aeW-1c-xgK"/>
@@ -64,6 +74,7 @@
                     <constraint firstAttribute="bottom" secondItem="Vnu-MQ-b7h" secondAttribute="bottom" constant="12" id="g56-CP-9CG"/>
                     <constraint firstAttribute="trailing" secondItem="HiV-Za-mwK" secondAttribute="trailing" constant="12" id="hSr-Zt-mBt"/>
                     <constraint firstItem="Vnu-MQ-b7h" firstAttribute="leading" secondItem="djD-1l-sZS" secondAttribute="trailing" constant="8" id="iff-iK-vj4"/>
+                    <constraint firstItem="TNQ-vj-C8h" firstAttribute="top" secondItem="CYJ-30-DTV" secondAttribute="bottom" constant="4" id="lVm-Rz-a85"/>
                     <constraint firstItem="djD-1l-sZS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="tLG-5E-aOT"/>
                     <constraint firstItem="t0Z-Vm-J5N" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="ydm-MI-21u"/>
                 </constraints>
@@ -71,6 +82,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="createdAtLabel" destination="TNQ-vj-C8h" id="xBe-eL-p78"/>
+                <outlet property="priorityDotView" destination="CYJ-30-DTV" id="rem-Ad-D0y"/>
                 <outlet property="supermarket" destination="HiV-Za-mwK" id="JhN-qb-QEl"/>
                 <outlet property="toBuyItemCategory" destination="Vnu-MQ-b7h" id="3Am-fw-Iin"/>
                 <outlet property="toBuyItemImage" destination="djD-1l-sZS" id="LZS-sL-fB8"/>
@@ -89,5 +101,8 @@
         <namedColor name="FontColor">
             <color red="0.22699999809265137" green="0.22699999809265137" blue="0.22699999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -12,6 +12,7 @@
 
 "action.complete.title" = "完成";
 "action.delay.title" = "推迟";
+"action.priority.title" = "标记为重要";
 "action.delete.title" = "删除";
 
 "category.food.title" = "食物/饮料";
@@ -44,3 +45,5 @@
 
 "tag.empty.hint.message"="为待买条目添加一些标签吧";
 "tag.table.header.message"="标签列表";
+
+"history.empty.hint.message"="去买点东西吧";

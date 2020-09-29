@@ -20,7 +20,7 @@ class HistoryTableViewController: UITableViewController {
         return provider
     }()
     
-    @IBAction func cleanHistory(_ sender: UIBarButtonItem) {
+    @IBAction func clearHistory(_ sender: UIButton) {
         let alert = UIAlertController(title: "Warnning", message: "Are you sure you want to clean up all the shopping history", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.merge.shared.ok", comment: "message.hint.merge.shared.ok"), style: .destructive, handler: { action in
@@ -48,7 +48,7 @@ class HistoryTableViewController: UITableViewController {
         }
         
         if(count == 0) {
-            self.tableView.emptyState(label: NSLocalizedString("tag.empty.hint.message", comment: "tag.empty.hint.message"), image: "icons8-price_tag")
+            self.tableView.emptyState(label: NSLocalizedString("history.empty.hint.message", comment: "history.empty.hint.message"), image: "icons8-historic_ship")
         } else {
             self.tableView.restore()
         }

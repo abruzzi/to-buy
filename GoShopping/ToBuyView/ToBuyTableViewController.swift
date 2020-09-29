@@ -163,7 +163,7 @@ class ToBuyTableViewController: UITableViewController {
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         let viewController = self.storyboard?.instantiateViewController(identifier: "HistoryTableViewController")
             as? HistoryTableViewController
-        self.navigationController?.pushViewController(viewController!, animated: true)
+        self.navigationController?.showDetailViewController(viewController!, sender: self)
     }
     
     func filterContentForSearchText(_ searchText: String,
@@ -300,6 +300,12 @@ class ToBuyTableViewController: UITableViewController {
             let view = ItemPreviewViewController(itemName: item.name!, image: item.image!)
             return view
         }){ _ in
+            let liftPriorityAction = UIAction(
+                title: NSLocalizedString("action.priority.title", comment: "action.priority.title"),
+                image: UIImage(systemName: "chevron.up.circle")) { _ in
+                    self.dataProvider.markAsImportant(at: indexPath)
+            }
+            
             let delayAction = UIAction(
                 title: NSLocalizedString("action.delay.title", comment: "action.delay.title"),
                 image: UIImage(systemName: "clock")) { _ in
@@ -324,7 +330,7 @@ class ToBuyTableViewController: UITableViewController {
             if(item.isCompleted) {
                 return UIMenu(title: "", children: [deleteAction])
             } else {
-                return UIMenu(title: "", children: [delayAction, completeAction, deleteAction])
+                return UIMenu(title: "", children: [liftPriorityAction, delayAction, completeAction, deleteAction])
             }
         }
     }

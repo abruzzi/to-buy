@@ -16,6 +16,7 @@ class ToBuyTableViewCell: UITableViewCell {
         NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
+    @IBOutlet weak var priorityDotView: UIView!
     @IBOutlet weak var toBuyItemLabel: UILabel!
     @IBOutlet weak var toBuyItemImage: UIImageView!
     @IBOutlet weak var toBuyItemCategory: UILabel!
@@ -24,6 +25,8 @@ class ToBuyTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        priorityDotView.layer.cornerRadius = 3
     }
 
     func configure(with toBuyHistoryItem: ToBuyHistory) {
@@ -44,6 +47,7 @@ class ToBuyTableViewCell: UITableViewCell {
         
         supermarket.text = toBuyHistoryItem.supermarket
 
+        priorityDotView.layer.opacity = 0
         createdAtLabel.layer.opacity = 0.7
         toBuyItemCategory.layer.opacity = 0.7
         toBuyItemLabel.layer.opacity = 0.7
@@ -74,6 +78,7 @@ class ToBuyTableViewCell: UITableViewCell {
         
         
         supermarket.text = toBuy.supermarket
+        priorityDotView.layer.opacity = toBuy.priority > 0 ? 1.0 : 0.0
         
         if(toBuy.isCompleted) {
             createdAtLabel.layer.opacity = 0.5

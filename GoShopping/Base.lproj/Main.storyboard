@@ -427,7 +427,7 @@
                         <outlet property="historyCountLabel" destination="Hjm-wu-5Hv" id="5le-Ji-WlM"/>
                         <outlet property="secondImageSnapshot" destination="fBq-HC-Hhi" id="Exk-Iu-8Kd"/>
                         <outlet property="thirdImageSnapshot" destination="jG7-I2-uxj" id="0yc-Sf-tfY"/>
-                        <segue destination="wV7-mU-M6N" kind="presentation" id="reK-L7-S4U"/>
+                        <segue destination="wV7-mU-M6N" kind="presentation" id="zUA-05-D3M"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -442,9 +442,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="YzO-Yf-VNU">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbG-2l-Yyi">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvI-9L-UEj">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                                            <state key="normal" title="Clear to buy history">
+                                                <color key="titleColor" red="1" green="0.1215686275" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="clearHistory:" destination="zzr-jr-a3H" eventType="touchUpInside" id="tCW-6k-1CA"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="fbG-2l-Yyi" firstAttribute="top" secondItem="YzO-Yf-VNU" secondAttribute="top" id="DwK-Bf-1Wy"/>
+                                <constraint firstAttribute="bottom" secondItem="fbG-2l-Yyi" secondAttribute="bottom" id="ged-kk-uGz"/>
+                                <constraint firstItem="fbG-2l-Yyi" firstAttribute="leading" secondItem="YzO-Yf-VNU" secondAttribute="leading" id="ngY-M9-WPh"/>
+                                <constraint firstAttribute="trailing" secondItem="fbG-2l-Yyi" secondAttribute="trailing" id="z8N-MT-sj0"/>
+                            </constraints>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jGs-hf-fMZ">
-                                <rect key="frame" x="16" y="55.5" width="288" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jGs-hf-fMZ" customClass="ToBuyTableViewCell" customModule="To_Buy" customModuleProvider="target">
+                                <rect key="frame" x="16" y="123.5" width="288" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jGs-hf-fMZ" id="L4f-Xg-TOZ">
                                     <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
@@ -457,14 +483,7 @@
                             <outlet property="delegate" destination="zzr-jr-a3H" id="oZ4-t0-2jy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="History" id="c9S-40-kRC">
-                        <barButtonItem key="rightBarButtonItem" image="delete.left" catalog="system" id="gfn-O4-wbE">
-                            <color key="tintColor" name="buttonColor"/>
-                            <connections>
-                                <action selector="cleanHistory:" destination="zzr-jr-a3H" id="aed-5j-DwL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="History" id="c9S-40-kRC"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="avz-XS-AQv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -622,7 +641,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4YP-D7-WYV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3787.5" y="647.53521126760563"/>
+            <point key="canvasLocation" x="3893" y="648"/>
         </scene>
     </scenes>
     <color key="tintColor" systemColor="systemTealColor"/>
@@ -630,7 +649,6 @@
         <image name="alarm" catalog="system" width="124" height="128"/>
         <image name="book.circle" catalog="system" width="128" height="121"/>
         <image name="cart" catalog="system" width="128" height="102"/>
-        <image name="delete.left" catalog="system" width="128" height="104"/>
         <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="placeholdertext.fill" catalog="system" width="80" height="128"/>

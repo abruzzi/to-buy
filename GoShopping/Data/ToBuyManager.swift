@@ -213,7 +213,7 @@ class ToBuyManager {
         return allItems
     }
 
-    // internal use only
+    // DO NOT CALL IT DIRECTLY - internal use only
     func deleteAllToBuys(){
         let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {

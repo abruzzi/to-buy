@@ -66,6 +66,16 @@ class ToBuysProvider {
         }
     }
     
+    func markAsImportant(at indexPath: IndexPath, shouldSave: Bool = true) {
+        viewContext.performAndWait {
+            let item = fetchedResultsController.object(at: indexPath)
+            item.priority = item.priority + 1
+            if shouldSave {
+                viewContext.save(with: .markAsImportant)
+            }
+        }
+    }
+    
     func markAsCompleted(at indexPath: IndexPath, shouldSave: Bool = true) {
         viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)

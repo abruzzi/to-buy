@@ -12,6 +12,7 @@
 
 "action.complete.title" = "Complete";
 "action.delay.title" = "Later";
+"action.priority.title" = "Mark as important";
 "action.delete.title" = "Delete";
 
 "category.food.title" = "Food/Drink";
@@ -46,3 +47,5 @@
 "tag.empty.hint.message"="You can some tags for your to buy items";
 
 "tag.table.header.message"="Define tags for items";
+
+"history.empty.hint.message"="No shopping history, let's go shopping";
