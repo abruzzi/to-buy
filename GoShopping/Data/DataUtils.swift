@@ -38,8 +38,7 @@ struct Record: Hashable, Codable {
     var items: [Item]
 }
 
-struct Item: Hashable, Codable, Identifiable {
-    let id = UUID()
+struct Item: Hashable, Codable {
     var name: String
     var image: String
     var attrs: [String: String]
@@ -51,22 +50,18 @@ func resetAllDBItems(lang: String) {
     let toBuyManager = ToBuyManager(AppDelegate.viewContext)
     let canBuyManager = CanBuyManager(AppDelegate.viewContext)
     
-    toBuyManager.deleteAllToBuys() // clean up user's selection for avoading any poetential conflicts
-    canBuyManager.deleteAllCanBuys() // clean up dictionary
+    toBuyManager.deleteAllToBuys()
+    canBuyManager.deleteAllCanBuys()
     
-    var canBuyItems: [CanBuyItem] = []
     records.forEach {record in
         record.items.forEach { (item: Item) in
-            canBuyItems.append(
-                CanBuyItem(
-                    name: item.name,
-                    category: record.category,
-                    image: UIImage(named: item.image)?.pngData(),
-                    supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!))
+            canBuyManager.createCanBuy(
+                name: item.name,
+                category: record.category,
+                image: (UIImage(named: item.image)?.pngData())!,
+                supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!)
         }
     }
-
-    canBuyManager.saveAllCanBuyItem(canBuyItems: canBuyItems)
 }
 
 let appTransactionAuthorName = "To Buy"

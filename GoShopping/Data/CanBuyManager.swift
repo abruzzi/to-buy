@@ -10,20 +10,6 @@ import Foundation
 import UIKit
 import CoreData
 
-struct CanBuyItem {
-    var name: String
-    var category: Int
-    var image: Data?
-    var supermarket: String
-    
-    func getImage() -> UIImage? {
-        if let data = image {
-            return UIImage(data: data)
-        }
-        return nil
-    }
-}
-
 class CanBuyManager {
     private let entityName = "CanBuy"
     private(set) var viewContext: NSManagedObjectContext
@@ -31,31 +17,28 @@ class CanBuyManager {
     init(_ viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
     }
-    
-    func saveAllCanBuyItem(canBuyItems: [CanBuyItem]) {
-        
-        let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
-        canBuyItems.forEach { canBuyItem in
-            let item = NSManagedObject(entity: entity, insertInto: viewContext)
-            
-            item.setValue(canBuyItem.name, forKeyPath: "name")
-            item.setValue(canBuyItem.category, forKey: "category")
-            item.setValue(canBuyItem.image, forKeyPath: "image")
-            item.setValue(Date(), forKeyPath: "createdAt")
-            item.setValue(canBuyItem.supermarket, forKeyPath: "supermarket")
-        }
-        
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+
+    func createCanBuy(name: String,
+                      category: Int,
+                      image: Data,
+                      supermarket: String) {
+        viewContext.perform {
+            let item = CanBuy(context: self.viewContext)
+            item.uuid = UUID()
+            item.name = name
+            item.image = image
+            item.category = Int16(category)
+            item.supermarket = supermarket
+            item.createdAt = Date()
+
+            self.viewContext.save(with: .addCanBuyItem)
         }
     }
-
+    
     func deleteAllCanBuys(){
-        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
+        let request = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entityName))
         do {
-            try viewContext.execute(DelAllReqVar)
+            try viewContext.execute(request)
         }
         catch {
             print(error)

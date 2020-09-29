@@ -27,6 +27,13 @@ class ToBuyTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
+    private func formatDate(_ date: Date) -> String {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "MMM dd HH:mm"
+        
+        return dateFormatterGet.string(from: date)
+    }
+    
     func configure(with toBuyHistoryItem: ToBuyHistory) {
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyHistoryItem.name!)
         toBuyItemLabel.attributedText = styledItemName
@@ -34,7 +41,7 @@ class ToBuyTableViewCell: UITableViewCell {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "MMM dd HH:mm"
         
-        createdAtLabel.text = dateFormatterGet.string(from: toBuyHistoryItem.createdAt!)
+        createdAtLabel.text = formatDate(toBuyHistoryItem.createdAt!)
         
         toBuyItemCategory.text = categoryTitles[Int(toBuyHistoryItem.category)]
         
@@ -62,11 +69,8 @@ class ToBuyTableViewCell: UITableViewCell {
         }
 
         toBuyItemLabel.attributedText = styledItemName
-
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "MMM dd HH:mm"
         
-        createdAtLabel.text = dateFormatterGet.string(from: toBuy.createdAt!)
+        createdAtLabel.text = formatDate(toBuy.createdAt!)
         
         toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
         

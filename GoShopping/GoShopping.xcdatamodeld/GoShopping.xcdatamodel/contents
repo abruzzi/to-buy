@@ -6,6 +6,7 @@
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="supermarket" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES" codeGenerationType="category">
         <attribute name="color" optional="YES" attributeType="String"/>
@@ -23,6 +24,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="supermarket" optional="YES" attributeType="String"/>
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="ToBuyHistory" representedClassName=".ToBuyHistory" syncable="YES" codeGenerationType="category">
         <attribute name="category" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -33,9 +35,9 @@
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="CanBuy" positionX="-63" positionY="18" width="128" height="118"/>
+        <element name="CanBuy" positionX="-63" positionY="18" width="128" height="133"/>
         <element name="Tag" positionX="-63" positionY="54" width="128" height="103"/>
-        <element name="ToBuy" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="ToBuy" positionX="-63" positionY="-18" width="128" height="193"/>
         <element name="ToBuyHistory" positionX="-63" positionY="54" width="128" height="133"/>
     </elements>
 </model>
