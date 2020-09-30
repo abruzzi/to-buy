@@ -359,7 +359,16 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func calculateWidth() -> CGFloat {
-        let itemsPerRow: Int = 5
+        var itemsPerRow: Int
+        
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            itemsPerRow = 5
+        case .pad:
+            itemsPerRow = 10
+        default:
+            itemsPerRow = 5
+        }
         
         let paddingSpace = (sectionInsets.left) * CGFloat(itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
