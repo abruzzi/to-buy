@@ -379,7 +379,6 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension ShoppingCollectionViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("controller did change: \(controller.fetchedObjects?.count)")
         self.refreshView()
     }
 }
