@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import CoreSpotlight
 import MobileCoreServices
+import LinkPresentation
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
@@ -84,11 +85,23 @@ class ToBuyTableViewController: UITableViewController {
     @IBOutlet weak var thirdImageSnapshot: UIImageView!
     @IBOutlet weak var forthImageSnapshot: UIImageView!
     
+    func getMetadataForSharing(title: String, url: URL, fileName: String, fileType: String) -> LPLinkMetadata {
+        let linkMetaData = LPLinkMetadata()
+        let path = Bundle.main.path(forResource: fileName, ofType: fileType)
+        linkMetaData.iconProvider = NSItemProvider(contentsOf: URL(fileURLWithPath: path ?? ""))
+        linkMetaData.originalURL = url
+        linkMetaData.title = title
+        return linkMetaData
+    }
+    
     @IBAction func shareToBuys(_ sender: UIBarButtonItem) {
         let path = toBuyManager.exportToUrl()
         
+        let metaData = getMetadataForSharing(title: NSLocalizedString("share.message.title", comment: "share.message.title"), url: path!, fileName: "icon_76pt@2x", fileType: "png")
+
+        let metadataItemSource = LinkPresentationItemSource(metaData: metaData)
         let activity = UIActivityViewController(
-            activityItems: ["Share your to buy items with your friend", path!],
+            activityItems: [metadataItemSource],
             applicationActivities: nil
         )
         activity.popoverPresentationController?.barButtonItem = sender
@@ -164,6 +177,14 @@ class ToBuyTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
 
+    @IBAction func addNewItem(_ sender: UIBarButtonItem) {
+        let viewController = self.storyboard?.instantiateViewController(identifier: "CanBuyCollectionView")
+            as? ShoppingCollectionViewController
+        
+        viewController?.modalPresentationStyle = .popover
+        self.present(viewController!, animated: true)
+    }
+    
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         let viewController = self.storyboard?.instantiateViewController(identifier: "HistoryTableViewController")
             as? HistoryTableViewController
