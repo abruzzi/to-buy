@@ -34,14 +34,19 @@ extension ToBuyTableViewController: HistoryDelegate {
     }
     
     func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
+        let placeholder = UIImage(named: "placeholdertext.fill")
         DispatchQueue.main.async {
             if(images.count == 4) {
                 self.firstImageSnapshot.image = images[0]
                 self.secondImageSnapshot.image = images[1]
                 self.thirdImageSnapshot.image = images[2]
                 self.forthImageSnapshot.image = images[3]
+            } else {
+                self.firstImageSnapshot.image = placeholder
+                self.secondImageSnapshot.image = placeholder
+                self.thirdImageSnapshot.image = placeholder
+                self.forthImageSnapshot.image = placeholder
             }
-            
         }
     }
 }
@@ -65,9 +70,8 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
         historyManager.fetchToBuyHistory()
+        tableView.reloadData()
         self.updateBadge()
     }
     
@@ -163,7 +167,7 @@ class ToBuyTableViewController: UITableViewController {
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         let viewController = self.storyboard?.instantiateViewController(identifier: "HistoryTableViewController")
             as? HistoryTableViewController
-        self.navigationController?.showDetailViewController(viewController!, sender: self)
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
     
     func filterContentForSearchText(_ searchText: String,

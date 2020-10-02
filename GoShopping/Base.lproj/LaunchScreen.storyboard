@@ -31,7 +31,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-buying" translatesAutoresizingMaskIntoConstraints="NO" id="9S2-vE-6XY">
-                                <rect key="frame" x="157" y="293" width="100" height="100"/>
+                                <rect key="frame" x="157" y="303" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Qzj-de-LAl"/>
                                     <constraint firstAttribute="width" constant="100" id="fl1-dX-FZC"/>
@@ -42,7 +42,7 @@
                         <color key="backgroundColor" name="HeroScreen"/>
                         <color key="tintColor" name="BrandColor"/>
                         <constraints>
-                            <constraint firstItem="WdX-sA-YIT" firstAttribute="top" secondItem="9S2-vE-6XY" secondAttribute="bottom" constant="30" id="J6R-fL-U93"/>
+                            <constraint firstItem="WdX-sA-YIT" firstAttribute="top" secondItem="9S2-vE-6XY" secondAttribute="bottom" constant="20" id="J6R-fL-U93"/>
                             <constraint firstItem="WdX-sA-YIT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="KlD-hj-tVR"/>
                             <constraint firstItem="WdX-sA-YIT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="QIs-NH-yOY"/>
                             <constraint firstItem="9S2-vE-6XY" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="yFd-LB-JKm"/>
