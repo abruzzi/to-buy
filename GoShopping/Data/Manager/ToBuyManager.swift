@@ -88,6 +88,8 @@ class ToBuyManager {
         let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
         let item = NSManagedObject(entity: entity, insertInto: viewContext)
         
+        let uuid = UUID()
+        item.setValue(uuid, forKey: "uuid")
         item.setValue(name, forKeyPath: "name")
         item.setValue(category, forKey: "category")
         item.setValue(image, forKey: "image")

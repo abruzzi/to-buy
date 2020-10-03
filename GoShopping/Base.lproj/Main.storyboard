@@ -39,7 +39,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-c7-ie1">
-                                    <rect key="frame" x="20" y="8" width="135.5" height="24"/>
+                                    <rect key="frame" x="20" y="8" width="272" height="24"/>
                                     <attributedString key="attributedText">
                                         <fragment content="Section Header">
                                             <attributes>
@@ -54,6 +54,7 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="leading" secondItem="RRx-94-lAT" secondAttribute="leading" constant="20" id="1Nc-Rt-kmA"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="QJR-c7-ie1" secondAttribute="trailing" constant="20" id="8UW-bz-CUa"/>
                                 <constraint firstItem="QJR-c7-ie1" firstAttribute="centerY" secondItem="RRx-94-lAT" secondAttribute="centerY" id="sK4-h7-e2l"/>
                             </constraints>
                             <connections>
@@ -169,8 +170,8 @@
                                             <constraints>
                                                 <constraint firstItem="imV-tb-Vaw" firstAttribute="centerX" secondItem="Eef-hf-qdF" secondAttribute="centerX" id="AWe-3h-4qm"/>
                                                 <constraint firstItem="imV-tb-Vaw" firstAttribute="centerY" secondItem="Eef-hf-qdF" secondAttribute="centerY" id="BOu-mF-Cp1"/>
-                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="trailing" secondItem="Eef-hf-qdF" secondAttribute="trailingMargin" id="bfW-9M-G4v"/>
-                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="leading" secondItem="Eef-hf-qdF" secondAttribute="leadingMargin" id="cSc-Kv-0Hi"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Eef-hf-qdF" secondAttribute="trailingMargin" id="bfW-9M-G4v"/>
+                                                <constraint firstItem="imV-tb-Vaw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Eef-hf-qdF" secondAttribute="leadingMargin" id="cSc-Kv-0Hi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -475,7 +476,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jGs-hf-fMZ" customClass="ToBuyTableViewCell" customModule="To_Buy" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryTableCell" id="jGs-hf-fMZ" customClass="ToBuyTableViewCell" customModule="To_Buy" customModuleProvider="target">
                                 <rect key="frame" x="16" y="123.5" width="288" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jGs-hf-fMZ" id="L4f-Xg-TOZ">

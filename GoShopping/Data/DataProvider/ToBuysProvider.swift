@@ -43,6 +43,8 @@ class ToBuysProvider {
     func addToBuyItem(canBuyItem: ToBuy, shouldSave: Bool = true) {
         viewContext.performAndWait {
             let item = ToBuy(context: viewContext)
+            
+            item.uuid = UUID()
             item.name = canBuyItem.name
             item.category = canBuyItem.category
             item.image = canBuyItem.image
@@ -99,7 +101,8 @@ class ToBuysProvider {
     
     func deleteToBuyItem(at indexPath: IndexPath, shouldSave: Bool = true) {
         viewContext.performAndWait {
-            viewContext.delete(fetchedResultsController.object(at: indexPath))
+            let item = fetchedResultsController.object(at: indexPath)
+            viewContext.delete(item)
             if shouldSave {
                 viewContext.save(with: .deleteToBuyItem)
             }

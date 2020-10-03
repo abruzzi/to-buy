@@ -316,6 +316,7 @@ class ToBuyTableViewController: UITableViewController {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
         cell.configure(with: item)
         return cell
+        
     }
     
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
