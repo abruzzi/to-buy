@@ -9,7 +9,10 @@
 import UIKit
 
 class BaseTabBarController: UITabBarController {
-    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
+    let store = CoreDataStack.store
+    lazy var toBuyManager: ToBuyManager = {
+        return ToBuyManager(store.viewContext)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

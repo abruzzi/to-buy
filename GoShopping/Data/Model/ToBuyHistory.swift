@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+
+@objc(ToBuyHistory)
 class ToBuyHistory: NSManagedObject {
     @objc var formattedCreatedAt: String {
         get {

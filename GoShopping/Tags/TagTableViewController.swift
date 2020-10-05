@@ -14,8 +14,10 @@ private let reuseIdentifier = "tagCell"
 class TagTableViewController: UITableViewController {
     private var alertActionToEnable: UIAlertAction!
     
+    let store = CoreDataStack.store
+    
     private lazy var dataProvider: TagProvider = {
-        let provider = TagProvider(with: AppDelegate.viewContext,
+        let provider = TagProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()

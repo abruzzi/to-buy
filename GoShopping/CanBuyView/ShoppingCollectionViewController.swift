@@ -86,8 +86,12 @@ extension ShoppingCollectionViewController {
 }
 
 class ShoppingCollectionViewController: UICollectionViewController {
+    let store = CoreDataStack.store
+    
     let searchController = UISearchController(searchResultsController: nil)
-    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
+    lazy var toBuyManager: ToBuyManager = {
+        return ToBuyManager(store.viewContext)
+    }()
     
     let categoryTitles = [
         NSLocalizedString("category.food.title", comment: "category.food.title"),
@@ -97,7 +101,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
     ]
     
     private lazy var dataProvider: CanBuysProvider = {
-        let provider = CanBuysProvider(with: AppDelegate.viewContext,
+        let provider = CanBuysProvider(with: store.viewContext,
                                        fetchedResultsControllerDelegate: self)
         return provider
     }()

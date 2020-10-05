@@ -12,10 +12,14 @@ import CoreData
 private let reuseIdentifier = "ToBuyTableViewCell"
 
 class HistoryTableViewController: UITableViewController {
-    private let toBuyManger = ToBuyManager(AppDelegate.viewContext)
+    let store = CoreDataStack.store
+    
+    private lazy var toBuyManger: ToBuyManager = {
+        return ToBuyManager(store.viewContext)
+    }()
     
     private lazy var dataProvider: ToBuyHistoryProvider = {
-        let provider = ToBuyHistoryProvider(with: AppDelegate.viewContext,
+        let provider = ToBuyHistoryProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()

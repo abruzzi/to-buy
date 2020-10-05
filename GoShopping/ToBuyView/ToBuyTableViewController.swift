@@ -53,14 +53,20 @@ extension ToBuyTableViewController: HistoryDelegate {
 }
 
 class ToBuyTableViewController: UITableViewController {
+    let store = CoreDataStack.store
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    let historyManager = HistoryManager(AppDelegate.viewContext)
-    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
+    private lazy var historyManager: HistoryManager = {
+        return HistoryManager(store.viewContext)
+    }()
+    
+    private lazy var toBuyManager: ToBuyManager = {
+        return ToBuyManager(store.viewContext)
+    }()
     
     private lazy var dataProvider: ToBuysProvider = {
-        let provider = ToBuysProvider(with: AppDelegate.viewContext,
+        let provider = ToBuysProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
@@ -115,6 +121,8 @@ class ToBuyTableViewController: UITableViewController {
         var searchableItems = [CSSearchableItem]()
         
         let toBuyItems: [ToBuy] = dataProvider.fetchedResultsController.fetchedObjects ?? []
+        
+        print(toBuyItems)
         
         for (_, toBuyItem) in toBuyItems.enumerated() {
             let searchableItemAttributeSet = CSSearchableItemAttributeSet.init()
