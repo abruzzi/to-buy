@@ -32,6 +32,8 @@
 				<true/>
 			</dict>
 		</dict>
+<!--        <key>NSExtensionPrincipalClass</key>-->
+<!--        <string>CustomShareNavigationController</string>-->
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>
 		<key>NSExtensionPointIdentifier</key>

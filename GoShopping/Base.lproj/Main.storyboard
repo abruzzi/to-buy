@@ -413,12 +413,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To buy" id="rgd-B5-3sv">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="uuI-aF-wpI">
-                            <color key="tintColor" name="BrandColor"/>
-                            <connections>
-                                <action selector="addNewItem:" destination="x9L-0B-dZZ" id="bj7-AV-DnO"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="aYt-ib-XqW">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>

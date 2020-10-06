@@ -28,6 +28,9 @@
 		7A91C7F1252B36B100FF59F7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCEEE225218392005B232E /* Tag.swift */; };
 		7A91C7F4252B36B300FF59F7 /* ToBuyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCEEE5252183A7005B232E /* ToBuyHistory.swift */; };
 		7A91C7FC252C26EE00FF59F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F6413250624F6000F638C /* Localizable.strings */; };
+		7A91C7FF252C687B00FF59F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A97C0CB24FD0002004800E3 /* Assets.xcassets */; };
+		7A91C809252C732600FF59F7 /* CustomShareNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A91C808252C732600FF59F7 /* CustomShareNavigationController.swift */; };
+		7A91C80D252C734100FF59F7 /* CustomShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A91C80C252C734100FF59F7 /* CustomShareViewController.swift */; };
 		7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */; };
 		7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */; };
 		7A97C0C724FCFFFE004800E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A97C0C524FCFFFE004800E3 /* Main.storyboard */; };
@@ -50,7 +53,6 @@
 		7ADD3C2B2520563000819DFC /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD3C2A2520563000819DFC /* HistoryManager.swift */; };
 		7ADD3C2E25206CA600819DFC /* ToBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */; };
 		7ADD3C322520BD4700819DFC /* CanBuyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADD3C312520BD4700819DFC /* CanBuyManager.swift */; };
-		7AE043A8252AF660005B21D5 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE043A7252AF660005B21D5 /* ShareViewController.swift */; };
 		7AE043AB252AF660005B21D5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE043A9252AF660005B21D5 /* MainInterface.storyboard */; };
 		7AE043AF252AF661005B21D5 /* GoShoppingShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AE043A5252AF660005B21D5 /* GoShoppingShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AE043BA252AF989005B21D5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE043B9252AF989005B21D5 /* CoreDataStack.swift */; };
@@ -106,6 +108,8 @@
 		7A8304F1250DC42700D4A6A8 /* EmptyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyList.swift; sourceTree = "<group>"; };
 		7A90DDA22506507600DABD5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7A91C7CF252B1F5900FF59F7 /* CategoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableView.swift; sourceTree = "<group>"; };
+		7A91C808252C732600FF59F7 /* CustomShareNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShareNavigationController.swift; sourceTree = "<group>"; };
+		7A91C80C252C734100FF59F7 /* CustomShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShareViewController.swift; sourceTree = "<group>"; };
 		7A97C0BC24FCFFFE004800E3 /* To Buy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Buy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,7 +142,6 @@
 		7ADD3C2D25206CA600819DFC /* ToBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyManager.swift; sourceTree = "<group>"; };
 		7ADD3C312520BD4700819DFC /* CanBuyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanBuyManager.swift; sourceTree = "<group>"; };
 		7AE043A5252AF660005B21D5 /* GoShoppingShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GoShoppingShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AE043A7252AF660005B21D5 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7AE043AA252AF660005B21D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		7AE043AC252AF660005B21D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AE043B6252AF6FA005B21D5 /* GoShoppingShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GoShoppingShare.entitlements; sourceTree = "<group>"; };
@@ -328,10 +331,11 @@
 			isa = PBXGroup;
 			children = (
 				7AE043B6252AF6FA005B21D5 /* GoShoppingShare.entitlements */,
-				7AE043A7252AF660005B21D5 /* ShareViewController.swift */,
 				7A91C7CF252B1F5900FF59F7 /* CategoryTableView.swift */,
 				7AE043A9252AF660005B21D5 /* MainInterface.storyboard */,
 				7AE043AC252AF660005B21D5 /* Info.plist */,
+				7A91C808252C732600FF59F7 /* CustomShareNavigationController.swift */,
+				7A91C80C252C734100FF59F7 /* CustomShareViewController.swift */,
 			);
 			path = GoShoppingShare;
 			sourceTree = "<group>";
@@ -461,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE043AB252AF660005B21D5 /* MainInterface.storyboard in Resources */,
+				7A91C7FF252C687B00FF59F7 /* Assets.xcassets in Resources */,
 				7A91C7FC252C26EE00FF59F7 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,8 +522,9 @@
 				7A91C7EE252B36AE00FF59F7 /* CanBuy.swift in Sources */,
 				7A91C7DF252B2C9500FF59F7 /* ToBuy.swift in Sources */,
 				7A91C7D7252B219400FF59F7 /* CoreDataStack.swift in Sources */,
+				7A91C809252C732600FF59F7 /* CustomShareNavigationController.swift in Sources */,
 				7A91C7F4252B36B300FF59F7 /* ToBuyHistory.swift in Sources */,
-				7AE043A8252AF660005B21D5 /* ShareViewController.swift in Sources */,
+				7A91C80D252C734100FF59F7 /* CustomShareViewController.swift in Sources */,
 				7A91C7E9252B365600FF59F7 /* GoShopping.xcdatamodeld in Sources */,
 				7A91C7D0252B1F5900FF59F7 /* CategoryTableView.swift in Sources */,
 				7A91C7DA252B21C100FF59F7 /* ToBuyManager.swift in Sources */,
