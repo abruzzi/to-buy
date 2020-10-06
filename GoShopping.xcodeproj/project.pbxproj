@@ -27,6 +27,7 @@
 		7A91C7EE252B36AE00FF59F7 /* CanBuy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCEEDF2521837A005B232E /* CanBuy.swift */; };
 		7A91C7F1252B36B100FF59F7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCEEE225218392005B232E /* Tag.swift */; };
 		7A91C7F4252B36B300FF59F7 /* ToBuyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCEEE5252183A7005B232E /* ToBuyHistory.swift */; };
+		7A91C7FC252C26EE00FF59F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A9F6413250624F6000F638C /* Localizable.strings */; };
 		7A97C0C024FCFFFE004800E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0BF24FCFFFE004800E3 /* AppDelegate.swift */; };
 		7A97C0C224FCFFFE004800E3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A97C0C124FCFFFE004800E3 /* SceneDelegate.swift */; };
 		7A97C0C724FCFFFE004800E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A97C0C524FCFFFE004800E3 /* Main.storyboard */; };
@@ -460,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE043AB252AF660005B21D5 /* MainInterface.storyboard in Resources */,
+				7A91C7FC252C26EE00FF59F7 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

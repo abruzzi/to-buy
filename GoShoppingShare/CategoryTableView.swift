@@ -13,13 +13,6 @@ import CoreData
 class CategoryTableView: UITableViewController {
     weak var delegate: ShareSelectViewControllerDelegate?
     let reuseIdentifier = "categoryCell"
- 
-    let categoryTitles = [
-        NSLocalizedString("category.food.title", comment: "category.food.title"),
-        NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
-        NSLocalizedString("category.health.title", comment: "category.health.title"),
-        NSLocalizedString("category.others.title", comment: "category.others.title")
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()

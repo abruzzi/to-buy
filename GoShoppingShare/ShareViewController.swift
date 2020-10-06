@@ -15,6 +15,13 @@ protocol ShareSelectViewControllerDelegate: class {
     func selected(category: String)
 }
 
+let categoryTitles = [
+    NSLocalizedString("category.food.title", comment: "category.food.title"),
+    NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
+    NSLocalizedString("category.health.title", comment: "category.health.title"),
+    NSLocalizedString("category.others.title", comment: "category.others.title")
+]
+
 class ShareViewController: SLComposeServiceViewController {
     let store = CoreDataStack.store
     
@@ -24,6 +31,7 @@ class ShareViewController: SLComposeServiceViewController {
     
     private var name: String = ""
     private var category: Int = 0
+    private var categoryName: String = "Other"
     private var image: Data?
     
     override func viewDidLoad() {
@@ -76,8 +84,6 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     override func didSelectPost() {
-        print("did select post")
-    
         let imageData = self.image ?? UIImage(systemName: "doc")!.pngData()
         
         toBuyManager.initToBuyItem(name: contentText!, category: category, image: imageData!, supermarket: "")
@@ -87,8 +93,8 @@ class ShareViewController: SLComposeServiceViewController {
 
     override func configurationItems() -> [Any]! {
         let item = SLComposeSheetConfigurationItem()
-        item?.title = "Selected Category"
-        item?.value = "Other"
+        item?.title = "Category"
+        item?.value = categoryName
         item?.tapHandler = {
             let vc = CategoryTableView()
             vc.delegate = self
@@ -100,12 +106,21 @@ class ShareViewController: SLComposeServiceViewController {
 }
 
 extension ShareViewController: ShareSelectViewControllerDelegate {
+
+    
     func selected(category: String) {
+        categoryName = category
         switch category {
-        case "Food":
+        case categoryTitles[0]:
             self.category = 0
-        default:
+        case categoryTitles[1]:
             self.category = 1
+        case categoryTitles[2]:
+            self.category = 2
+        case categoryTitles[3]:
+            self.category = 3
+        default:
+            self.category = 3
         }
         reloadConfigurationItems()
         popConfigurationViewController()
