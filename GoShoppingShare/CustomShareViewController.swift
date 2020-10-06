@@ -35,7 +35,6 @@ class CustomShareViewController: UITableViewController {
         let attachments = (extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         image.layer.cornerRadius = 4.0
         
-//        let contentTypeText = kUTTypeText as String
         let contentTypeImage = kUTTypeData as String
         
         for provider in attachments {
