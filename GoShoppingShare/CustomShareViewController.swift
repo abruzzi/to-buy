@@ -54,6 +54,22 @@ class CustomShareViewController: UITableViewController {
                     }
                 })
             }
+            
+//            if provider.isText {
+//                provider.loadItem(forTypeIdentifier: contentTypeImage, options: nil, completionHandler: { (data, error) in
+//                    guard error == nil else { return }
+//
+//                    if let url = data as? URL,
+//                       let imageData = try? Data(contentsOf: url) {
+//                        
+//                        DispatchQueue.main.async {
+//                            self.image.image = UIImage(data: imageData)
+//                        }
+//                    } else {
+//                      fatalError("Impossible to save image")
+//                    }
+//                })
+//            }
         }
         
         self.view.backgroundColor = UIColor(named: "BGColor")

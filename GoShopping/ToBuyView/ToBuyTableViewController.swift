@@ -122,8 +122,6 @@ class ToBuyTableViewController: UITableViewController {
         
         let toBuyItems: [ToBuy] = dataProvider.fetchedResultsController.fetchedObjects ?? []
         
-        print(toBuyItems)
-        
         for (_, toBuyItem) in toBuyItems.enumerated() {
             let searchableItemAttributeSet = CSSearchableItemAttributeSet.init()
             searchableItemAttributeSet.title = "\(toBuyItem.name!) · \(toBuyItem.supermarket!)"
@@ -183,8 +181,18 @@ class ToBuyTableViewController: UITableViewController {
         headerViewContainer.addGestureRecognizer(tap)
 
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: reload)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func reload(nofitication: Notification) {
+        filterContentForSearchText("", category: "All")
+    }
+    
     @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         let viewController = self.storyboard?.instantiateViewController(identifier: "CanBuyCollectionView")
             as? ShoppingCollectionViewController
