@@ -14,13 +14,18 @@ import MobileCoreServices
 private let reuseIdentifier = "ToBuyTableViewCell"
 
 class DelayedTableViewController: UITableViewController {
+    let store = CoreDataStack.store
+    
     private lazy var dataProvider: DelayedToBuysProvider = {
-        let provider = DelayedToBuysProvider(with: AppDelegate.viewContext,
+        let provider = DelayedToBuysProvider(with: store.viewContext,
                                    fetchedResultsControllerDelegate: self)
         return provider
     }()
     
-    private let historyManager = HistoryManager(AppDelegate.viewContext)
+    private lazy var historyManager: HistoryManager = {
+        let manager = HistoryManager(store.viewContext)
+        return manager
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

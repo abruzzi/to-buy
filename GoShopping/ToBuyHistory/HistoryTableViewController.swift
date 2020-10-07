@@ -12,15 +12,22 @@ import CoreData
 private let reuseIdentifier = "ToBuyTableViewCell"
 
 class HistoryTableViewController: UITableViewController {
-    private let toBuyManger = ToBuyManager(AppDelegate.viewContext)
+    let store = CoreDataStack.store
+    
+    private lazy var toBuyManger: ToBuyManager = {
+        return ToBuyManager(store.viewContext)
+    }()
     
     private lazy var dataProvider: ToBuyHistoryProvider = {
-        let provider = ToBuyHistoryProvider(with: AppDelegate.viewContext,
+        let provider = ToBuyHistoryProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
     
-    @IBAction func clearHistory(_ sender: UIButton) {
+    @IBOutlet weak var clearAllButton: UIBarButtonItem!
+    
+    @IBAction func clearAllHistory(_ sender: UIBarButtonItem) {
+
         let alert = UIAlertController(title: "Warnning", message: "Are you sure you want to clean up all the shopping history", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.clean.history.ok", comment: "message.hint.clean.history.ok"), style: .destructive, handler: { action in
@@ -35,6 +42,8 @@ class HistoryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        clearAllButton.isEnabled = dataProvider.fetchedResultsController.fetchedObjects?.count != 0
         
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
     }
@@ -107,6 +116,8 @@ class HistoryTableViewController: UITableViewController {
 
 extension HistoryTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        clearAllButton.isEnabled = dataProvider.fetchedResultsController.fetchedObjects?.count != 0
+        
         tableView.reloadData()
     }
 }

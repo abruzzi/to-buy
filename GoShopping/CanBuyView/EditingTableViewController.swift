@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 
 class EditingTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    let store = CoreDataStack.store
+    
     var item: CanBuy!
     var category: String!
     
@@ -21,8 +24,8 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     ]
     
     private lazy var dataProvider: TagProvider = {
-        let provider = TagProvider(with: AppDelegate.viewContext,
-                                   fetchedResultsControllerDelegate: self)
+        let provider = TagProvider(with: store.viewContext,
+                                   fetchedResultsControllerDelegate: nil)
         return provider
     }()
     
@@ -127,12 +130,6 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         picker.dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension EditingTableViewController: NSFetchedResultsControllerDelegate {
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.reloadData()
-    }
 }
 
 extension UIViewController {

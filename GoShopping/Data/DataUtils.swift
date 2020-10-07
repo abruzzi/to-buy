@@ -44,13 +44,15 @@ struct Item: Hashable, Codable {
     var attrs: [String: String]
 }
 
+let store = CoreDataStack.store
+
 func resetAllDBItems(lang: String) {
     let records: [Record] = (lang.lowercased() == "en") ? load("category.json") :  load("category-cn.json")
     
-    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
-    let canBuyManager = CanBuyManager(AppDelegate.viewContext)
-    let historyManager = HistoryManager(AppDelegate.viewContext)
-    let tagManager = TagManager(AppDelegate.viewContext)
+    let toBuyManager = ToBuyManager(store.viewContext)
+    let canBuyManager = CanBuyManager(store.viewContext)
+    let historyManager = HistoryManager(store.viewContext)
+    let tagManager = TagManager(store.viewContext)
     
     toBuyManager.deleteAllToBuys()
     canBuyManager.deleteAllCanBuys()

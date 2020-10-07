@@ -53,14 +53,20 @@ extension ToBuyTableViewController: HistoryDelegate {
 }
 
 class ToBuyTableViewController: UITableViewController {
+    let store = CoreDataStack.store
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    let historyManager = HistoryManager(AppDelegate.viewContext)
-    let toBuyManager = ToBuyManager(AppDelegate.viewContext)
+    private lazy var historyManager: HistoryManager = {
+        return HistoryManager(store.viewContext)
+    }()
+    
+    private lazy var toBuyManager: ToBuyManager = {
+        return ToBuyManager(store.viewContext)
+    }()
     
     private lazy var dataProvider: ToBuysProvider = {
-        let provider = ToBuysProvider(with: AppDelegate.viewContext,
+        let provider = ToBuysProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
@@ -175,8 +181,18 @@ class ToBuyTableViewController: UITableViewController {
         headerViewContainer.addGestureRecognizer(tap)
 
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: reload)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func reload(nofitication: Notification) {
+        filterContentForSearchText("", category: "All")
+    }
+    
     @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         let viewController = self.storyboard?.instantiateViewController(identifier: "CanBuyCollectionView")
             as? ShoppingCollectionViewController

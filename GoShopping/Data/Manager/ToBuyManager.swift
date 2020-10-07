@@ -6,8 +6,6 @@
 //  Copyright © 2020 Juntao Qiu. All rights reserved.
 //
 
-import Foundation
-
 import UIKit
 import CoreData
 
@@ -85,8 +83,10 @@ class ToBuyManager {
     }
 
     func initToBuyItem(name: String, category: Int, image: Data, supermarket: String, isForeign: Bool = false) {
+        
         let entity = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)!
-        let item = NSManagedObject(entity: entity, insertInto: viewContext)
+        
+        let item = NSManagedObject(entity: entity, insertInto: viewContext) as! ToBuy
         
         let uuid = UUID()
         item.setValue(uuid, forKey: "uuid")

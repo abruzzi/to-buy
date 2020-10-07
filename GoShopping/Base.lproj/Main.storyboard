@@ -413,12 +413,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To buy" id="rgd-B5-3sv">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="uuI-aF-wpI">
-                            <color key="tintColor" name="BrandColor"/>
-                            <connections>
-                                <action selector="addNewItem:" destination="x9L-0B-dZZ" id="bj7-AV-DnO"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="aYt-ib-XqW">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
@@ -449,35 +443,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="YzO-Yf-VNU">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbG-2l-Yyi">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvI-9L-UEj">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
-                                            <state key="normal" title="Clear to buy history">
-                                                <color key="titleColor" red="1" green="0.1215686275" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="clearHistory:" destination="zzr-jr-a3H" eventType="touchUpInside" id="tCW-6k-1CA"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </stackView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="fbG-2l-Yyi" firstAttribute="top" secondItem="YzO-Yf-VNU" secondAttribute="top" id="DwK-Bf-1Wy"/>
-                                <constraint firstAttribute="bottom" secondItem="fbG-2l-Yyi" secondAttribute="bottom" id="ged-kk-uGz"/>
-                                <constraint firstItem="fbG-2l-Yyi" firstAttribute="leading" secondItem="YzO-Yf-VNU" secondAttribute="leading" id="ngY-M9-WPh"/>
-                                <constraint firstAttribute="trailing" secondItem="fbG-2l-Yyi" secondAttribute="trailing" id="z8N-MT-sj0"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryTableCell" id="jGs-hf-fMZ" customClass="ToBuyTableViewCell" customModule="To_Buy" customModuleProvider="target">
-                                <rect key="frame" x="16" y="123.5" width="288" height="43.5"/>
+                                <rect key="frame" x="16" y="55.5" width="288" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jGs-hf-fMZ" id="L4f-Xg-TOZ">
                                     <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
@@ -490,7 +458,17 @@
                             <outlet property="delegate" destination="zzr-jr-a3H" id="oZ4-t0-2jy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="History" id="c9S-40-kRC"/>
+                    <navigationItem key="navigationItem" title="History" id="c9S-40-kRC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="6cf-HD-imy">
+                            <color key="tintColor" red="1" green="0.1215686275" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="clearAllHistory:" destination="zzr-jr-a3H" id="Yu1-fc-gUy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="clearAllButton" destination="6cf-HD-imy" id="ZeX-0j-qAX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="avz-XS-AQv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
