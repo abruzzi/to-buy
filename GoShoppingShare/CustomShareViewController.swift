@@ -72,7 +72,6 @@ class CustomShareViewController: UITableViewController {
 //            }
         }
         
-        self.view.backgroundColor = UIColor(named: "BGColor")
         setupNavBar()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))

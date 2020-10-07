@@ -27,7 +27,6 @@ class CategoryTableView: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func loadView() {
       super.loadView()
-      view.backgroundColor = .white
       safeArea = view.layoutMarginsGuide
       setupTableView()
     }
@@ -60,7 +59,6 @@ class CategoryTableView: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return categoryTitles.count
     }
 
