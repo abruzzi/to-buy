@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -57,6 +58,15 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="4" id="pPB-X8-AoX"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9J-xL-rZf">
+                        <rect key="frame" x="288" y="17" width="6" height="6"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <color key="tintColor" name="BrandColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="6" id="DjQ-26-hP7"/>
+                            <constraint firstAttribute="height" constant="6" id="mGb-4O-woP"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" name="BGColor"/>
                 <constraints>
@@ -73,6 +83,8 @@
                     <constraint firstAttribute="bottom" secondItem="Vnu-MQ-b7h" secondAttribute="bottom" constant="12" id="g56-CP-9CG"/>
                     <constraint firstAttribute="trailing" secondItem="HiV-Za-mwK" secondAttribute="trailing" constant="12" id="hSr-Zt-mBt"/>
                     <constraint firstItem="Vnu-MQ-b7h" firstAttribute="leading" secondItem="djD-1l-sZS" secondAttribute="trailing" constant="8" id="iff-iK-vj4"/>
+                    <constraint firstItem="TNQ-vj-C8h" firstAttribute="leading" secondItem="k9J-xL-rZf" secondAttribute="trailing" constant="8" symbolic="YES" id="iqz-wT-CbV"/>
+                    <constraint firstItem="k9J-xL-rZf" firstAttribute="centerY" secondItem="TNQ-vj-C8h" secondAttribute="centerY" id="j9P-bG-Lr2"/>
                     <constraint firstAttribute="trailing" secondItem="CYJ-30-DTV" secondAttribute="trailing" id="sa0-lb-PaJ"/>
                     <constraint firstItem="djD-1l-sZS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="tLG-5E-aOT"/>
                     <constraint firstAttribute="bottom" secondItem="CYJ-30-DTV" secondAttribute="bottom" id="vJ8-SY-J6L"/>
@@ -82,6 +94,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="createdAtLabel" destination="TNQ-vj-C8h" id="xBe-eL-p78"/>
+                <outlet property="delayedDotView" destination="k9J-xL-rZf" id="bJX-Yz-uVb"/>
                 <outlet property="priorityDotView" destination="CYJ-30-DTV" id="rem-Ad-D0y"/>
                 <outlet property="supermarket" destination="HiV-Za-mwK" id="JhN-qb-QEl"/>
                 <outlet property="toBuyItemCategory" destination="Vnu-MQ-b7h" id="3Am-fw-Iin"/>
@@ -104,5 +117,8 @@
         <namedColor name="HeroScreenColor">
             <color red="0.83899998664855957" green="0.035000000149011612" blue="0.43500000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

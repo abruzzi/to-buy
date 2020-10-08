@@ -204,7 +204,7 @@ class ToBuyManager {
                              createdAt: (nsobj.value(forKey: "createdAt") as! Date))
         }
         
-        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
+        let toBuyItems = allItems.filter { !$0.isCompleted }
         let delayedItems = allItems.filter { $0.isDelayed }
         
         if let delegate = delegate {

@@ -72,8 +72,9 @@ class ToBuyTableViewController: UITableViewController {
     }()
     
     private func updateBadge() {
-        let tabbar = self.tabBarController as? BaseTabBarController
-        tabbar?.updateBadge()
+        let title = NSLocalizedString("tobuy.nav.title", comment: "tobuy.nav.title")
+        let itemNumber = dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        self.navigationController?.navigationBar.topItem?.title = "\(title) (\(itemNumber))"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -210,7 +211,6 @@ class ToBuyTableViewController: UITableViewController {
     func filterContentForSearchText(_ searchText: String,
                                     category: String) {
         let keywords = NSPredicate(format: "name CONTAINS[c] %@", searchText)
-        let isNotDelayedPredicate = NSPredicate(format: "isDelayed = false")
         let isForeignPredicate = NSPredicate(format: "isForeign = true")
         let isCompletedPredicate = NSPredicate(format: "isCompleted = false")
         
@@ -218,13 +218,13 @@ class ToBuyTableViewController: UITableViewController {
         
         switch category {
         case "All":
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [] : [keywords, ])
         case "Remaining":
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate, isCompletedPredicate] : [keywords, isNotDelayedPredicate, isCompletedPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isCompletedPredicate] : [keywords, isCompletedPredicate])
         case "Shared with me":
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate, isForeignPredicate] : [keywords, isNotDelayedPredicate, isForeignPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isForeignPredicate] : [keywords, isForeignPredicate])
         default:
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [] : [keywords])
         }
         
         dataProvider.fetchedResultsController.fetchRequest.predicate = predicate

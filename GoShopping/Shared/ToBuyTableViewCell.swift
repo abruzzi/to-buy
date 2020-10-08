@@ -16,6 +16,7 @@ class ToBuyTableViewCell: UITableViewCell {
         NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
+    @IBOutlet weak var delayedDotView: UIView!
     @IBOutlet weak var priorityDotView: UIView!
     @IBOutlet weak var toBuyItemLabel: UILabel!
     @IBOutlet weak var toBuyItemImage: UIImageView!
@@ -53,6 +54,7 @@ class ToBuyTableViewCell: UITableViewCell {
         supermarket.text = toBuyHistoryItem.supermarket
 
         priorityDotView.layer.opacity = 0
+        delayedDotView.layer.opacity = 0
         createdAtLabel.layer.opacity = 0.7
         toBuyItemCategory.layer.opacity = 0.7
         toBuyItemLabel.layer.opacity = 0.7
@@ -81,6 +83,8 @@ class ToBuyTableViewCell: UITableViewCell {
         
         supermarket.text = toBuy.supermarket
         priorityDotView.layer.opacity = toBuy.priority > 0 ? 1.0 : 0.0
+        delayedDotView.layer.cornerRadius = 3.0
+        delayedDotView.layer.opacity = toBuy.isDelayed ? 1.0 : 0.0
         
         if(toBuy.isCompleted) {
             createdAtLabel.layer.opacity = 0.5
@@ -89,6 +93,7 @@ class ToBuyTableViewCell: UITableViewCell {
             supermarket.layer.opacity = 0.5
             toBuyItemImage.layer.opacity = 0.3
             priorityDotView.layer.opacity = 0
+            delayedDotView.layer.opacity = 0
         } else {
             createdAtLabel.layer.opacity = 1
             toBuyItemCategory.layer.opacity = 1

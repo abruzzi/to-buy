@@ -137,7 +137,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
     func refreshView () {
         self.collectionView.reloadData()
         self.updateSelections()
-        self.updateBadge()
     }
     
     func updateSelections() {
@@ -236,12 +235,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 toBuyManager.initToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
             }
         }
-        updateBadge()
-    }
-    
-    private func updateBadge() {
-        let tabbar = self.tabBarController as? BaseTabBarController
-        tabbar?.updateBadge()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -249,7 +242,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         if(toBuyManager.isAlreadyExistInToBuyList(name: data.name!)) {
             toBuyManager.deleteItemByNameFromToBuys(name: data.name!)
         }
-        updateBadge()
     }
     
     

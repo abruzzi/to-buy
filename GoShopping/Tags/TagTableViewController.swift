@@ -52,7 +52,6 @@ class TagTableViewController: UITableViewController {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
         
         cell.tagTextLabel.text = item.name
-        cell.configure(name: item.name!)
         
         return cell
     }

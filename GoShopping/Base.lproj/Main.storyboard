@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ud5-n9-94q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T9Z-vr-nOq">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -67,10 +67,10 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Select" id="haM-3a-TLZ">
-                        <barButtonItem key="rightBarButtonItem" image="ellipsis.circle" catalog="system" id="uU8-6w-v1a">
+                        <barButtonItem key="rightBarButtonItem" image="tag.circle" catalog="system" id="uU8-6w-v1a">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
-                                <segue destination="DYM-EI-wim" kind="showDetail" id="53a-uZ-DEr"/>
+                                <segue destination="DYM-EI-wim" kind="show" id="53a-uZ-DEr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -80,13 +80,13 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muP-wz-991" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1281" y="1236"/>
+            <point key="canvasLocation" x="769" y="1275"/>
         </scene>
         <!--Editing Table View Controller-->
         <scene sceneID="YZq-Z2-pAa">
             <objects>
                 <tableViewController storyboardIdentifier="EditingTableViewController" id="WI0-Md-U6r" customClass="EditingTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="80" estimatedRowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="GwE-Ol-kOr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="none" allowsSelection="NO" rowHeight="80" estimatedRowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="GwE-Ol-kOr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BGColor"/>
@@ -228,28 +228,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ujd-6s-qhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1061.25" y="542.95774647887322"/>
-        </scene>
-        <!--Base Tab Bar Controller-->
-        <scene sceneID="boi-1x-DYB">
-            <objects>
-                <tabBarController id="Ud5-n9-94q" customClass="BaseTabBarController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AFn-JG-KXy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" name="BrandColor"/>
-                        <color key="selectedImageTintColor" name="BrandColor"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="o9u-uS-IvF" kind="relationship" relationship="viewControllers" id="7LU-Tb-eaV"/>
-                        <segue destination="T9Z-vr-nOq" kind="relationship" relationship="viewControllers" id="r1j-Nx-LIJ"/>
-                        <segue destination="Dih-rA-WXV" kind="relationship" relationship="viewControllers" id="YJv-Ls-gjo"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3nh-7u-FsW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-359" y="-428"/>
+            <point key="canvasLocation" x="-223" y="584"/>
         </scene>
         <!--Select-->
         <scene sceneID="p7n-zW-G6C">
@@ -258,7 +237,7 @@
                     <tabBarItem key="tabBarItem" title="Select" image="cart" catalog="system" id="MRD-Tn-bPH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="lfw-fA-JoP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="BrandColor"/>
                         <color key="barTintColor" name="BGColor"/>
@@ -274,7 +253,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZF-Z6-4jb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1568.8" y="296.40179910044981"/>
+            <point key="canvasLocation" x="1868" y="1276"/>
         </scene>
         <!--To buys-->
         <scene sceneID="WJt-TE-xcE">
@@ -288,7 +267,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="BrandColor"/>
-                        <color key="barTintColor" name="BGColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
                             <color key="textColor" name="FontColor"/>
@@ -324,7 +302,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="wVZ-T1-Yk7">
                                                     <rect key="frame" x="0.0" y="0.0" width="33" height="55.5"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Ye-2a-yZY">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Ye-2a-yZY">
                                                             <rect key="frame" x="0.5" y="0.5" width="32" height="31"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="SNx-nq-a15"/>
@@ -372,7 +350,7 @@
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjm-wu-5Hv">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjm-wu-5Hv">
                                                     <rect key="frame" x="237" y="19" width="19" height="17"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" name="BrandColor"/>
@@ -413,6 +391,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To buy" id="rgd-B5-3sv">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="57W-gb-If9">
+                            <color key="tintColor" name="BrandColor"/>
+                            <connections>
+                                <segue destination="o9u-uS-IvF" kind="presentation" id="lhR-kb-F6x"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="square.and.arrow.up" catalog="system" id="aYt-ib-XqW">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
@@ -428,7 +412,7 @@
                         <outlet property="historyCountLabel" destination="Hjm-wu-5Hv" id="5le-Ji-WlM"/>
                         <outlet property="secondImageSnapshot" destination="fBq-HC-Hhi" id="Exk-Iu-8Kd"/>
                         <outlet property="thirdImageSnapshot" destination="jG7-I2-uxj" id="0yc-Sf-tfY"/>
-                        <segue destination="wV7-mU-M6N" kind="presentation" id="zUA-05-D3M"/>
+                        <segue destination="wV7-mU-M6N" kind="presentation" identifier="ToBuyHistory" id="zUA-05-D3M"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -440,7 +424,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="HistoryTableViewController" id="zzr-jr-a3H" customClass="HistoryTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="9AL-8G-28L">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -460,7 +444,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="c9S-40-kRC">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="6cf-HD-imy">
-                            <color key="tintColor" red="1" green="0.1215686275" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="HeroScreenColor"/>
                             <connections>
                                 <action selector="clearAllHistory:" destination="zzr-jr-a3H" id="Yu1-fc-gUy"/>
                             </connections>
@@ -474,68 +458,12 @@
             </objects>
             <point key="canvasLocation" x="4786.875" y="647.53521126760563"/>
         </scene>
-        <!--Delayed-->
-        <scene sceneID="zce-bb-lgr">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dih-rA-WXV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Delayed" image="alarm" catalog="system" id="FnY-K4-NVt">
-                        <color key="badgeColor" name="HeroScreenColor"/>
-                    </tabBarItem>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="4hF-G1-gDA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="BrandColor"/>
-                        <color key="barTintColor" name="BGColor"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
-                            <color key="textColor" name="FontColor"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="XSB-nc-aXv" kind="relationship" relationship="rootViewController" id="ewf-80-9nq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ocr-ag-ZL5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1140" y="-398"/>
-        </scene>
-        <!--Delayed-->
-        <scene sceneID="yLi-dq-dLw">
-            <objects>
-                <tableViewController id="XSB-nc-aXv" customClass="DelayedTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="HRY-0p-aQt">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="tintColor" name="BrandColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToBuyTableViewCell" id="8WV-6h-VJh" customClass="Delayed">
-                                <rect key="frame" x="16" y="55.5" width="288" height="60"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8WV-6h-VJh" id="UH0-Lc-bx5">
-                                    <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XSB-nc-aXv" id="L1M-wY-xRH"/>
-                            <outlet property="delegate" destination="XSB-nc-aXv" id="jQe-yc-ytK"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Delayed" id="hdY-1C-ygw"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zgf-Pn-lsd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2250" y="-429"/>
-        </scene>
         <!--Tags-->
         <scene sceneID="7hQ-Ta-JlQ">
             <objects>
                 <tableViewController id="odX-WV-3DR" customClass="TagTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tsg-ta-v2v">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tagCell" id="8Po-fw-1Pv" customClass="TagCell" customModule="To_Buy" customModuleProvider="target">
@@ -563,7 +491,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjb-Ib-j3w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1061" y="1619"/>
+            <point key="canvasLocation" x="-1256" y="1615"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LtK-P5-iOP">
@@ -574,6 +502,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="BrandColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="FontColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YLG-tB-v8a">
@@ -586,15 +517,16 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7CG-aV-eSq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="63.75" y="542.95774647887322"/>
+            <point key="canvasLocation" x="-1106" y="585"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AId-DP-TFd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DYM-EI-wim" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="TgF-Ge-orT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ZJe-dg-j5q">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="17"/>
@@ -607,7 +539,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H86-cW-sON" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="176" y="1620"/>
+            <point key="canvasLocation" x="-300" y="1616"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="o16-1q-3B4">
@@ -618,6 +550,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="BrandColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="FontColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -631,15 +566,14 @@
     </scenes>
     <color key="tintColor" systemColor="systemTealColor"/>
     <resources>
-        <image name="alarm" catalog="system" width="124" height="128"/>
         <image name="book.circle" catalog="system" width="128" height="121"/>
         <image name="cart" catalog="system" width="128" height="102"/>
-        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="placeholdertext.fill" catalog="system" width="80" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <image name="tag.circle" catalog="system" width="128" height="121"/>
         <namedColor name="BGColor">
             <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

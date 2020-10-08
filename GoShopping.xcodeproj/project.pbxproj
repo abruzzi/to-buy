@@ -58,11 +58,9 @@
 		7AE043BA252AF989005B21D5 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE043B9252AF989005B21D5 /* CoreDataStack.swift */; };
 		7AE05DA424FE2A3300342844 /* ItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA224FE2A3300342844 /* ItemCellView.swift */; };
 		7AE05DA524FE2A3300342844 /* ItemCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE05DA324FE2A3300342844 /* ItemCellView.xib */; };
-		7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */; };
 		7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA824FE61BE00342844 /* ToBuyTableViewController.swift */; };
 		7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */; };
 		7AE05DAD24FE62AB00342844 /* ToBuyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */; };
-		7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DAE24FFAF9300342844 /* DelayedTableViewController.swift */; };
 		7AE446D025234BCC009DE740 /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE446CF25234BCC009DE740 /* TagManager.swift */; };
 		7AE4471E25275A3A009DE740 /* icon_76pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE4471B25275A3A009DE740 /* icon_76pt@2x.png */; };
 		7AE4471F25275A3A009DE740 /* icon_83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE4471C25275A3A009DE740 /* icon_83.5@2x.png */; };
@@ -148,11 +146,9 @@
 		7AE043B9252AF989005B21D5 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		7AE05DA224FE2A3300342844 /* ItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellView.swift; sourceTree = "<group>"; };
 		7AE05DA324FE2A3300342844 /* ItemCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCellView.xib; sourceTree = "<group>"; };
-		7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		7AE05DA824FE61BE00342844 /* ToBuyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyTableViewController.swift; sourceTree = "<group>"; };
 		7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyTableViewCell.swift; sourceTree = "<group>"; };
 		7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToBuyTableViewCell.xib; sourceTree = "<group>"; };
-		7AE05DAE24FFAF9300342844 /* DelayedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayedTableViewController.swift; sourceTree = "<group>"; };
 		7AE446CF25234BCC009DE740 /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
 		7AE4471B25275A3A009DE740 /* icon_76pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_76pt@2x.png"; sourceTree = "<group>"; };
 		7AE4471C25275A3A009DE740 /* icon_83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_83.5@2x.png"; sourceTree = "<group>"; };
@@ -214,7 +210,6 @@
 				7A9F6413250624F6000F638C /* Localizable.strings */,
 				7ADB01FE2513826A0068961E /* Tags */,
 				7A9F64092505E50F000F638C /* Shared */,
-				7A9F64082505E415000F638C /* DelayedView */,
 				7A9F64072505E3FE000F638C /* ToBuyView */,
 				7A5B9A042521EE0800F55305 /* ToBuyHistory */,
 				7A9F64062505E3ED000F638C /* CanBuyView */,
@@ -277,18 +272,9 @@
 			path = ToBuyView;
 			sourceTree = "<group>";
 		};
-		7A9F64082505E415000F638C /* DelayedView */ = {
-			isa = PBXGroup;
-			children = (
-				7AE05DAE24FFAF9300342844 /* DelayedTableViewController.swift */,
-			);
-			path = DelayedView;
-			sourceTree = "<group>";
-		};
 		7A9F64092505E50F000F638C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				7AE05DA624FE5F4000342844 /* BaseTabBarController.swift */,
 				7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */,
 				7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */,
 				7A70742D250B3D3F002644D2 /* ItemPreviewViewController.swift */,
@@ -487,9 +473,7 @@
 				7A8304E2250B9B3D00D4A6A8 /* CanBuysProvider.swift in Sources */,
 				7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */,
 				7A97C0EF24FDF4E6004800E3 /* SectionHeader.swift in Sources */,
-				7AE05DA724FE5F4000342844 /* BaseTabBarController.swift in Sources */,
 				7ADD3C322520BD4700819DFC /* CanBuyManager.swift in Sources */,
-				7AE05DAF24FFAF9300342844 /* DelayedTableViewController.swift in Sources */,
 				7A11D2FB2514CB77002BF321 /* SearchTextField.swift in Sources */,
 				7A8304F2250DC42700D4A6A8 /* EmptyList.swift in Sources */,
 				7A5B9A092521FC8E00F55305 /* HistoryTableViewController.swift in Sources */,
@@ -707,14 +691,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoShopping/GoShopping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
@@ -730,14 +714,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoShopping/GoShopping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
@@ -751,6 +735,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GoShoppingShare/GoShoppingShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShoppingShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -759,6 +744,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping.GoShoppingShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -772,6 +758,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GoShoppingShare/GoShoppingShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShoppingShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -780,6 +767,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping.GoShoppingShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
