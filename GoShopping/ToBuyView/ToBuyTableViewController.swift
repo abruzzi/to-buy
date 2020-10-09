@@ -70,7 +70,7 @@ class ToBuyTableViewController: UITableViewController {
         let countLabel = UILabel(frame: CGRect.zero)
         countLabel.text = ""
         countLabel.textColor = UIColor(named: "FontColor")
-        countLabel.adjustsFontSizeToFitWidth = true
+        countLabel.font = UIFont.systemFont(ofSize: 13.0)
         countLabel.textAlignment = .center
         
         return countLabel
@@ -325,7 +325,7 @@ class ToBuyTableViewController: UITableViewController {
             self.dataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
         }
-        action.image = UIImage(systemName: "delete.right")
+        action.image = UIImage(systemName: "trash")
         action.backgroundColor = .systemRed
         return action
     }
@@ -417,7 +417,7 @@ class ToBuyTableViewController: UITableViewController {
             
             let deleteAction = UIAction(
                 title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
-                image: UIImage(systemName: "delete.right"),
+                image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
                     let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
                     self.pushItemIntoHistory(item: item)
@@ -521,7 +521,21 @@ extension ToBuyTableViewController {
 
     
     @objc func createItemFromCarema() {
-        // pick up image here
+        let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
+            as? ToBuyItemTableViewController
+        
+        let item = ToBuy(context: store.viewContext)
+        
+        item.name = "New Item"
+        item.category = 3
+        item.image = UIImage(named: "icons8-crystal_ball")?.pngData()
+        item.supermarket = ""
+        item.priority = 0
+        item.createdAt = Date()
+        
+        viewController!.item = item
+
+        self.navigationController?.pushViewController(viewController!, animated: true)
     }
     
     

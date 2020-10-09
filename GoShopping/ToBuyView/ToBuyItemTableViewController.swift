@@ -14,6 +14,7 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     
     var item: ToBuy!
     var category: String!
+    var priority: Int = 0
     
     let categories = [
         NSLocalizedString("category.food.title", comment: "category.others.title"),
@@ -39,13 +40,12 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     
     @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
         let category = segmentCategory.selectedSegmentIndex
-        let priority = prioritySlider.value
         let context = item.managedObjectContext!
         
         context.performAndWait {
             item.name = itemNameTextField.text
             item.category = Int16(category)
-            item.priority = Int16(priority.rounded())
+            item.priority = Int16(priority)
             item.supermarket = supermarketTextField.text
             
             // the ones from camera
@@ -84,7 +84,7 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     }
     
     @IBAction func onPriorityChange(_ sender: UISlider) {
-        print(sender.value)
+        priority = Int(sender.value.rounded())
     }
     
     @IBAction func onSegmentChange(_ sender: UISegmentedControl) {
