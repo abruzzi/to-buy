@@ -61,6 +61,7 @@
 		7AE05DA924FE61BE00342844 /* ToBuyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DA824FE61BE00342844 /* ToBuyTableViewController.swift */; };
 		7AE05DAC24FE62AB00342844 /* ToBuyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */; };
 		7AE05DAD24FE62AB00342844 /* ToBuyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */; };
+		7AE4456A25303844005FA5F9 /* ToBuyItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE4456925303843005FA5F9 /* ToBuyItemTableViewController.swift */; };
 		7AE446D025234BCC009DE740 /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE446CF25234BCC009DE740 /* TagManager.swift */; };
 		7AE4471E25275A3A009DE740 /* icon_76pt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE4471B25275A3A009DE740 /* icon_76pt@2x.png */; };
 		7AE4471F25275A3A009DE740 /* icon_83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE4471C25275A3A009DE740 /* icon_83.5@2x.png */; };
@@ -149,6 +150,7 @@
 		7AE05DA824FE61BE00342844 /* ToBuyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyTableViewController.swift; sourceTree = "<group>"; };
 		7AE05DAA24FE62AB00342844 /* ToBuyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyTableViewCell.swift; sourceTree = "<group>"; };
 		7AE05DAB24FE62AB00342844 /* ToBuyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToBuyTableViewCell.xib; sourceTree = "<group>"; };
+		7AE4456925303843005FA5F9 /* ToBuyItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBuyItemTableViewController.swift; sourceTree = "<group>"; };
 		7AE446CF25234BCC009DE740 /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
 		7AE4471B25275A3A009DE740 /* icon_76pt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_76pt@2x.png"; sourceTree = "<group>"; };
 		7AE4471C25275A3A009DE740 /* icon_83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_83.5@2x.png"; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			children = (
 				7AE05DA824FE61BE00342844 /* ToBuyTableViewController.swift */,
 				7AE4472225275B31009DE740 /* LinkPresentationItemSource.swift */,
+				7AE4456925303843005FA5F9 /* ToBuyItemTableViewController.swift */,
 			);
 			path = ToBuyView;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				7AE446D025234BCC009DE740 /* TagManager.swift in Sources */,
 				7A8304EA250BAA6500D4A6A8 /* DelayedToBuysProvider.swift in Sources */,
 				7ADD3C2E25206CA600819DFC /* ToBuyManager.swift in Sources */,
+				7AE4456A25303844005FA5F9 /* ToBuyItemTableViewController.swift in Sources */,
 				7ADB0200251382C40068961E /* TagTableViewController.swift in Sources */,
 				7ADB02062513852F0068961E /* TagProvider.swift in Sources */,
 				7A8304E2250B9B3D00D4A6A8 /* CanBuysProvider.swift in Sources */,

@@ -90,6 +90,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(false, animated: false)
         historyManager.fetchToBuyHistory()
         tableView.reloadData()
         self.updateBadge()
@@ -221,7 +222,7 @@ class ToBuyTableViewController: UITableViewController {
         
         toolbarItems = [addFromCarema, spacer, labelItem, spacer, addFromText]
         
-        navigationController?.setToolbarHidden(false, animated: false)
+        
     }
 
     deinit {
@@ -380,6 +381,16 @@ class ToBuyTableViewController: UITableViewController {
             let view = ItemPreviewViewController(itemName: item.name!, image: item.image!)
             return view
         }){ _ in
+            let editAction = UIAction(
+                title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
+                image: UIImage(systemName: "square.and.pencil")) { _ in
+                let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
+                    as? ToBuyItemTableViewController
+                viewController!.item = item
+
+                self.navigationController?.pushViewController(viewController!, animated: true)
+            }
+            
             let liftPriorityAction = UIAction(
                 title: NSLocalizedString("action.priority.title", comment: "action.priority.title"),
                 image: UIImage(systemName: "chevron.up.circle")) { _ in
@@ -417,6 +428,7 @@ class ToBuyTableViewController: UITableViewController {
                 return UIMenu(title: "", children: [deleteAction])
             } else {
                 return UIMenu(title: "", children: [
+                                editAction,
                                 item.priority > 0 ? downgradeAction : liftPriorityAction,
                                 delayAction,
                                 completeAction,
@@ -514,7 +526,7 @@ extension ToBuyTableViewController {
     
     
     @objc func createItemFromText(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Create a new to buy item", message: "You can edit the item later on", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add item to buy", message: "You can edit the item later on", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "Name"
             textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
