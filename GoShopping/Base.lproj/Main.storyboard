@@ -15,7 +15,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="CanBuyCollectionView" id="Ypl-f9-r4H" customClass="ShoppingCollectionViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="n0G-DR-v3N">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="lya-I8-8tk">
@@ -87,7 +87,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="EditingTableViewController" id="WI0-Md-U6r" customClass="EditingTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="none" allowsSelection="NO" rowHeight="80" estimatedRowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="GwE-Ol-kOr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BGColor"/>
                         <sections>
@@ -665,20 +665,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pit-M3-1Ca">
-                                                    <rect key="frame" x="14" y="4" width="260" height="53"/>
+                                                    <rect key="frame" x="142" y="15" width="132" height="31"/>
                                                     <color key="tintColor" name="BrandColor"/>
                                                     <connections>
                                                         <action selector="onPriorityChange:" destination="MpN-EA-Pww" eventType="valueChanged" id="c0l-lf-Zdh"/>
                                                     </connections>
                                                 </slider>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KA-ur-0c9">
+                                                    <rect key="frame" x="16" y="19.5" width="112" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="112" id="A4W-1b-mn8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="FontColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" name="BGColor"/>
                                             <constraints>
-                                                <constraint firstItem="Pit-M3-1Ca" firstAttribute="top" secondItem="lCM-Kk-QtM" secondAttribute="top" constant="4" id="Bj3-PE-yaf"/>
-                                                <constraint firstItem="Pit-M3-1Ca" firstAttribute="leading" secondItem="lCM-Kk-QtM" secondAttribute="leading" constant="16" id="K6I-Uu-RNo"/>
-                                                <constraint firstItem="Pit-M3-1Ca" firstAttribute="centerX" secondItem="lCM-Kk-QtM" secondAttribute="centerX" id="Wuv-JV-vwb"/>
+                                                <constraint firstItem="1KA-ur-0c9" firstAttribute="centerY" secondItem="lCM-Kk-QtM" secondAttribute="centerY" id="L7K-4f-N4p"/>
+                                                <constraint firstItem="Pit-M3-1Ca" firstAttribute="leading" secondItem="1KA-ur-0c9" secondAttribute="trailing" constant="16" id="Mwd-dI-cDu"/>
+                                                <constraint firstItem="1KA-ur-0c9" firstAttribute="leading" secondItem="lCM-Kk-QtM" secondAttribute="leadingMargin" id="cF6-qa-tyY"/>
                                                 <constraint firstAttribute="trailing" secondItem="Pit-M3-1Ca" secondAttribute="trailing" constant="16" id="jCG-Py-Aj1"/>
-                                                <constraint firstAttribute="bottom" secondItem="Pit-M3-1Ca" secondAttribute="bottom" constant="4" id="k8g-9V-CaS"/>
                                                 <constraint firstItem="Pit-M3-1Ca" firstAttribute="centerY" secondItem="lCM-Kk-QtM" secondAttribute="centerY" id="ub3-Ik-GRH"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -713,7 +721,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Tags" id="4Jo-H3-DVy">
+                            <tableViewSection headerTitle="Other" id="4Jo-H3-DVy">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="Vji-dK-Kb1">
                                         <rect key="frame" x="16" y="514" width="288" height="60"/>
@@ -722,20 +730,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prefered supermarket" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="muD-MF-LVg" customClass="SearchTextField" customModule="To_Buy" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="10" width="256" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="Tox-KG-2pR"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9NK-0Q-2za">
+                                                    <rect key="frame" x="223" y="14.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="onSwitchChange:" destination="MpN-EA-Pww" eventType="valueChanged" id="wDF-97-mTt"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Also save for later" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNA-aC-FrG">
+                                                    <rect key="frame" x="16" y="20" width="169" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="FontColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" name="BGColor"/>
                                             <constraints>
-                                                <constraint firstItem="muD-MF-LVg" firstAttribute="leading" secondItem="T1z-fK-Heq" secondAttribute="leadingMargin" id="fS0-iq-dOl"/>
-                                                <constraint firstItem="muD-MF-LVg" firstAttribute="centerY" secondItem="T1z-fK-Heq" secondAttribute="centerY" id="k9b-Pk-3YE"/>
-                                                <constraint firstItem="muD-MF-LVg" firstAttribute="trailing" secondItem="T1z-fK-Heq" secondAttribute="trailingMargin" id="w9N-br-fod"/>
+                                                <constraint firstItem="YNA-aC-FrG" firstAttribute="leading" secondItem="T1z-fK-Heq" secondAttribute="leadingMargin" id="J5r-N4-TM6"/>
+                                                <constraint firstItem="9NK-0Q-2za" firstAttribute="trailing" secondItem="T1z-fK-Heq" secondAttribute="trailingMargin" id="Pp6-DL-hRV"/>
+                                                <constraint firstItem="9NK-0Q-2za" firstAttribute="centerY" secondItem="T1z-fK-Heq" secondAttribute="centerY" id="W5W-qB-giN"/>
+                                                <constraint firstItem="YNA-aC-FrG" firstAttribute="centerY" secondItem="T1z-fK-Heq" secondAttribute="centerY" id="dzu-mS-D9V"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -759,6 +772,7 @@
                         <outlet property="itemImage" destination="SIM-Ri-5jU" id="giq-Wi-UH1"/>
                         <outlet property="itemNameTextField" destination="aRh-tK-3l6" id="hwf-jX-UOD"/>
                         <outlet property="prioritySlider" destination="Pit-M3-1Ca" id="nQP-Tp-5DW"/>
+                        <outlet property="saveForLaterSwitch" destination="9NK-0Q-2za" id="tHg-vT-BRa"/>
                         <outlet property="segmentCategory" destination="r9b-XO-ljC" id="8xL-gO-MHb"/>
                         <outlet property="supermarketTextField" destination="DOY-b1-o3i" id="lxG-BF-ZOT"/>
                     </connections>

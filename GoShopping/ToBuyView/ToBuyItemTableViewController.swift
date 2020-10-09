@@ -22,6 +22,11 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         NSLocalizedString("category.others.title", comment: "category.others.title"),
     ]
     
+    private lazy var canBuyManger: CanBuyManager = {
+        return CanBuyManager(store.viewContext)
+    }()
+    
+    
     private lazy var dataProvider: TagProvider = {
         let provider = TagProvider(with: store.viewContext,
                                    fetchedResultsControllerDelegate: nil)
@@ -58,6 +63,23 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
             self.dataProvider.addTag(name: supermarketTextField.text!)
         }
         
+        if(saveToCanBuyList) {
+            var image: Data?
+            
+            if(itemImage.image?.size.width ?? 100 > 600) {
+                image = UIImage(named: "icons8-crystal_ball")?.pngData()
+            } else {
+                image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+            }
+
+            canBuyManger.createCanBuy(
+                name: itemNameTextField.text ?? "",
+                category: Int(category),
+                image: image!,
+                supermarket: supermarketTextField.text ?? ""
+            )
+        }
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -77,6 +99,14 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         navigationController?.setToolbarHidden(true, animated: false)
     }
     
+    @IBOutlet weak var saveForLaterSwitch: UISwitch!
+    
+    @IBAction func onSwitchChange(_ sender: UISwitch) {
+        saveToCanBuyList = sender.isOn
+    }
+    
+    private var saveToCanBuyList: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -84,7 +114,8 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         itemNameTextField.text = item.name
         supermarketTextField.text = item.supermarket
         segmentCategory.selectedSegmentIndex = Int(item.category)
-        
+        prioritySlider.value = Float(item.priority)
+        saveForLaterSwitch.isOn = saveToCanBuyList
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
         itemImage.image = UIImage(data: item.image!)

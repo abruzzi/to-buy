@@ -18,10 +18,31 @@ class CanBuyManager {
         self.viewContext = viewContext
     }
 
+    func isAlreadyExistInToBuyList(_ name: String) -> Bool {
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
+        
+        let namePredicate = NSPredicate(format: "name = %@", name)
+        
+        fetchRequest.predicate = namePredicate
+        
+        do {
+            let result = try viewContext.fetch(fetchRequest)
+            return result.count != 0
+        }catch let error as NSError {
+            print("Could not fetch value. \(error), \(error.userInfo)")
+        }
+        
+        return false
+    }
+    
     func createCanBuy(name: String,
                       category: Int,
                       image: Data,
                       supermarket: String) {
+        if(isAlreadyExistInToBuyList(name)) {
+            return
+        }
+        
         viewContext.perform {
             let item = CanBuy(context: self.viewContext)
             item.uuid = UUID()
