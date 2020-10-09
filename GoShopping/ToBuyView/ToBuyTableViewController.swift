@@ -525,7 +525,7 @@ extension ToBuyTableViewController {
             as? ToBuyItemTableViewController
         
         let item = ToBuy(context: store.viewContext)
-        
+
         item.name = "New Item"
         item.category = 3
         item.image = UIImage(named: "icons8-crystal_ball")?.pngData()
