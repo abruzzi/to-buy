@@ -56,6 +56,7 @@ class ToBuyTableViewController: UITableViewController {
     let store = CoreDataStack.store
     
     let searchController = UISearchController(searchResultsController: nil)
+    var alertActionToEnable: UIAlertAction!
     
     private lazy var historyManager: HistoryManager = {
         return HistoryManager(store.viewContext)
@@ -69,7 +70,7 @@ class ToBuyTableViewController: UITableViewController {
         let countLabel = UILabel(frame: CGRect.zero)
         countLabel.text = ""
         countLabel.textColor = UIColor(named: "FontColor")
-        countLabel.sizeToFit()
+        countLabel.adjustsFontSizeToFitWidth = true
         countLabel.textAlignment = .center
         
         return countLabel
@@ -222,14 +223,7 @@ class ToBuyTableViewController: UITableViewController {
         
         navigationController?.setToolbarHidden(false, animated: false)
     }
-    @objc func createItemFromCarema() {
-        // pick up image here
-    }
-    
-    @objc func createItemFromText() {
-        
-    }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -510,3 +504,41 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
+
+extension ToBuyTableViewController {
+
+    
+    @objc func createItemFromCarema() {
+        // pick up image here
+    }
+    
+    
+    @objc func createItemFromText(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Create a new to buy item", message: "You can edit the item later on", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "Name"
+            textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        addActionSheetForiPad(actionSheet: alert)
+        present(alert, animated: true, completion: nil)
+        
+        alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
+            guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
+            self.toBuyManager.initToBuyItem(name: name, category: 3, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, supermarket: "")
+        }
+        alertActionToEnable.isEnabled = false
+        alert.addAction(alertActionToEnable!)
+    }
+    
+    @objc
+    func textChanged(_ sender: UITextField) {
+        guard let tagName = sender.text else {
+            alertActionToEnable.isEnabled = false
+            return
+        }
+        
+        alertActionToEnable.isEnabled = (tagName.count > 0)
+    }
+}
