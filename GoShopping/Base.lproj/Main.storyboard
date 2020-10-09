@@ -499,8 +499,8 @@
             <objects>
                 <navigationController storyboardIdentifier="CanBuyEditingTableView" automaticallyAdjustsScrollViewInsets="NO" id="tom-Ck-BNO" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="SOv-1a-ct5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SOv-1a-ct5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" name="BrandColor"/>
                         <textAttributes key="titleTextAttributes">
@@ -786,8 +786,8 @@
             <objects>
                 <navigationController storyboardIdentifier="ToBuyEditingTableView" automaticallyAdjustsScrollViewInsets="NO" id="hTy-Md-4zw" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gaI-Dd-lf5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gaI-Dd-lf5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
