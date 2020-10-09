@@ -65,6 +65,16 @@ class ToBuyTableViewController: UITableViewController {
         return ToBuyManager(store.viewContext)
     }()
     
+    private let countLabel: UILabel = {
+        let countLabel = UILabel(frame: CGRect.zero)
+        countLabel.text = ""
+        countLabel.textColor = UIColor(named: "FontColor")
+        countLabel.sizeToFit()
+        countLabel.textAlignment = .center
+        
+        return countLabel
+    }()
+    
     private lazy var dataProvider: ToBuysProvider = {
         let provider = ToBuysProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
@@ -74,7 +84,8 @@ class ToBuyTableViewController: UITableViewController {
     private func updateBadge() {
         let title = NSLocalizedString("tobuy.nav.title", comment: "tobuy.nav.title")
         let itemNumber = dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
-        self.navigationController?.navigationBar.topItem?.title = "\(title) (\(itemNumber))"
+        
+        countLabel.text = "\(itemNumber) \(title)"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -151,18 +162,7 @@ class ToBuyTableViewController: UITableViewController {
     
     let categories = ["All", "Remaining", "Shared with me"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for buy items"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        
-        searchController.searchBar.scopeButtonTitles = categories
-        searchController.searchBar.delegate = self
-        
+    func setupHistorySection() {
         headerViewContainer.layer.cornerRadius = 4
         historyCountLabel.layer.cornerRadius = 4
         historyCountLabel.layer.masksToBounds = true
@@ -172,6 +172,24 @@ class ToBuyTableViewController: UITableViewController {
         thirdImageSnapshot.layer.cornerRadius = 4.0
         forthImageSnapshot.layer.cornerRadius = 4.0
         
+        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        //TODO: i18n
+        searchController.searchBar.placeholder = "Search for buy items"
+        
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        searchController.searchBar.scopeButtonTitles = categories
+        searchController.searchBar.delegate = self
+        
+        setupHistorySection()
         
         historyManager.historyDelegate = self
         
@@ -184,8 +202,34 @@ class ToBuyTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: reload)
+        
+        initToolbar()
     }
+    
+    func initToolbar() {
+        let labelItem = UIBarButtonItem.init(customView: countLabel)
 
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target:nil, action:nil)
+        
+        let addFromCarema = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(createItemFromCarema))
+        addFromCarema.tintColor = UIColor(named: "BrandColor")
+        
+
+        let addFromText = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(createItemFromText))
+        addFromText.tintColor = UIColor(named: "BrandColor")
+        
+        toolbarItems = [addFromCarema, spacer, labelItem, spacer, addFromText]
+        
+        navigationController?.setToolbarHidden(false, animated: false)
+    }
+    @objc func createItemFromCarema() {
+        // pick up image here
+    }
+    
+    @objc func createItemFromText() {
+        
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
