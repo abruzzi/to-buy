@@ -320,28 +320,28 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xtR-SW-QC9">
                                                     <rect key="frame" x="41" y="11.5" width="188" height="32"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0Dq-7b-HTt">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0Dq-7b-HTt">
                                                             <rect key="frame" x="0.0" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="aUD-7c-CPO"/>
                                                                 <constraint firstAttribute="width" constant="32" id="eTp-mn-1xc"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fBq-HC-Hhi">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fBq-HC-Hhi">
                                                             <rect key="frame" x="52" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32" id="0Ey-5y-vSM"/>
                                                                 <constraint firstAttribute="height" constant="32" id="G0N-l4-EZW"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jG7-I2-uxj">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jG7-I2-uxj">
                                                             <rect key="frame" x="104" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="d6H-GM-auZ"/>
                                                                 <constraint firstAttribute="width" constant="32" id="oPc-0j-uG2"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholdertext.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DDK-3P-Z1f">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DDK-3P-Z1f">
                                                             <rect key="frame" x="156" y="1" width="32" height="29.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="eQQ-Y8-93I"/>
@@ -391,7 +391,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To buy" id="rgd-B5-3sv">
-                        <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="57W-gb-If9">
+                        <barButtonItem key="leftBarButtonItem" image="book.circle" catalog="system" id="57W-gb-If9">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
                                 <segue destination="o9u-uS-IvF" kind="presentation" id="lhR-kb-F6x"/>
@@ -413,7 +413,7 @@
                         <outlet property="secondImageSnapshot" destination="fBq-HC-Hhi" id="Exk-Iu-8Kd"/>
                         <outlet property="thirdImageSnapshot" destination="jG7-I2-uxj" id="0yc-Sf-tfY"/>
                         <segue destination="wV7-mU-M6N" kind="presentation" identifier="ToBuyHistory" id="zUA-05-D3M"/>
-                        <segue destination="hTy-Md-4zw" kind="presentation" id="XH7-7v-4iB"/>
+                        <segue destination="hTy-Md-4zw" kind="presentation" identifier="ToBuyEditView" id="XH7-7v-4iB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVk-sZ-bmE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -665,17 +665,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pit-M3-1Ca">
-                                                    <rect key="frame" x="142" y="15" width="132" height="31"/>
+                                                    <rect key="frame" x="84.5" y="15" width="189.5" height="31"/>
                                                     <color key="tintColor" name="BrandColor"/>
                                                     <connections>
                                                         <action selector="onPriorityChange:" destination="MpN-EA-Pww" eventType="valueChanged" id="c0l-lf-Zdh"/>
                                                     </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KA-ur-0c9">
-                                                    <rect key="frame" x="16" y="19.5" width="112" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="112" id="A4W-1b-mn8"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="16" y="19.5" width="54.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="FontColor"/>
                                                     <nil key="highlightedColor"/>
@@ -736,8 +733,8 @@
                                                         <action selector="onSwitchChange:" destination="MpN-EA-Pww" eventType="valueChanged" id="wDF-97-mTt"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Also save for later" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNA-aC-FrG">
-                                                    <rect key="frame" x="16" y="20" width="169" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Also save for later" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNA-aC-FrG">
+                                                    <rect key="frame" x="16" y="19.5" width="136" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="FontColor"/>
                                                     <nil key="highlightedColor"/>
@@ -749,6 +746,7 @@
                                                 <constraint firstItem="9NK-0Q-2za" firstAttribute="trailing" secondItem="T1z-fK-Heq" secondAttribute="trailingMargin" id="Pp6-DL-hRV"/>
                                                 <constraint firstItem="9NK-0Q-2za" firstAttribute="centerY" secondItem="T1z-fK-Heq" secondAttribute="centerY" id="W5W-qB-giN"/>
                                                 <constraint firstItem="YNA-aC-FrG" firstAttribute="centerY" secondItem="T1z-fK-Heq" secondAttribute="centerY" id="dzu-mS-D9V"/>
+                                                <constraint firstItem="9NK-0Q-2za" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YNA-aC-FrG" secondAttribute="trailing" constant="8" symbolic="YES" id="mth-0Q-PMh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -802,10 +800,11 @@
     </scenes>
     <color key="tintColor" systemColor="systemTealColor"/>
     <resources>
+        <image name="book.circle" catalog="system" width="128" height="121"/>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
-        <image name="placeholdertext.fill" catalog="system" width="80" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="square" catalog="system" width="128" height="114"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="square.stack.3d.up" catalog="system" width="128" height="124"/>

@@ -35,7 +35,7 @@ extension ToBuyTableViewController: HistoryDelegate {
     }
     
     func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
-        let placeholder = UIImage(named: "placeholdertext.fill")
+        let placeholder = UIImage(named: "square")
         DispatchQueue.main.async {
             if(images.count == 4) {
                 self.firstImageSnapshot.image = images[0]
@@ -226,7 +226,7 @@ class ToBuyTableViewController: UITableViewController {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     func reload(nofitication: Notification) {

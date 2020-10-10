@@ -34,8 +34,8 @@
                                                         <constraint firstAttribute="height" constant="100" id="Od8-rZ-p1S"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6tk-Z3-1fA">
-                                                    <rect key="frame" x="20" y="10" width="236" height="100"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6tk-Z3-1fA">
+                                                    <rect key="frame" x="20" y="0.0" width="226" height="120"/>
                                                     <color key="backgroundColor" name="BGColor"/>
                                                     <color key="textColor" name="FontColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -65,14 +65,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2X-L2-y9r">
-                                                    <rect key="frame" x="20" y="11" width="134" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2X-L2-y9r">
+                                                    <rect key="frame" x="20" y="11" width="114" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" name="FontColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Other" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4be-au-uWs">
-                                                    <rect key="frame" x="209" y="13" width="134" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4be-au-uWs">
+                                                    <rect key="frame" x="301.5" y="12.5" width="41.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" name="BrandColor"/>
                                                     <nil key="highlightedColor"/>
@@ -84,6 +84,7 @@
                                                 <constraint firstItem="M2X-L2-y9r" firstAttribute="top" secondItem="01f-7V-6mv" secondAttribute="topMargin" id="IeQ-RE-NPk"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="M2X-L2-y9r" secondAttribute="bottom" id="Zld-zC-zhh"/>
                                                 <constraint firstItem="4be-au-uWs" firstAttribute="centerY" secondItem="01f-7V-6mv" secondAttribute="centerY" id="ckh-OQ-2C3"/>
+                                                <constraint firstItem="4be-au-uWs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="M2X-L2-y9r" secondAttribute="trailing" constant="8" symbolic="YES" id="fNh-tL-Qqw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="BGColor"/>
