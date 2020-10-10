@@ -15,7 +15,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="CanBuyCollectionView" id="Ypl-f9-r4H" customClass="ShoppingCollectionViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="n0G-DR-v3N">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="lya-I8-8tk">
@@ -87,7 +87,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="EditingTableViewController" id="WI0-Md-U6r" customClass="EditingTableViewController" customModule="To_Buy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="none" allowsSelection="NO" rowHeight="80" estimatedRowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="GwE-Ol-kOr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="BGColor"/>
                         <sections>
@@ -302,8 +302,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="wVZ-T1-Yk7">
                                                     <rect key="frame" x="0.0" y="0.0" width="33" height="55.5"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Ye-2a-yZY">
-                                                            <rect key="frame" x="0.5" y="0.5" width="32" height="31"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.stack.3d.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6Ye-2a-yZY">
+                                                            <rect key="frame" x="0.5" y="0.0" width="32" height="32.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="32" id="SNx-nq-a15"/>
                                                                 <constraint firstAttribute="width" constant="32" id="Yq4-bH-v4C"/>
@@ -391,7 +391,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To buy" id="rgd-B5-3sv">
-                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="57W-gb-If9">
+                        <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="57W-gb-If9">
                             <color key="tintColor" name="BrandColor"/>
                             <connections>
                                 <segue destination="o9u-uS-IvF" kind="presentation" id="lhR-kb-F6x"/>
@@ -802,13 +802,13 @@
     </scenes>
     <color key="tintColor" systemColor="systemTealColor"/>
     <resources>
-        <image name="book.circle" catalog="system" width="128" height="121"/>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="placeholdertext.fill" catalog="system" width="80" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <image name="square.stack.3d.up" catalog="system" width="128" height="124"/>
         <image name="tag.circle" catalog="system" width="128" height="121"/>
         <namedColor name="BGColor">
             <color red="0.95300000905990601" green="0.96100002527236938" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

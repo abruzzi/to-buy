@@ -76,7 +76,12 @@ class ToBuyTableViewCell: UITableViewCell {
         
         toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
         
-        toBuyItemImage.image = UIImage(data: toBuy.image!)
+        if let image = toBuy.image {
+            toBuyItemImage.image = UIImage(data: image)
+        } else {
+            toBuyItemImage.image = UIImage(named: "crystal_ball")
+        }
+        
         toBuyItemImage.layer.cornerRadius = 4.0
         toBuyItemImage.layer.masksToBounds = true
         
