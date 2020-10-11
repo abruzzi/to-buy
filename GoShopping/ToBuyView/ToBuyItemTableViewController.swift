@@ -151,19 +151,18 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     }
     
     @objc func keyboardWillChange(notification: NSNotification) {
-        if let scrollView = tableView, let userInfo = notification.userInfo, let endValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey], let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey], let curveValue = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] {
-            
-            let endRect = view.convert((endValue as AnyObject).cgRectValue, from: view.window)
-            let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y
-            scrollView.contentInset.bottom = keyboardOverlap
-            scrollView.verticalScrollIndicatorInsets.bottom = keyboardOverlap
-            
-            let duration = (durationValue as AnyObject).doubleValue
-            let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))
-            UIView.animate(withDuration: duration!, delay: 0, options: options, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: nil)
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = .zero
+        } else {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
         }
+
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
     
     //Action

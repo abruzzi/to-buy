@@ -126,17 +126,19 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
-    @objc func keyboardWillChange(notification: NSNotification) {
-        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            return
-        }
-        
-        if notification.name == UIResponder.keyboardWillChangeFrameNotification ||
-            notification.name == UIResponder.keyboardWillShowNotification {
-            view.frame.origin.y = -(keyboardRect.height)
+    @objc func keyboardWillChange(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = .zero
         } else {
-            view.frame.origin.y = 0
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
         }
+
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
     
     //Action
