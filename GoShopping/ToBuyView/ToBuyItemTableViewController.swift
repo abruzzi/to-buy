@@ -10,11 +10,9 @@ import UIKit
 
 class ToBuyItemTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var delegate: MasterDetailDelegate?
-    
     let store = CoreDataStack.store
     
-    var item: ToBuy?
+    var item: ToBuy!
     var category: String!
     var priority: Int = 0
     
@@ -35,19 +33,28 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         return provider
     }()
     
-    
-    
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var supermarketTextField: SearchTextField!
     @IBOutlet weak var prioritySlider: UISlider!
     
     @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
-        guard let item = item else { return }
+        guard let context = item.managedObjectContext else {
+            return
+        }
+        
+        guard let name = itemNameTextField.text, !name.isEmpty else {
+            context.performAndWait {
+                context.delete(item)
+            }
+            return
+        }
+        
         let category = segmentCategory.selectedSegmentIndex
         
         item.name = itemNameTextField.text
         item.category = Int16(category)
         item.priority = Int16(priority)
+        
         item.supermarket = supermarketTextField.text
         
         // the one from camera
@@ -57,7 +64,9 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
             item.image = placeHolderImage?.pngData()
         }
         
-        delegate?.didUpdateToBuyItem(item: item)
+        context.performAndWait {
+            context.save(with: .updateToBuyItem)
+        }
         
         // also save tag
         if(!supermarketTextField.text!.isEmpty) {

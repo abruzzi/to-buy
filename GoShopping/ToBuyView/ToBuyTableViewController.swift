@@ -14,10 +14,6 @@ import LinkPresentation
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
-protocol MasterDetailDelegate: class {
-    func didUpdateToBuyItem(item: ToBuy)
-}
-
 extension UITableView {
     func emptyState (label: String, image: String) {
         let emptyView = EmptyList(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height), label: label, image: image)
@@ -402,7 +398,6 @@ class ToBuyTableViewController: UITableViewController {
                 let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
                     as? ToBuyItemTableViewController
                 
-                viewController?.delegate = self
                 viewController!.item = item
 
                 self.navigationController?.pushViewController(viewController!, animated: true)
@@ -480,15 +475,17 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
         tableView.beginUpdates()
     }
     
-    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let indexSet = IndexSet(integer: sectionIndex)
+
         switch type {
         case .insert:
-            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
+            tableView.insertSections(indexSet, with: .automatic)
         case .delete:
-            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
+            tableView.deleteSections(indexSet, with: .automatic)
         case .update:
-            tableView.reloadSections(IndexSet(integer: sectionIndex), with: .automatic)
+            tableView.reloadSections(indexSet, with: .automatic)
         case .move:
             break
         @unknown default:
@@ -515,13 +512,11 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
             }
             tableView.reloadRows(at: [indexPath], with: .automatic)
         case .move:
-            guard let indexPath = indexPath else {
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else {
                 return
             }
-            guard let newIndexPath = newIndexPath else {
-                return
-            }
-            tableView.moveRow(at: indexPath, to: newIndexPath)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
         @unknown default:
             fatalError("unknown \(type)")
         }
@@ -611,12 +606,3 @@ extension ToBuyTableViewController: UIImagePickerControllerDelegate, UINavigatio
     }
 }
 
-extension ToBuyTableViewController: MasterDetailDelegate {
-    func didUpdateToBuyItem(item: ToBuy) {
-        var indexPath: IndexPath?
-        
-        indexPath = dataProvider.fetchedResultsController.indexPath(forObject: item) ?? IndexPath(row: 0, section: 0)
-        
-        self.dataProvider.updateItem(at: indexPath!, item: item)
-    }
-}

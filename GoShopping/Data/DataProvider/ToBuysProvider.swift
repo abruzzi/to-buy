@@ -21,12 +21,12 @@ class ToBuysProvider {
     
     lazy var fetchedResultsController: NSFetchedResultsController<ToBuy> = {
         let fetchRequest: NSFetchRequest<ToBuy> = ToBuy.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "supermarket", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(ToBuy.supermarket), ascending: true)]
         
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                     managedObjectContext: viewContext,
-                                                    sectionNameKeyPath: "supermarket", cacheName: nil)
+                                                    sectionNameKeyPath: #keyPath(ToBuy.supermarket), cacheName: nil)
         controller.delegate = fetchedResultsControllerDelegate
         
         do {
@@ -38,22 +38,6 @@ class ToBuysProvider {
         
         return controller
     }()
-    
-    func updateItem(at indexPath: IndexPath, item: ToBuy, shouldSave: Bool = true) {
-        viewContext.performAndWait {
-            let toBeUpdate = fetchedResultsController.object(at: indexPath)
-            
-            toBeUpdate.name = item.name
-            toBeUpdate.image = item.image ?? placeHolderImage?.pngData()
-            toBeUpdate.category = item.category
-            toBeUpdate.supermarket = item.supermarket
-            toBeUpdate.priority = item.priority
-            
-            if shouldSave {
-                viewContext.save(with: .updateToBuyItem)
-            }
-        }
-    }
     
     func addToBuyByImage(image: Data?) {
         viewContext.performAndWait {
@@ -101,7 +85,7 @@ class ToBuysProvider {
     func markAsImportant(at indexPath: IndexPath, shouldSave: Bool = true) {
         viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)
-            item.priority = item.priority + 1
+            item.priority = 3
             if shouldSave {
                 viewContext.save(with: .markAsImportant)
             }
