@@ -27,12 +27,13 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         return CanBuyManager(store.viewContext)
     }()
     
-    
     private lazy var dataProvider: TagProvider = {
         let provider = TagProvider(with: store.viewContext,
                                    fetchedResultsControllerDelegate: nil)
         return provider
     }()
+    
+    
     
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var supermarketTextField: SearchTextField!
@@ -51,11 +52,11 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
             // the ones from camera
             if(itemImage.image?.size.width ?? 100 > 600) {
                 item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+            } else {
+                item.image = placeHolderImage?.pngData()
             }
             
-            item.createdAt = Date()
-            
-            context.save(with: .updateCanBuy)
+            context.save(with: .updateToBuyItem)
         }
         
         // also save tag
@@ -67,9 +68,9 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
             var image: Data?
             
             if(itemImage.image?.size.width ?? 100 > 600) {
-                image = UIImage(named: "icons8-crystal_ball")?.pngData()
-            } else {
                 image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+            } else {
+                image = placeHolderImage?.pngData()
             }
 
             canBuyManger.createCanBuy(
@@ -143,15 +144,18 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     }
     
     @objc func keyboardWillChange(notification: NSNotification) {
-        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            return
-        }
-        
-        if notification.name == UIResponder.keyboardWillChangeFrameNotification ||
-            notification.name == UIResponder.keyboardWillShowNotification {
-            view.frame.origin.y = -(keyboardRect.height)
-        } else {
-            view.frame.origin.y = 0
+        if let scrollView = tableView, let userInfo = notification.userInfo, let endValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey], let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey], let curveValue = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] {
+            
+            let endRect = view.convert((endValue as AnyObject).cgRectValue, from: view.window)
+            let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y
+            scrollView.contentInset.bottom = keyboardOverlap
+            scrollView.verticalScrollIndicatorInsets.bottom = keyboardOverlap
+            
+            let duration = (durationValue as AnyObject).doubleValue
+            let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))
+            UIView.animate(withDuration: duration!, delay: 0, options: options, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
         }
     }
     
