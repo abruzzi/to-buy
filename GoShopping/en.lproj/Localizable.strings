@@ -16,6 +16,7 @@
 "action.downgrade.title" = "Unmark as important";
 "action.delete.title" = "Delete";
 
+"category.system.title" = "Add new";
 "category.food.title" = "Food/Drink";
 "category.essentials.title" = "Essentials";
 "category.health.title" = "Health";

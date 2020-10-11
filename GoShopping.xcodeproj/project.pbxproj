@@ -695,14 +695,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoShopping/GoShopping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
@@ -718,14 +718,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GoShopping/GoShopping.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShopping/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping;
 				PRODUCT_NAME = "To Buy";
 				SUPPORTS_MACCATALYST = NO;
@@ -739,7 +739,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GoShoppingShare/GoShoppingShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShoppingShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -748,7 +748,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping.GoShoppingShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -762,7 +762,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = GoShoppingShare/GoShoppingShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = E774YU8Y62;
 				INFOPLIST_FILE = GoShoppingShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -771,7 +771,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.0;
+				MARKETING_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.icodeit.GoShopping.GoShoppingShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

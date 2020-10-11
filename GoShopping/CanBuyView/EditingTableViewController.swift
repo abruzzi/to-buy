@@ -16,6 +16,8 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     var item: CanBuy!
     var category: String!
     
+    var delegate: CanBuyInteractionDelegate?
+    
     let categories = [
         NSLocalizedString("category.food.title", comment: "category.others.title"),
         NSLocalizedString("category.essentials.title", comment: "category.others.title"),
@@ -32,10 +34,32 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var supermarketTextField: SearchTextField!
     
-    @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
-        let category = segmentCategory.selectedSegmentIndex
-        let context = item.managedObjectContext!
+    override func viewWillDisappear(_ animated: Bool) {
+        guard let context = item.managedObjectContext else {
+            return
+        }
         
+        guard let name = itemNameTextField.text, !name.isEmpty else {
+            context.performAndWait {
+                context.delete(item)
+            }
+            return
+        }
+    }
+    
+    @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
+        guard let context = item.managedObjectContext else {
+            return
+        }
+        
+        guard let name = itemNameTextField.text, !name.isEmpty else {
+            context.performAndWait {
+                context.delete(item)
+            }
+            return
+        }
+        
+        let category = segmentCategory.selectedSegmentIndex
         context.performAndWait {
             item.name = itemNameTextField.text
             item.category = Int16(category)
@@ -56,6 +80,7 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
             self.dataProvider.addTag(name: supermarketTextField.text!)
         }
         
+        delegate?.didUpdateCanBuy(canBuy: item)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -91,6 +116,8 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        itemNameTextField.becomeFirstResponder()
     }
     
     deinit {

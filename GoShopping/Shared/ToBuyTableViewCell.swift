@@ -10,10 +10,11 @@ import UIKit
 
 class ToBuyTableViewCell: UITableViewCell {
     let categoryTitles = [
-        NSLocalizedString("category.food.title", comment: "category.food.title"),
-        NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
-        NSLocalizedString("category.health.title", comment: "category.health.title"),
-        NSLocalizedString("category.others.title", comment: "category.others.title")
+        "-1": NSLocalizedString("category.system.title", comment: "category.system.title"),
+        "0": NSLocalizedString("category.food.title", comment: "category.food.title"),
+        "1": NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
+        "2": NSLocalizedString("category.health.title", comment: "category.health.title"),
+        "3": NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
     @IBOutlet weak var delayedDotView: UIView!
@@ -47,7 +48,7 @@ class ToBuyTableViewCell: UITableViewCell {
         
         createdAtLabel.text = formatDate(toBuyHistoryItem.createdAt!)
         
-        toBuyItemCategory.text = categoryTitles[Int(toBuyHistoryItem.category)]
+        toBuyItemCategory.text = categoryTitles[String(toBuyHistoryItem.category)]
         
         if let image = toBuyHistoryItem.image {
             toBuyItemImage.image = UIImage(data: image)
@@ -86,7 +87,7 @@ class ToBuyTableViewCell: UITableViewCell {
         
         createdAtLabel.text = formatDate(toBuy.createdAt!)
         
-        toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
+        toBuyItemCategory.text = categoryTitles[String(toBuy.category)]
         
         if let image = toBuy.image {
             toBuyItemImage.image = UIImage(data: image)

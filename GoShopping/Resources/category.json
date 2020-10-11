@@ -1,5 +1,18 @@
 [
     {
+        "category": -1,
+        "image": "icons8-crystal_ball",
+        "items": [
+            {
+                "name": "",
+                "image": "icons8-crystal_ball",
+                "attrs": {
+                    "system": "add"
+                }
+            }
+        ]
+    },
+    {
         "category": 0,
         "image": "icons8-food",
         "items": [

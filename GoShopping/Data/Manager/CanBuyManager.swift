@@ -28,7 +28,10 @@ class CanBuyManager {
         
         do {
             let result = try viewContext.fetch(fetchRequest)
-            return result[0]
+            if(result.count > 0) {
+                return result[0]
+            }
+            return nil
         }catch let error as NSError {
             print("Could not fetch value. \(error), \(error.userInfo)")
         }

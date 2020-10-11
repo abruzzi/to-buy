@@ -16,6 +16,7 @@
 "action.downgrade.title" = "取消重要标记";
 "action.delete.title" = "删除";
 
+"category.system.title" = "添加";
 "category.food.title" = "食物/饮料";
 "category.essentials.title" = "生活必需";
 "category.health.title" = "健康护理";
