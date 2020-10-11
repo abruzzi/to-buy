@@ -99,7 +99,8 @@ class ToBuyTableViewCell: UITableViewCell {
         
         
         supermarket.text = toBuy.supermarket
-        priorityDotView.layer.opacity = toBuy.priority > 0 ? 1.0 : 0.0
+        let gradient = toBuy.priority == 0 ? 0.0 : Float(Double(toBuy.priority) / 5.0)
+        priorityDotView.layer.opacity = gradient
         delayedDotView.layer.cornerRadius = 3.0
         delayedDotView.layer.opacity = toBuy.isDelayed ? 1.0 : 0.0
         

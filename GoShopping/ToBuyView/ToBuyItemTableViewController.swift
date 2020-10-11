@@ -85,7 +85,9 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     }
     
     @IBAction func onPriorityChange(_ sender: UISlider) {
-        priority = Int(sender.value.rounded())
+        let rounded = sender.value.rounded()
+        sender.setValue(rounded, animated: false)
+        priority = Int(rounded)
     }
     
     @IBAction func onSegmentChange(_ sender: UISegmentedControl) {

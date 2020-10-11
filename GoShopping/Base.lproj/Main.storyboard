@@ -729,6 +729,8 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9NK-0Q-2za">
                                                     <rect key="frame" x="223" y="14.5" width="51" height="31"/>
+                                                    <color key="tintColor" name="BrandColor"/>
+                                                    <color key="onTintColor" name="BrandColor"/>
                                                     <connections>
                                                         <action selector="onSwitchChange:" destination="MpN-EA-Pww" eventType="valueChanged" id="wDF-97-mTt"/>
                                                     </connections>
