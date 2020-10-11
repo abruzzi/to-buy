@@ -40,6 +40,10 @@ class HistoryTableViewController: UITableViewController {
         self.present(alert, animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

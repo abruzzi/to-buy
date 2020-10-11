@@ -16,6 +16,7 @@
 "action.downgrade.title" = "Unmark as important";
 "action.delete.title" = "Delete";
 
+"category.system.title" = "Add new";
 "category.food.title" = "Food/Drink";
 "category.essentials.title" = "Essentials";
 "category.health.title" = "Health";
@@ -57,3 +58,5 @@
 "share.message.title"="Share your to buy items with your friend";
 
 "share.extension.message.title"="Save into To Buy";
+
+"tobuy.nav.title"="items";

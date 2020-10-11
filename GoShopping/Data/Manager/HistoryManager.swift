@@ -100,8 +100,11 @@ class HistoryManager {
         }
         
         return mostRecentToBuyItems.map { (nsobj: NSManagedObject) in
-            let data = nsobj.value(forKey: "image") as! Data
-            return UIImage(data: data)!
+            if let data = nsobj.value(forKey: "image") as? Data {
+                return UIImage(data: data) ?? placeHolderImage!
+            } else {
+                return placeHolderImage!
+            }
         }
     }
 }

@@ -10,12 +10,14 @@ import UIKit
 
 class ToBuyTableViewCell: UITableViewCell {
     let categoryTitles = [
-        NSLocalizedString("category.food.title", comment: "category.food.title"),
-        NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
-        NSLocalizedString("category.health.title", comment: "category.health.title"),
-        NSLocalizedString("category.others.title", comment: "category.others.title")
+        "-1": NSLocalizedString("category.system.title", comment: "category.system.title"),
+        "0": NSLocalizedString("category.food.title", comment: "category.food.title"),
+        "1": NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
+        "2": NSLocalizedString("category.health.title", comment: "category.health.title"),
+        "3": NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
+    @IBOutlet weak var delayedDotView: UIView!
     @IBOutlet weak var priorityDotView: UIView!
     @IBOutlet weak var toBuyItemLabel: UILabel!
     @IBOutlet weak var toBuyItemImage: UIImageView!
@@ -35,6 +37,9 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuyHistoryItem: ToBuyHistory) {
+        guard toBuyHistoryItem.name != nil else {
+            return
+        }
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyHistoryItem.name!)
         toBuyItemLabel.attributedText = styledItemName
 
@@ -43,9 +48,14 @@ class ToBuyTableViewCell: UITableViewCell {
         
         createdAtLabel.text = formatDate(toBuyHistoryItem.createdAt!)
         
-        toBuyItemCategory.text = categoryTitles[Int(toBuyHistoryItem.category)]
+        toBuyItemCategory.text = categoryTitles[String(toBuyHistoryItem.category)]
         
-        toBuyItemImage.image = UIImage(data: toBuyHistoryItem.image!)
+        if let image = toBuyHistoryItem.image {
+            toBuyItemImage.image = UIImage(data: image)
+        } else {
+            toBuyItemImage.image = UIImage(named: "crystal_ball")
+        }
+        
         toBuyItemImage.layer.cornerRadius = 4.0
         toBuyItemImage.layer.masksToBounds = true
         
@@ -53,6 +63,7 @@ class ToBuyTableViewCell: UITableViewCell {
         supermarket.text = toBuyHistoryItem.supermarket
 
         priorityDotView.layer.opacity = 0
+        delayedDotView.layer.opacity = 0
         createdAtLabel.layer.opacity = 0.7
         toBuyItemCategory.layer.opacity = 0.7
         toBuyItemLabel.layer.opacity = 0.7
@@ -61,6 +72,10 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuy: ToBuy) {
+        guard let name = toBuy.name, !name.isEmpty else {
+            return
+        }
+        
         self.contentView.backgroundColor =  toBuy.isCompleted ? UIColor(named: "ListCellBGColor") : UIColor(named: "BGColor")
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
 
@@ -72,15 +87,23 @@ class ToBuyTableViewCell: UITableViewCell {
         
         createdAtLabel.text = formatDate(toBuy.createdAt!)
         
-        toBuyItemCategory.text = categoryTitles[Int(toBuy.category)]
+        toBuyItemCategory.text = categoryTitles[String(toBuy.category)]
         
-        toBuyItemImage.image = UIImage(data: toBuy.image!)
+        if let image = toBuy.image {
+            toBuyItemImage.image = UIImage(data: image)
+        } else {
+            toBuyItemImage.image = UIImage(named: "crystal_ball")
+        }
+        
         toBuyItemImage.layer.cornerRadius = 4.0
         toBuyItemImage.layer.masksToBounds = true
         
         
         supermarket.text = toBuy.supermarket
-        priorityDotView.layer.opacity = toBuy.priority > 0 ? 1.0 : 0.0
+        let gradient = toBuy.priority == 0 ? 0.0 : Float(Double(toBuy.priority) / 5.0)
+        priorityDotView.layer.opacity = gradient
+        delayedDotView.layer.cornerRadius = 3.0
+        delayedDotView.layer.opacity = toBuy.isDelayed ? 1.0 : 0.0
         
         if(toBuy.isCompleted) {
             createdAtLabel.layer.opacity = 0.5
@@ -89,6 +112,7 @@ class ToBuyTableViewCell: UITableViewCell {
             supermarket.layer.opacity = 0.5
             toBuyItemImage.layer.opacity = 0.3
             priorityDotView.layer.opacity = 0
+            delayedDotView.layer.opacity = 0
         } else {
             createdAtLabel.layer.opacity = 1
             toBuyItemCategory.layer.opacity = 1

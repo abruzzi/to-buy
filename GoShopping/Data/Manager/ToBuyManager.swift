@@ -198,13 +198,13 @@ class ToBuyManager {
                              priority: nsobj.value(forKey: "priority") as! Int,
                              supermarket: nsobj.value(forKey: "supermarket") as! String,
                              image: nsobj.value(forKey: "image") as? Data,
-                             isCompleted: (nsobj.value(forKey: "isCompleted") as! Bool),
-                             isForeign: (nsobj.value(forKey: "isForeign") as! Bool),
-                             isDelayed: (nsobj.value(forKey: "isDelayed") as! Bool),
+                             isCompleted: (nsobj.value(forKey: "isCompleted") as? Bool ?? false),
+                             isForeign: (nsobj.value(forKey: "isForeign") as? Bool ?? false),
+                             isDelayed: (nsobj.value(forKey: "isDelayed") as? Bool ?? false),
                              createdAt: (nsobj.value(forKey: "createdAt") as! Date))
         }
         
-        let toBuyItems = allItems.filter { !$0.isCompleted && !$0.isDelayed }
+        let toBuyItems = allItems.filter { !$0.isCompleted }
         let delayedItems = allItems.filter { $0.isDelayed }
         
         if let delegate = delegate {

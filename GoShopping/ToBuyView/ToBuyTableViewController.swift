@@ -14,6 +14,10 @@ import LinkPresentation
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
+protocol MasterDetailDelegate: class {
+    func didUpdateToBuyItem(item: ToBuy)
+}
+
 extension UITableView {
     func emptyState (label: String, image: String) {
         let emptyView = EmptyList(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height), label: label, image: image)
@@ -35,7 +39,8 @@ extension ToBuyTableViewController: HistoryDelegate {
     }
     
     func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
-        let placeholder = UIImage(named: "placeholdertext.fill")
+        let placeholder = UIImage(named: "square")
+        
         DispatchQueue.main.async {
             if(images.count == 4) {
                 self.firstImageSnapshot.image = images[0]
@@ -56,6 +61,7 @@ class ToBuyTableViewController: UITableViewController {
     let store = CoreDataStack.store
     
     let searchController = UISearchController(searchResultsController: nil)
+    var alertActionToEnable: UIAlertAction!
     
     private lazy var historyManager: HistoryManager = {
         return HistoryManager(store.viewContext)
@@ -65,21 +71,34 @@ class ToBuyTableViewController: UITableViewController {
         return ToBuyManager(store.viewContext)
     }()
     
+    private let countLabel: UILabel = {
+        let countLabel = UILabel(frame: CGRect.zero)
+        countLabel.text = ""
+        countLabel.textColor = UIColor(named: "FontColor")
+        countLabel.font = UIFont.systemFont(ofSize: 13.0)
+        countLabel.textAlignment = .center
+        
+        return countLabel
+    }()
+    
     private lazy var dataProvider: ToBuysProvider = {
         let provider = ToBuysProvider(with: store.viewContext,
                                       fetchedResultsControllerDelegate: self)
         return provider
     }()
     
-    private func updateBadge() {
-        let tabbar = self.tabBarController as? BaseTabBarController
-        tabbar?.updateBadge()
+    private func updateToBuyItemCount() {
+        let title = NSLocalizedString("tobuy.nav.title", comment: "tobuy.nav.title")
+        let itemNumber = dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+        
+        countLabel.text = "\(itemNumber) \(title)"
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(false, animated: false)
         historyManager.fetchToBuyHistory()
-        tableView.reloadData()
-        self.updateBadge()
+        filterContentForSearchText("", category: "All")
+        self.updateToBuyItemCount()
     }
     
     @IBOutlet weak var buttonShare: UIBarButtonItem!
@@ -150,18 +169,7 @@ class ToBuyTableViewController: UITableViewController {
     
     let categories = ["All", "Remaining", "Shared with me"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for buy items"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        
-        searchController.searchBar.scopeButtonTitles = categories
-        searchController.searchBar.delegate = self
-        
+    func setupHistorySection() {
         headerViewContainer.layer.cornerRadius = 4
         historyCountLabel.layer.cornerRadius = 4
         historyCountLabel.layer.masksToBounds = true
@@ -171,6 +179,24 @@ class ToBuyTableViewController: UITableViewController {
         thirdImageSnapshot.layer.cornerRadius = 4.0
         forthImageSnapshot.layer.cornerRadius = 4.0
         
+        
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        //TODO: i18n
+        searchController.searchBar.placeholder = "Search for buy items"
+        
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        searchController.searchBar.scopeButtonTitles = categories
+        searchController.searchBar.delegate = self
+        
+        setupHistorySection()
         
         historyManager.historyDelegate = self
         
@@ -183,10 +209,27 @@ class ToBuyTableViewController: UITableViewController {
         tableView.register(UINib(nibName: "ToBuyTableViewCell", bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: nil, using: reload)
+        
+        initToolbar()
+    }
+    
+    func initToolbar() {
+        let labelItem = UIBarButtonItem.init(customView: countLabel)
+
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target:nil, action:nil)
+        
+        let addFromCarema = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(selectImage))
+        addFromCarema.tintColor = UIColor(named: "BrandColor")
+        
+
+        let addFromText = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(createItemFromText))
+        addFromText.tintColor = UIColor(named: "BrandColor")
+        
+        toolbarItems = [addFromCarema, spacer, labelItem, spacer, addFromText]
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     func reload(nofitication: Notification) {
@@ -210,7 +253,6 @@ class ToBuyTableViewController: UITableViewController {
     func filterContentForSearchText(_ searchText: String,
                                     category: String) {
         let keywords = NSPredicate(format: "name CONTAINS[c] %@", searchText)
-        let isNotDelayedPredicate = NSPredicate(format: "isDelayed = false")
         let isForeignPredicate = NSPredicate(format: "isForeign = true")
         let isCompletedPredicate = NSPredicate(format: "isCompleted = false")
         
@@ -218,13 +260,13 @@ class ToBuyTableViewController: UITableViewController {
         
         switch category {
         case "All":
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [] : [keywords, ])
         case "Remaining":
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate, isCompletedPredicate] : [keywords, isNotDelayedPredicate, isCompletedPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isCompletedPredicate] : [keywords, isCompletedPredicate])
         case "Shared with me":
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate, isForeignPredicate] : [keywords, isNotDelayedPredicate, isForeignPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isForeignPredicate] : [keywords, isForeignPredicate])
         default:
-            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isNotDelayedPredicate] : [keywords, isNotDelayedPredicate])
+            predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [] : [keywords])
         }
         
         dataProvider.fetchedResultsController.fetchRequest.predicate = predicate
@@ -241,6 +283,11 @@ class ToBuyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
+        
+        guard let name = item.name, !name.isEmpty else {
+            return nil
+        }
+        
         if(!item.isCompleted) {
             let later = laterAction(at: indexPath)
             let complete = completeAction(at: indexPath)
@@ -282,11 +329,16 @@ class ToBuyTableViewController: UITableViewController {
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
+            
+            guard let name = item.name, !name.isEmpty else {
+                return completion(false)
+            }
+            
             self.pushItemIntoHistory(item: item)
             self.dataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
         }
-        action.image = UIImage(systemName: "delete.right")
+        action.image = UIImage(systemName: "trash")
         action.backgroundColor = .systemRed
         return action
     }
@@ -338,10 +390,24 @@ class ToBuyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
         
+        guard let name = item.name, !name.isEmpty else { return nil }
+        
         return UIContextMenuConfiguration(identifier: item.name as NSCopying?, previewProvider: {
             let view = ItemPreviewViewController(itemName: item.name!, image: item.image!)
             return view
         }){ _ in
+            let editAction = UIAction(
+                title: NSLocalizedString("action.editCanBuyItem.title", comment: "action.editCanBuyItem.title"),
+                image: UIImage(systemName: "square.and.pencil")) { _ in
+                let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
+                    as? ToBuyItemTableViewController
+                
+                viewController?.delegate = self
+                viewController!.item = item
+
+                self.navigationController?.pushViewController(viewController!, animated: true)
+            }
+            
             let liftPriorityAction = UIAction(
                 title: NSLocalizedString("action.priority.title", comment: "action.priority.title"),
                 image: UIImage(systemName: "chevron.up.circle")) { _ in
@@ -368,7 +434,7 @@ class ToBuyTableViewController: UITableViewController {
             
             let deleteAction = UIAction(
                 title: NSLocalizedString("action.delete.title", comment: "action.delete.title"),
-                image: UIImage(systemName: "delete.right"),
+                image: UIImage(systemName: "trash"),
                 attributes: .destructive) { _ in
                     let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
                     self.pushItemIntoHistory(item: item)
@@ -379,6 +445,7 @@ class ToBuyTableViewController: UITableViewController {
                 return UIMenu(title: "", children: [deleteAction])
             } else {
                 return UIMenu(title: "", children: [
+                                editAction,
                                 item.priority > 0 ? downgradeAction : liftPriorityAction,
                                 delayAction,
                                 completeAction,
@@ -430,6 +497,7 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else {
@@ -462,7 +530,93 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     // 5
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
-        self.updateBadge()
+        self.updateToBuyItemCount()
     }
 }
 
+
+extension ToBuyTableViewController {
+    @objc func createItemFromText(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Add item to buy", message: "You can always edit the item later on", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "Name"
+            textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        addActionSheetForiPad(actionSheet: alert)
+        present(alert, animated: true, completion: nil)
+        
+        alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
+            guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
+            self.dataProvider.addToBuyByName(name: name)
+        }
+        
+        alertActionToEnable.isEnabled = false
+        alert.addAction(alertActionToEnable!)
+    }
+    
+    @objc
+    func textChanged(_ sender: UITextField) {
+        guard let tagName = sender.text else {
+            alertActionToEnable.isEnabled = false
+            return
+        }
+        
+        alertActionToEnable.isEnabled = (tagName.count > 0)
+    }
+}
+
+extension ToBuyTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    //Action
+    @objc func selectImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        let actionSheet = UIAlertController(title: NSLocalizedString( "dialog.image.picker.title", comment:  "dialog.image.picker.title"),
+                                            message: NSLocalizedString( "dialog.image.picker.subtitle", comment:  "dialog.image.picker.subtitle"), preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.photo", comment:  "dialog.image.picker.photo"), style: .default, handler: { (action: UIAlertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.carema", comment:  "dialog.image.picker.carema"), style: .default, handler: { (action: UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.cancel", comment:  "dialog.image.picker.cancel"), style: .cancel, handler: nil))
+        
+        addActionSheetForiPad(actionSheet: actionSheet)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        self.dataProvider.addToBuyByImage(image: image?.pngData())
+
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ToBuyTableViewController: MasterDetailDelegate {
+    func didUpdateToBuyItem(item: ToBuy) {
+        var indexPath: IndexPath?
+        
+        indexPath = dataProvider.fetchedResultsController.indexPath(forObject: item) ?? IndexPath(row: 0, section: 0)
+        
+        self.dataProvider.updateItem(at: indexPath!, item: item)
+    }
+}

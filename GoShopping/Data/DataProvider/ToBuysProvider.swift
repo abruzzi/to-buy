@@ -22,7 +22,6 @@ class ToBuysProvider {
     lazy var fetchedResultsController: NSFetchedResultsController<ToBuy> = {
         let fetchRequest: NSFetchRequest<ToBuy> = ToBuy.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "supermarket", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "isDelayed = %d", false)
         
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -40,23 +39,54 @@ class ToBuysProvider {
         return controller
     }()
     
-    func addToBuyItem(canBuyItem: ToBuy, shouldSave: Bool = true) {
+    func updateItem(at indexPath: IndexPath, item: ToBuy, shouldSave: Bool = true) {
+        viewContext.performAndWait {
+            let toBeUpdate = fetchedResultsController.object(at: indexPath)
+            
+            toBeUpdate.name = item.name
+            toBeUpdate.image = item.image ?? placeHolderImage?.pngData()
+            toBeUpdate.category = item.category
+            toBeUpdate.supermarket = item.supermarket
+            toBeUpdate.priority = item.priority
+            
+            if shouldSave {
+                viewContext.save(with: .updateToBuyItem)
+            }
+        }
+    }
+    
+    func addToBuyByImage(image: Data?) {
         viewContext.performAndWait {
             let item = ToBuy(context: viewContext)
             
             item.uuid = UUID()
-            item.name = canBuyItem.name
-            item.category = canBuyItem.category
-            item.image = canBuyItem.image
+            item.name = "New Item"
+            item.image = image ?? placeHolderImage?.pngData()
+            item.category = defaultCategory
+            item.supermarket = ""
+            item.priority = 0
             item.createdAt = Date()
-            item.supermarket = canBuyItem.supermarket
             
-            if shouldSave {
-                viewContext.save(with: .addToBuyItem)
-            }
+            viewContext.save(with: .addToBuyItem)
         }
     }
-
+    
+    func addToBuyByName(name: String) {
+        viewContext.performAndWait {
+            let item = ToBuy(context: viewContext)
+            
+            item.uuid = UUID()
+            item.name = name
+            item.category = defaultCategory
+            item.image = placeHolderImage?.pngData()
+            item.supermarket = ""
+            item.priority = 0
+            item.createdAt = Date()
+            
+            viewContext.save(with: .addToBuyItem)
+        }
+    }
+    
     func markAsDelayed(at indexPath: IndexPath, shouldSave: Bool = true) {
         viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)

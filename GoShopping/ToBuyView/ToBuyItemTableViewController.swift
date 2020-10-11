@@ -1,22 +1,22 @@
 //
-//  EditingTableViewController.swift
+//  ToBuyItemTableViewController.swift
 //  GoShopping
 //
-//  Created by Juntao Qiu on 6/9/20.
+//  Created by Juntao Qiu on 9/10/20.
 //  Copyright © 2020 Juntao Qiu. All rights reserved.
 //
 
 import UIKit
-import CoreData
 
-class EditingTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ToBuyItemTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    var delegate: MasterDetailDelegate?
     
     let store = CoreDataStack.store
     
-    var item: CanBuy!
+    var item: ToBuy?
     var category: String!
-    
-    var delegate: CanBuyInteractionDelegate?
+    var priority: Int = 0
     
     let categories = [
         NSLocalizedString("category.food.title", comment: "category.others.title"),
@@ -25,63 +25,70 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         NSLocalizedString("category.others.title", comment: "category.others.title"),
     ]
     
+    private lazy var canBuyManger: CanBuyManager = {
+        return CanBuyManager(store.viewContext)
+    }()
+    
     private lazy var dataProvider: TagProvider = {
         let provider = TagProvider(with: store.viewContext,
                                    fetchedResultsControllerDelegate: nil)
         return provider
     }()
     
+    
+    
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var supermarketTextField: SearchTextField!
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        guard let context = item.managedObjectContext else {
-            return
-        }
-        
-        guard let name = itemNameTextField.text, !name.isEmpty else {
-            context.performAndWait {
-                context.delete(item)
-            }
-            return
-        }
-    }
+    @IBOutlet weak var prioritySlider: UISlider!
     
     @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
-        guard let context = item.managedObjectContext else {
-            return
-        }
-        
-        guard let name = itemNameTextField.text, !name.isEmpty else {
-            context.performAndWait {
-                context.delete(item)
-            }
-            return
-        }
-        
+        guard let item = item else { return }
         let category = segmentCategory.selectedSegmentIndex
-        context.performAndWait {
-            item.name = itemNameTextField.text
-            item.category = Int16(category)
-            item.supermarket = supermarketTextField.text
-            
-            // the ones from camera
-            if(itemImage.image?.size.width ?? 100 > 600) {
-                item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
-            }
-            
-            item.createdAt = Date()
-            
-            context.save(with: .updateCanBuy)
+        
+        item.name = itemNameTextField.text
+        item.category = Int16(category)
+        item.priority = Int16(priority)
+        item.supermarket = supermarketTextField.text
+        
+        // the one from camera
+        if(itemImage.image?.size.width ?? 100 > 600) {
+            item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+        } else {
+            item.image = placeHolderImage?.pngData()
         }
+        
+        delegate?.didUpdateToBuyItem(item: item)
         
         // also save tag
         if(!supermarketTextField.text!.isEmpty) {
             self.dataProvider.addTag(name: supermarketTextField.text!)
         }
         
-        delegate?.didUpdateCanBuy(canBuy: item)
+        if(saveToCanBuyList) {
+            var image: Data?
+            
+            if(itemImage.image?.size.width ?? 100 > 600) {
+                image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+            } else {
+                image = placeHolderImage?.pngData()
+            }
+
+            // TODO: if does exist, update. otherwise create
+            canBuyManger.createCanBuy(
+                name: itemNameTextField.text ?? "",
+                category: Int(category),
+                image: image!,
+                supermarket: supermarketTextField.text ?? ""
+            )
+        }
+        
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func onPriorityChange(_ sender: UISlider) {
+        let rounded = sender.value.rounded()
+        sender.setValue(rounded, animated: false)
+        priority = Int(rounded)
     }
     
     @IBAction func onSegmentChange(_ sender: UISegmentedControl) {
@@ -92,17 +99,36 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     @IBOutlet weak var itemNameTextField: UITextField!
     //    @IBOutlet weak var supermarketTextField: UITextField!
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
+    @IBOutlet weak var saveForLaterSwitch: UISwitch!
+    
+    @IBAction func onSwitchChange(_ sender: UISwitch) {
+        saveToCanBuyList = sender.isOn
+    }
+    
+    private var saveToCanBuyList: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.keyboardDismissMode = .onDrag
-        itemNameTextField.text = item.name
-        supermarketTextField.text = item.supermarket
-        segmentCategory.selectedSegmentIndex = Int(item.category)
         
+        self.tableView.keyboardDismissMode = .onDrag
+        itemNameTextField.text = item?.name ?? ""
+        supermarketTextField.text = item?.supermarket ?? ""
+        segmentCategory.selectedSegmentIndex = Int(item?.category ?? 3)
+        prioritySlider.value = Float(item?.priority ?? 0)
+        saveForLaterSwitch.isOn = saveToCanBuyList
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
-        itemImage.image = UIImage(data: item.image!)
+        
+        if let data = item?.image {
+            itemImage.image = UIImage(data: data)
+        } else {
+            itemImage.image = placeHolderImage
+        }
+        
         itemImage.layer.cornerRadius = 4.0
         itemImage.layer.masksToBounds = true
         itemImage.addGestureRecognizer(singleTap)
@@ -116,8 +142,6 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
-        itemNameTextField.becomeFirstResponder()
     }
     
     deinit {
@@ -127,15 +151,18 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
     }
     
     @objc func keyboardWillChange(notification: NSNotification) {
-        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            return
-        }
-        
-        if notification.name == UIResponder.keyboardWillChangeFrameNotification ||
-            notification.name == UIResponder.keyboardWillShowNotification {
-            view.frame.origin.y = -(keyboardRect.height)
-        } else {
-            view.frame.origin.y = 0
+        if let scrollView = tableView, let userInfo = notification.userInfo, let endValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey], let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey], let curveValue = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] {
+            
+            let endRect = view.convert((endValue as AnyObject).cgRectValue, from: view.window)
+            let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y
+            scrollView.contentInset.bottom = keyboardOverlap
+            scrollView.verticalScrollIndicatorInsets.bottom = keyboardOverlap
+            
+            let duration = (durationValue as AnyObject).doubleValue
+            let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))
+            UIView.animate(withDuration: duration!, delay: 0, options: options, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
         }
     }
     
@@ -179,14 +206,4 @@ class EditingTableViewController: UITableViewController, UIImagePickerController
         picker.dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension UIViewController {
-  public func addActionSheetForiPad(actionSheet: UIAlertController) {
-    if let popoverPresentationController = actionSheet.popoverPresentationController {
-      popoverPresentationController.sourceView = self.view
-      popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-      popoverPresentationController.permittedArrowDirections = []
-    }
-  }
 }

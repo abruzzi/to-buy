@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+protocol CanBuyInteractionDelegate: class {
+    func didUpdateCanBuy(canBuy: CanBuy)
+}
+
 private let reuseIdentifier = "ItemCell"
 
 extension ShoppingCollectionViewController {
@@ -71,7 +75,7 @@ extension ShoppingCollectionViewController {
     
     //Action
     @objc func editNewItem() {
-        self.dataProvider.addCanBuy(name: self.searchText, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, shouldSave: false) { canBuyItem in
+        self.dataProvider.addCanBuy(name: self.searchText, image: (placeHolderImage?.pngData())!, shouldSave: false) { canBuyItem in
             let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                 as? EditingTableViewController
             viewController!.item = canBuyItem
@@ -94,10 +98,11 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }()
     
     let categoryTitles = [
-        NSLocalizedString("category.food.title", comment: "category.food.title"),
-        NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
-        NSLocalizedString("category.health.title", comment: "category.health.title"),
-        NSLocalizedString("category.others.title", comment: "category.others.title")
+        "-1": NSLocalizedString("category.system.title", comment: "category.food.title"),
+        "0": NSLocalizedString("category.food.title", comment: "category.food.title"),
+        "1": NSLocalizedString("category.essentials.title", comment: "category.essentials.title"),
+        "2": NSLocalizedString("category.health.title", comment: "category.health.title"),
+        "3": NSLocalizedString("category.others.title", comment: "category.others.title")
     ]
     
     private lazy var dataProvider: CanBuysProvider = {
@@ -137,7 +142,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
     func refreshView () {
         self.collectionView.reloadData()
         self.updateSelections()
-        self.updateBadge()
     }
     
     func updateSelections() {
@@ -176,7 +180,10 @@ class ShoppingCollectionViewController: UICollectionViewController {
     func filterContentForSearchText(_ searchText: String) {
         self.searchText = searchText
         
-        let predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+        let zeroPredicate = NSPredicate(format: "category = %d", -1)
+        let keywordPredicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+        
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [zeroPredicate, keywordPredicate])
         
         dataProvider.fetchedResultsController.fetchRequest.predicate = searchText.isEmpty ? nil : predicate
         
@@ -216,14 +223,31 @@ class ShoppingCollectionViewController: UICollectionViewController {
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
         
         if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCellView {
-            itemCell.configure(with: data.name!, image: UIImage(data: data.image!)!)
+            let name = cellAtZero(indexPath) ? self.searchText : data.name!
+            itemCell.configure(with: name, image: UIImage(data: data.image!)!)
             cell = itemCell
         }
         
         return cell
     }
     
+    func cellAtZero(_ indexPath: IndexPath) -> Bool {
+        return (indexPath.row == 0 && indexPath.section == 0)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !cellAtZero(indexPath) else {
+            self.dataProvider.addCanBuy(name: self.searchText, image: (placeHolderImage?.pngData())!, shouldSave: false) { canBuyItem in
+                let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
+                    as? EditingTableViewController
+                viewController!.item = canBuyItem
+                
+                self.navigationController?.pushViewController(viewController!, animated: true)
+            }
+            
+            return
+        }
+        
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
         
         if(data.createdAt == nil) {
@@ -236,12 +260,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 toBuyManager.initToBuyItem(name: data.name!, category: Int(data.category), image: data.image!, supermarket: data.supermarket!)
             }
         }
-        updateBadge()
-    }
-    
-    private func updateBadge() {
-        let tabbar = self.tabBarController as? BaseTabBarController
-        tabbar?.updateBadge()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -249,7 +267,6 @@ class ShoppingCollectionViewController: UICollectionViewController {
         if(toBuyManager.isAlreadyExistInToBuyList(name: data.name!)) {
             toBuyManager.deleteItemByNameFromToBuys(name: data.name!)
         }
-        updateBadge()
     }
     
     
@@ -259,17 +276,22 @@ class ShoppingCollectionViewController: UICollectionViewController {
         
         let count = dataProvider.fetchedResultsController.sections?[indexPath.section].numberOfObjects ?? 0
         if(count > 0) {
-            let title = categoryTitles[Int(data.category)]
-            sectionHeader.configure(with: title)
+            let title = categoryTitles[String(data.category)]
+            sectionHeader.configure(with: title ?? "")
         } else {
-            let title = categoryTitles[3]
-            sectionHeader.configure(with: title)
+            let title = categoryTitles["3"]
+            sectionHeader.configure(with: title ?? "")
         }
         
         return sectionHeader
     }
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        guard !cellAtZero(indexPath) else {
+            return nil
+        }
+        
         let data = dataProvider.fetchedResultsController.object(at: indexPath)
         
         return UIContextMenuConfiguration(identifier: data.name! as NSString, previewProvider: {
@@ -384,5 +406,11 @@ extension ShoppingCollectionViewController: UICollectionViewDelegateFlowLayout {
 extension ShoppingCollectionViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.refreshView()
+    }
+}
+
+extension ShoppingCollectionViewController: CanBuyInteractionDelegate {
+    func didUpdateCanBuy(canBuy: CanBuy) {
+        self.searchController.dismiss(animated: true, completion: nil)
     }
 }
