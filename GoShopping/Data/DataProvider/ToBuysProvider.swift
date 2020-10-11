@@ -39,6 +39,22 @@ class ToBuysProvider {
         return controller
     }()
     
+    func addToBuyByImage(image: Data?) {
+        viewContext.performAndWait {
+            let item = ToBuy(context: viewContext)
+            
+            item.uuid = UUID()
+            item.name = "New Item"
+            item.image = image ?? placeHolderImage?.pngData()
+            item.category = defaultCategory
+            item.supermarket = ""
+            item.priority = 0
+            item.createdAt = Date()
+            
+            viewContext.save(with: .addToBuyItem)
+        }
+    }
+    
     func addToBuyByName(name: String) {
         viewContext.performAndWait {
             let item = ToBuy(context: viewContext)

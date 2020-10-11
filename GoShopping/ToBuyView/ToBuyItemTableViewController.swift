@@ -112,8 +112,6 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        supermarketTextField.delegate = self
         
         self.tableView.keyboardDismissMode = .onDrag
         itemNameTextField.text = item.name
@@ -200,9 +198,5 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
-}
-
-extension ToBuyItemTableViewController: UITextFieldDelegate {
     
 }

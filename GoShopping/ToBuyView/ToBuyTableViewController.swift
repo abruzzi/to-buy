@@ -213,7 +213,7 @@ class ToBuyTableViewController: UITableViewController {
 
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target:nil, action:nil)
         
-        let addFromCarema = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(createItemFromCarema))
+        let addFromCarema = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(selectImage))
         addFromCarema.tintColor = UIColor(named: "BrandColor")
         
 
@@ -533,27 +533,6 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
 
 
 extension ToBuyTableViewController {
-    
-    @objc func createItemFromCarema() {
-        let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
-            as? ToBuyItemTableViewController
-        
-        let item = ToBuy(context: store.viewContext)
-
-        item.uuid = UUID()
-        item.name = "New Item"
-        item.category = 3
-        item.image = placeHolderImage?.pngData()
-        item.supermarket = ""
-        item.priority = 0
-        item.createdAt = Date()
-        
-        viewController!.item = item
-
-        self.navigationController?.pushViewController(viewController!, animated: true)
-    }
-    
-    
     @objc func createItemFromText(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Add item to buy", message: "You can edit the item later on", preferredStyle: .alert)
         alert.addTextField { textField in
@@ -567,9 +546,7 @@ extension ToBuyTableViewController {
         
         alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
             guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
-            DispatchQueue.main.async {
-                self.dataProvider.addToBuyByName(name: name)
-            }
+            self.dataProvider.addToBuyByName(name: name)
         }
         
         alertActionToEnable.isEnabled = false
@@ -584,5 +561,49 @@ extension ToBuyTableViewController {
         }
         
         alertActionToEnable.isEnabled = (tagName.count > 0)
+    }
+}
+
+extension ToBuyTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    //Action
+    @objc func selectImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        let actionSheet = UIAlertController(title: NSLocalizedString( "dialog.image.picker.title", comment:  "dialog.image.picker.title"),
+                                            message: NSLocalizedString( "dialog.image.picker.subtitle", comment:  "dialog.image.picker.subtitle"), preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.photo", comment:  "dialog.image.picker.photo"), style: .default, handler: { (action: UIAlertAction) in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.carema", comment:  "dialog.image.picker.carema"), style: .default, handler: { (action: UIAlertAction) in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.sourceType = .camera
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: NSLocalizedString( "dialog.image.picker.cancel", comment:  "dialog.image.picker.cancel"), style: .cancel, handler: nil))
+        
+        addActionSheetForiPad(actionSheet: actionSheet)
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        self.dataProvider.addToBuyByImage(image: image?.pngData())
+
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
