@@ -280,6 +280,11 @@ class ToBuyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
+        
+        guard let name = item.name, !name.isEmpty else {
+            return nil
+        }
+        
         if(!item.isCompleted) {
             let later = laterAction(at: indexPath)
             let complete = completeAction(at: indexPath)
@@ -321,6 +326,11 @@ class ToBuyTableViewController: UITableViewController {
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: NSLocalizedString("action.delete.title", comment: "action.delete.title")) { (_, view, completion) in
             let item = self.dataProvider.fetchedResultsController.object(at: indexPath)
+            
+            guard let name = item.name, !name.isEmpty else {
+                return completion(false)
+            }
+            
             self.pushItemIntoHistory(item: item)
             self.dataProvider.deleteToBuyItem(at: indexPath)
             completion(true)
@@ -376,6 +386,8 @@ class ToBuyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let item = dataProvider.fetchedResultsController.object(at: indexPath)
+        
+        guard let name = item.name, !name.isEmpty else { return nil }
         
         return UIContextMenuConfiguration(identifier: item.name as NSCopying?, previewProvider: {
             let view = ItemPreviewViewController(itemName: item.name!, image: item.image!)
@@ -480,6 +492,9 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        print("changed \(anObject) \(indexPath) \(newIndexPath) \(type.rawValue)")
+        
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else {
@@ -518,7 +533,6 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
 
 
 extension ToBuyTableViewController {
-
     
     @objc func createItemFromCarema() {
         let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
@@ -526,9 +540,10 @@ extension ToBuyTableViewController {
         
         let item = ToBuy(context: store.viewContext)
 
+        item.uuid = UUID()
         item.name = "New Item"
         item.category = 3
-        item.image = UIImage(named: "icons8-crystal_ball")?.pngData()
+        item.image = placeHolderImage?.pngData()
         item.supermarket = ""
         item.priority = 0
         item.createdAt = Date()
@@ -546,14 +561,17 @@ extension ToBuyTableViewController {
             textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         addActionSheetForiPad(actionSheet: alert)
         present(alert, animated: true, completion: nil)
         
         alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
             guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
-            self.toBuyManager.initToBuyItem(name: name, category: 3, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, supermarket: "")
+            DispatchQueue.main.async {
+                self.dataProvider.addToBuyByName(name: name)
+            }
         }
+        
         alertActionToEnable.isEnabled = false
         alert.addAction(alertActionToEnable!)
     }

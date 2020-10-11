@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import CoreData
 
+let placeHolderImage = UIImage(named: "icons8-crystal_ball")
+let defaultCategory = Int16(3)
+
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
     
@@ -91,6 +94,7 @@ extension NSPersistentContainer {
 enum ContextSaveContextualInfo: String {
     case addCanBuyItem = "adding a can buy item"
     case updateCanBuy = "update can buy item"
+    case updateToBuyItem = "update to buy item"
     case deleteCanBuyItem = "deleting a can buy item"
     case addToBuyItem = "adding a to buy item"
     case deleteToBuyItem = "deleting a to buy item"

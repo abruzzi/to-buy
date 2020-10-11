@@ -39,23 +39,22 @@ class ToBuysProvider {
         return controller
     }()
     
-    func addToBuyItem(canBuyItem: ToBuy, shouldSave: Bool = true) {
+    func addToBuyByName(name: String) {
         viewContext.performAndWait {
             let item = ToBuy(context: viewContext)
             
             item.uuid = UUID()
-            item.name = canBuyItem.name
-            item.category = canBuyItem.category
-            item.image = canBuyItem.image
+            item.name = name
+            item.category = defaultCategory
+            item.image = placeHolderImage?.pngData()
+            item.supermarket = ""
+            item.priority = 0
             item.createdAt = Date()
-            item.supermarket = canBuyItem.supermarket
             
-            if shouldSave {
-                viewContext.save(with: .addToBuyItem)
-            }
+            viewContext.save(with: .addToBuyItem)
         }
     }
-
+    
     func markAsDelayed(at indexPath: IndexPath, shouldSave: Bool = true) {
         viewContext.performAndWait {
             let item = fetchedResultsController.object(at: indexPath)

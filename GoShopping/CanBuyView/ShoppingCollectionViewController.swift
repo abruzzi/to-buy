@@ -71,7 +71,7 @@ extension ShoppingCollectionViewController {
     
     //Action
     @objc func editNewItem() {
-        self.dataProvider.addCanBuy(name: self.searchText, image: (UIImage(named: "icons8-crystal_ball")?.pngData())!, shouldSave: false) { canBuyItem in
+        self.dataProvider.addCanBuy(name: self.searchText, image: (placeHolderImage?.pngData())!, shouldSave: false) { canBuyItem in
             let viewController = self.storyboard?.instantiateViewController(identifier: "EditingTableViewController")
                 as? EditingTableViewController
             viewController!.item = canBuyItem

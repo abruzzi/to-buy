@@ -36,6 +36,9 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuyHistoryItem: ToBuyHistory) {
+        guard toBuyHistoryItem.name != nil else {
+            return
+        }
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuyHistoryItem.name!)
         toBuyItemLabel.attributedText = styledItemName
 
@@ -68,6 +71,10 @@ class ToBuyTableViewCell: UITableViewCell {
     }
     
     func configure(with toBuy: ToBuy) {
+        guard let name = toBuy.name, !name.isEmpty else {
+            return
+        }
+        
         self.contentView.backgroundColor =  toBuy.isCompleted ? UIColor(named: "ListCellBGColor") : UIColor(named: "BGColor")
         let styledItemName: NSMutableAttributedString =  NSMutableAttributedString(string: toBuy.name!)
 
