@@ -14,6 +14,10 @@ import LinkPresentation
 
 private let reuseIdentifier = "ToBuyTableViewCell"
 
+protocol MasterDetailDelegate: class {
+    func didUpdateToBuyItem(item: ToBuy)
+}
+
 extension UITableView {
     func emptyState (label: String, image: String) {
         let emptyView = EmptyList(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height), label: label, image: image)
@@ -36,6 +40,7 @@ extension ToBuyTableViewController: HistoryDelegate {
     
     func mostRecentSnapshotsChanged(_ historyManager: HistoryManager, images: [UIImage]) {
         let placeholder = UIImage(named: "square")
+        
         DispatchQueue.main.async {
             if(images.count == 4) {
                 self.firstImageSnapshot.image = images[0]
@@ -82,7 +87,7 @@ class ToBuyTableViewController: UITableViewController {
         return provider
     }()
     
-    private func updateBadge() {
+    private func updateToBuyItemCount() {
         let title = NSLocalizedString("tobuy.nav.title", comment: "tobuy.nav.title")
         let itemNumber = dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
         
@@ -92,8 +97,8 @@ class ToBuyTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setToolbarHidden(false, animated: false)
         historyManager.fetchToBuyHistory()
-        tableView.reloadData()
-        self.updateBadge()
+        filterContentForSearchText("", category: "All")
+        self.updateToBuyItemCount()
     }
     
     @IBOutlet weak var buttonShare: UIBarButtonItem!
@@ -221,8 +226,6 @@ class ToBuyTableViewController: UITableViewController {
         addFromText.tintColor = UIColor(named: "BrandColor")
         
         toolbarItems = [addFromCarema, spacer, labelItem, spacer, addFromText]
-        
-        
     }
 
     deinit {
@@ -398,6 +401,8 @@ class ToBuyTableViewController: UITableViewController {
                 image: UIImage(systemName: "square.and.pencil")) { _ in
                 let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
                     as? ToBuyItemTableViewController
+                
+                viewController?.delegate = self
                 viewController!.item = item
 
                 self.navigationController?.pushViewController(viewController!, animated: true)
@@ -493,8 +498,6 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        print("changed \(anObject) \(indexPath) \(newIndexPath) \(type.rawValue)")
-        
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else {
@@ -527,14 +530,14 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     // 5
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
-        self.updateBadge()
+        self.updateToBuyItemCount()
     }
 }
 
 
 extension ToBuyTableViewController {
     @objc func createItemFromText(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Add item to buy", message: "You can edit the item later on", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add item to buy", message: "You can always edit the item later on", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "Name"
             textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
@@ -605,5 +608,15 @@ extension ToBuyTableViewController: UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ToBuyTableViewController: MasterDetailDelegate {
+    func didUpdateToBuyItem(item: ToBuy) {
+        var indexPath: IndexPath?
+        
+        indexPath = dataProvider.fetchedResultsController.indexPath(forObject: item) ?? IndexPath(row: 0, section: 0)
+        
+        self.dataProvider.updateItem(at: indexPath!, item: item)
     }
 }

@@ -10,9 +10,11 @@ import UIKit
 
 class ToBuyItemTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var delegate: MasterDetailDelegate?
+    
     let store = CoreDataStack.store
     
-    var item: ToBuy!
+    var item: ToBuy?
     var category: String!
     var priority: Int = 0
     
@@ -40,24 +42,22 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     @IBOutlet weak var prioritySlider: UISlider!
     
     @IBAction func saveButtonClickHandler(_ sender: UIBarButtonItem) {
+        guard let item = item else { return }
         let category = segmentCategory.selectedSegmentIndex
-        let context = item.managedObjectContext!
         
-        context.performAndWait {
-            item.name = itemNameTextField.text
-            item.category = Int16(category)
-            item.priority = Int16(priority)
-            item.supermarket = supermarketTextField.text
-            
-            // the ones from camera
-            if(itemImage.image?.size.width ?? 100 > 600) {
-                item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
-            } else {
-                item.image = placeHolderImage?.pngData()
-            }
-            
-            context.save(with: .updateToBuyItem)
+        item.name = itemNameTextField.text
+        item.category = Int16(category)
+        item.priority = Int16(priority)
+        item.supermarket = supermarketTextField.text
+        
+        // the one from camera
+        if(itemImage.image?.size.width ?? 100 > 600) {
+            item.image = itemImage.image?.resize(toTargetSize: CGSize(width: 600, height: 600)).pngData()
+        } else {
+            item.image = placeHolderImage?.pngData()
         }
+        
+        delegate?.didUpdateToBuyItem(item: item)
         
         // also save tag
         if(!supermarketTextField.text!.isEmpty) {
@@ -73,6 +73,7 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
                 image = placeHolderImage?.pngData()
             }
 
+            // TODO: if does exist, update. otherwise create
             canBuyManger.createCanBuy(
                 name: itemNameTextField.text ?? "",
                 category: Int(category),
@@ -114,14 +115,20 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         super.viewDidLoad()
         
         self.tableView.keyboardDismissMode = .onDrag
-        itemNameTextField.text = item.name
-        supermarketTextField.text = item.supermarket
-        segmentCategory.selectedSegmentIndex = Int(item.category)
-        prioritySlider.value = Float(item.priority)
+        itemNameTextField.text = item?.name ?? ""
+        supermarketTextField.text = item?.supermarket ?? ""
+        segmentCategory.selectedSegmentIndex = Int(item?.category ?? 3)
+        prioritySlider.value = Float(item?.priority ?? 0)
         saveForLaterSwitch.isOn = saveToCanBuyList
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
-        itemImage.image = UIImage(data: item.image!)
+        
+        if let data = item?.image {
+            itemImage.image = UIImage(data: data)
+        } else {
+            itemImage.image = placeHolderImage
+        }
+        
         itemImage.layer.cornerRadius = 4.0
         itemImage.layer.masksToBounds = true
         itemImage.addGestureRecognizer(singleTap)
