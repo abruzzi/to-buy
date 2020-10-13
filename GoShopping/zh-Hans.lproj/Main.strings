@@ -26,8 +26,15 @@
 /* Class = "UINavigationItem"; title = "Delayed items"; ObjectID = "hdY-1C-ygw"; */
 "hdY-1C-ygw.title" = "推迟的";
 
+/* Class = "UINavigationItem"; title = "History"; ObjectID = "c9S-40-kRC"; */
+"c9S-40-kRC.title" = "历史记录";
+
+/* Class = "UILabel"; text = "History"; ObjectID = "pOx-99-kYk"; */
+"pOx-99-kYk.text" = "最近买过";
+
+
 /* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[0] = "Food/Drink"; ObjectID = "imV-tb-Vaw"; */
-"imV-tb-Vaw.segmentTitles[0]" = "食物/饮料";
+"imV-tb-Vaw.segmentTitles[0]" = "食品/饮料";
 
 /* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[1] = "Essentials"; ObjectID = "imV-tb-Vaw"; */
 "imV-tb-Vaw.segmentTitles[1]" = "生活必需";
@@ -46,3 +53,36 @@
 
 /* Class = "UITextField"; placeholder = "Item name"; ObjectID = "tDA-hv-s0H"; */
 "tDA-hv-s0H.placeholder" = "名称";
+
+
+// To buy section
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[0] = "Food/Drink"; ObjectID = "imV-tb-Vaw"; */
+"r9b-XO-ljC.segmentTitles[0]" = "食品/饮料";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[1] = "Essentials"; ObjectID = "imV-tb-Vaw"; */
+"r9b-XO-ljC.segmentTitles[1]" = "生活必需";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[2] = "Health"; ObjectID = "imV-tb-Vaw"; */
+"r9b-XO-ljC.segmentTitles[2]" = "健康护理";
+
+/* Class = "UISegmentedControl"; imV-tb-Vaw.segmentTitles[3] = "Other"; ObjectID = "imV-tb-Vaw"; */
+"r9b-XO-ljC.segmentTitles[3]" = "其他";
+
+/* Class = "UITextField"; placeholder = "Prefered supermarket"; ObjectID = "j3r-MW-vTL"; */
+"j3r-MW-vTL.placeholder" = "首选超市";
+
+"1KA-ur-0c9.text" = "重要程度";
+
+"YNA-aC-FrG.text" = "存入字典";
+
+"clH-8C-Wbd.text" = "基本信息";
+
+"4ey-M1-nvX.headerTitle" = "标签";
+"4Jo-H3-DVy.headerTitle" = "其他";
+
+"aRh-tK-3l6.placeholder" = "名称";
+"DOY-b1-o3i.placeholder" = "首选超市";
+
+
+"u5X-zx-xqM.title" = "详情";

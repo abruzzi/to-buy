@@ -60,3 +60,20 @@
 "share.extension.message.title"="Save into To Buy";
 
 "tobuy.nav.title"="items";
+
+"tobuy.search.placeholder"="Search for buy items";
+
+
+"tobuy.search.category.all"="All";
+"tobuy.search.category.remaining"="Remaining";
+"tobuy.search.category.shared"="Shared with me";
+
+
+"alert.add.new.text.title" = "Add item to buy";
+"alert.add.new.text.message" = "You can always edit the item later on";
+"alert.add.new.text.field.name" = "Name";
+"alert.add.new.text.action.cancel" = "Cancel";
+"alert.add.new.text.action.create" = "Create";
+
+"alert.clear.history.title" = "Warnning";
+"alert.clear.history.message" = "Are you sure you want to clean up all the shopping history?";

@@ -163,7 +163,11 @@ class ToBuyTableViewController: UITableViewController {
         }
     }
     
-    let categories = ["All", "Remaining", "Shared with me"]
+    let categories = [
+        NSLocalizedString("tobuy.search.category.all", comment: "tobuy.search.category.all"),
+        NSLocalizedString("tobuy.search.category.remaining", comment: "tobuy.search.category.remaining"),
+        NSLocalizedString("tobuy.search.category.shared", comment: "tobuy.search.category.shared"),
+    ]
     
     func setupHistorySection() {
         headerViewContainer.layer.cornerRadius = 4
@@ -184,7 +188,7 @@ class ToBuyTableViewController: UITableViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         
         //TODO: i18n
-        searchController.searchBar.placeholder = "Search for buy items"
+        searchController.searchBar.placeholder = NSLocalizedString("tobuy.search.placeholder", comment: "tobuy.search.placeholder")
         
         navigationItem.searchController = searchController
         definesPresentationContext = true
@@ -229,7 +233,7 @@ class ToBuyTableViewController: UITableViewController {
     }
     
     func reload(nofitication: Notification) {
-        filterContentForSearchText("", category: "All")
+        filterContentForSearchText("", category:         NSLocalizedString("tobuy.search.category.all", comment: "tobuy.search.category.all"))
     }
     
     @IBAction func addNewItem(_ sender: UIBarButtonItem) {
@@ -255,11 +259,11 @@ class ToBuyTableViewController: UITableViewController {
         var predicate:NSPredicate
         
         switch category {
-        case "All":
+        case NSLocalizedString("tobuy.search.category.all", comment: "tobuy.search.category.all"):
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [] : [keywords, ])
-        case "Remaining":
+        case NSLocalizedString("tobuy.search.category.remaining", comment: "tobuy.search.category.remaining"):
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isCompletedPredicate] : [keywords, isCompletedPredicate])
-        case "Shared with me":
+        case NSLocalizedString("tobuy.search.category.shared", comment: "tobuy.search.category.shared"):
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [isForeignPredicate] : [keywords, isForeignPredicate])
         default:
             predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchText.isEmpty ? [] : [keywords])
@@ -534,20 +538,22 @@ extension ToBuyTableViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-
 extension ToBuyTableViewController {
     @objc func createItemFromText(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Add item to buy", message: "You can always edit the item later on", preferredStyle: .alert)
+        let alert = UIAlertController(title:
+                                        NSLocalizedString("alert.add.new.text.title", comment: "alert.add.new.text.title"),
+                                      message: NSLocalizedString("alert.add.new.text.message", comment: "alert.add.new.text.message"), preferredStyle: .alert)
+        
         alert.addTextField { textField in
-            textField.placeholder = "Name"
+            textField.placeholder = NSLocalizedString("alert.add.new.text.field.name", comment: "alert.add.new.text.field.name")
             textField.addTarget(self, action: #selector(type(of: self).textChanged(_:)), for: .editingChanged)
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alert.add.new.text.action.cancel", comment: "alert.add.new.text.action.cancel"), style: .cancel, handler: nil))
         addActionSheetForiPad(actionSheet: alert)
         present(alert, animated: true, completion: nil)
         
-        alertActionToEnable = UIAlertAction(title: "Create", style: .default) {_ in
+        alertActionToEnable = UIAlertAction(title: NSLocalizedString("alert.add.new.text.action.create", comment: "alert.add.new.text.action.create"), style: .default) {_ in
             guard let name = alert.textFields?.first?.text, !name.isEmpty else { return }
             self.dataProvider.addToBuyByName(name: name)
         }

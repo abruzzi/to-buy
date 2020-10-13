@@ -17,7 +17,7 @@
 "action.delete.title" = "删除";
 
 "category.system.title" = "添加";
-"category.food.title" = "食物/饮料";
+"category.food.title" = "食品/饮料";
 "category.essentials.title" = "生活必需";
 "category.health.title" = "健康护理";
 "category.others.title" = "其他";
@@ -33,14 +33,14 @@
 
 "message.hint.add.new"="点击添加";
 
-"message.hint.merge.shared.title"="你有未完成的条目";
+"message.hint.merge.shared.title"="您有未完成的条目";
 "message.hint.merge.shared.subtitle"="待买条目将会被合并，已有条目会被忽略，继续吗？";
 
 "message.hint.merge.shared.ok"="没问题";
 "message.hint.merge.shared.cancel"="取消";
 
 "dialog.image.picker.title"="选择图片";
-"dialog.image.picker.subtitle"="选择一个最能描述你想买的商品的图片";
+"dialog.image.picker.subtitle"="选择一个最能描述您想买的商品的图片";
 "dialog.image.picker.photo"="手机相册";
 "dialog.image.picker.carema"="手机摄像头";
 "dialog.image.picker.cancel"="取消";
@@ -57,4 +57,19 @@
 
 "share.extension.message.title"="存入我的买单";
 
-"tobuy.nav.title"="个条目";
+"tobuy.nav.title"="条待购";
+
+"tobuy.search.placeholder"="搜索购物清单";
+
+"tobuy.search.category.all"="所有";
+"tobuy.search.category.remaining"="剩余条目";
+"tobuy.search.category.shared"="分享给我的";
+
+"alert.add.new.text.title" = "添加条目";
+"alert.add.new.text.message" = "您可以随后在列表中编辑详情";
+"alert.add.new.text.field.name" = "名称";
+"alert.add.new.text.action.cancel" = "取消";
+"alert.add.new.text.action.create" = "创建";
+
+"alert.clear.history.title" = "警告";
+"alert.clear.history.message" = "您确定要清除全部购物记录吗？";

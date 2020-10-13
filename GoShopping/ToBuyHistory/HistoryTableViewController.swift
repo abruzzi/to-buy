@@ -28,7 +28,7 @@ class HistoryTableViewController: UITableViewController {
     
     @IBAction func clearAllHistory(_ sender: UIBarButtonItem) {
 
-        let alert = UIAlertController(title: "Warnning", message: "Are you sure you want to clean up all the shopping history", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("alert.clear.history.title", comment: "alert.clear.history.title"), message: NSLocalizedString("alert.clear.history.message", comment: "alert.clear.history.message"), preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("message.hint.clean.history.ok", comment: "message.hint.clean.history.ok"), style: .destructive, handler: { action in
             self.dataProvider.cleanupAllHistory()
