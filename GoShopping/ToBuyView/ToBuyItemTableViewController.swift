@@ -13,6 +13,7 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     let store = CoreDataStack.store
     
     var item: ToBuy!
+    var enableUpdateSupermarket: Bool! = true
     var category: String!
     var priority: Int = 0
     
@@ -106,7 +107,6 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
     
     @IBOutlet weak var segmentCategory: UISegmentedControl!
     @IBOutlet weak var itemNameTextField: UITextField!
-    //    @IBOutlet weak var supermarketTextField: UITextField!
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setToolbarHidden(true, animated: false)
@@ -147,6 +147,8 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         } ?? []
         
         supermarketTextField.filterStrings(options.compactMap { $0 })
+        
+        supermarketTextField.isUserInteractionEnabled = enableUpdateSupermarket
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)

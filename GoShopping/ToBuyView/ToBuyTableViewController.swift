@@ -398,6 +398,11 @@ class ToBuyTableViewController: UITableViewController {
                 let viewController = self.storyboard?.instantiateViewController(identifier: "ToBuyItemTableViewController")
                     as? ToBuyItemTableViewController
                 
+                if #available(iOS 14, *) {
+                    let count = self.dataProvider.fetchedResultsController.fetchedObjects?.count ?? 0
+                    viewController!.enableUpdateSupermarket = count > 1
+                }
+                
                 viewController!.item = item
 
                 self.navigationController?.pushViewController(viewController!, animated: true)
