@@ -45,18 +45,31 @@ class CanBuyManager {
         
         fetchRequest.predicate = predicate
 
-        let number = try? viewContext.count(for: fetchRequest)
-        if number == 0 {
+        let items = try? viewContext.fetch(fetchRequest)
+        
+        if items?.count == 1 {
+            return
+        }
+        
+        // remove all of them and add one after
+        if items?.count ?? 0 > 1 {
             viewContext.performAndWait {
-                let item = CanBuy(context: self.viewContext)
-                
-                item.name = ""
-                item.image = placeHolderImage?.pngData()
-                item.category = -1
-                item.createdAt = Date()
-                
+                items?.forEach { item in
+                    self.viewContext.delete(item)
+                }
                 self.viewContext.save(with: .addCanBuyItem)
             }
+        }
+        
+        viewContext.performAndWait {
+            let item = CanBuy(context: self.viewContext)
+            
+            item.name = ""
+            item.image = placeHolderImage?.pngData()
+            item.category = -1
+            item.createdAt = Date()
+            
+            self.viewContext.save(with: .addCanBuyItem)
         }
     }
     
