@@ -140,8 +140,13 @@ class ShoppingCollectionViewController: UICollectionViewController {
     }
     
     func refreshView () {
+        self.ensureAddNewButton()
         self.collectionView.reloadData()
         self.updateSelections()
+    }
+    
+    func ensureAddNewButton() {
+        dataProvider.ensureFirstElementExist()
     }
     
     func updateSelections() {
@@ -156,7 +161,7 @@ class ShoppingCollectionViewController: UICollectionViewController {
                 let item = dataProvider.fetchedResultsController.object(at: indexPath)
                 
                 let exist = allToBuys.contains { (toBuy: ToBuyItem) in
-                    return toBuy.name == item.name && (!toBuy.isCompleted || toBuy.isDelayed)
+                    return toBuy.name == item.name && toBuy.category == item.category && (!toBuy.isCompleted || toBuy.isDelayed)
                 }
                 
                 if(exist) {

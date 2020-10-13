@@ -93,7 +93,7 @@ class ToBuyTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setToolbarHidden(false, animated: false)
         historyManager.fetchToBuyHistory()
-        filterContentForSearchText("", category: "All")
+//        filterContentForSearchText("", category: "All")
         self.updateToBuyItemCount()
     }
     

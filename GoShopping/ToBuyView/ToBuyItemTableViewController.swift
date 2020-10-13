@@ -118,7 +118,7 @@ class ToBuyItemTableViewController: UITableViewController, UIImagePickerControll
         saveToCanBuyList = sender.isOn
     }
     
-    private var saveToCanBuyList: Bool = false
+    private var saveToCanBuyList: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()

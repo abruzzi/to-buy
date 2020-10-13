@@ -13,71 +13,15 @@ import CoreData
 let placeHolderImage = UIImage(named: "icons8-crystal_ball")
 let defaultCategory = Int16(3)
 
-func load<T: Decodable>(_ filename: String) -> T {
-    let data: Data
-    
-    guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-        else {
-            fatalError("Couldn't find \(filename) in main bundle.")
-    }
-    
-    do {
-        data = try Data(contentsOf: file)
-    } catch {
-        fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-    }
-    
-    do {
-        let decoder = JSONDecoder()
-        return try decoder.decode(T.self, from: data)
-    } catch {
-        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-    }
-}
-
-struct Record: Hashable, Codable {
-    var category: Int
-    var image: String
-    var items: [Item]
-}
-
-struct Item: Hashable, Codable {
-    var name: String
-    var image: String
-    var attrs: [String: String]
-}
-
 let store = CoreDataStack.store
 
-func resetAllDBItems(lang: String) {
-    let records: [Record] = (lang.lowercased() == "en") ? load("category.json") :  load("category-cn.json")
-    
-    let toBuyManager = ToBuyManager(store.viewContext)
+func setupDatabaseItems() {
     let canBuyManager = CanBuyManager(store.viewContext)
-    let historyManager = HistoryManager(store.viewContext)
-    let tagManager = TagManager(store.viewContext)
-    
-    toBuyManager.deleteAllToBuys()
-    canBuyManager.deleteAllCanBuys()
-    historyManager.cleanupAllHistory()
-    tagManager.deleteAllTags()
-    
-    records.forEach {record in
-        record.items.forEach { (item: Item) in
-            canBuyManager.createCanBuy(
-                name: item.name,
-                category: record.category,
-                image: (UIImage(named: item.image)?.pngData())!,
-                supermarket: ((item.attrs["supermarket"] != nil) ? item.attrs["supermarket"]: "")!)
-        }
-    }
+    canBuyManager.ensureFirstElementExist()
 }
 
 let appTransactionAuthorName = "To Buy"
 
-/**
- A convenience method for creating background contexts that specify the app as their transaction author.
- */
 extension NSPersistentContainer {
     func backgroundContext() -> NSManagedObjectContext {
         let context = newBackgroundContext()

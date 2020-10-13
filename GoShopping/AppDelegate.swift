@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
         if defaults.bool(forKey: "inited") != true {
-            resetAllDBItems(lang: Locale.current.languageCode ?? "en")
+            setupDatabaseItems()
             defaults.set(true, forKey: "inited")
         }
         

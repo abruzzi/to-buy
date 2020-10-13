@@ -38,10 +38,9 @@
         <memberEntity name="Tag"/>
         <memberEntity name="ToBuy"/>
         <memberEntity name="ToBuyHistory"/>
-    </configuration>
-    <configuration name="Local">
         <memberEntity name="CanBuy"/>
     </configuration>
+    <configuration name="Local"/>
     <elements>
         <element name="CanBuy" positionX="-63" positionY="18" width="128" height="133"/>
         <element name="Tag" positionX="-63" positionY="54" width="128" height="103"/>

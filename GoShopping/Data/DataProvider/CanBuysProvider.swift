@@ -39,6 +39,27 @@ class CanBuysProvider {
         return controller
     }()
     
+    func ensureFirstElementExist() {
+        let fetchRequest: NSFetchRequest<CanBuy> = CanBuy.fetchRequest()
+        let predicate = NSPredicate(format: "category = %d", -1)
+        
+        fetchRequest.predicate = predicate
+
+        let number = try? viewContext.count(for: fetchRequest)
+        if number == 0 {
+            viewContext.performAndWait {
+                let item = CanBuy(context: self.viewContext)
+                
+                item.name = ""
+                item.image = placeHolderImage?.pngData()
+                item.category = -1
+                item.createdAt = Date()
+                
+                self.viewContext.save(with: .addCanBuyItem)
+            }
+        }
+    }
+    
     func addCanBuy(name: String, image: Data, shouldSave: Bool = true, completionHandler: ((_ canBuyItem: CanBuy) -> Void)? = nil) {
         viewContext.perform {
             let item = CanBuy(context: self.viewContext)
